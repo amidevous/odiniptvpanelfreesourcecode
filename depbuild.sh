@@ -61,7 +61,8 @@ if [[ "$VER" = "8" && "$OS" = "CentOs" ]]; then
 	fi
 
 echo "Detected : $OS  $VER  $ARCH"
-if [[ "$OS" = "CentOs" && "$VER" = "7" && "$ARCH" == "x86_64" ||
+if [[ "$OS" = "CentOs" && "$VER" = "6" && "$ARCH" == "x86_64" ||
+"$OS" = "CentOs" && "$VER" = "7" && "$ARCH" == "x86_64" ||
 "$OS" = "CentOS-Stream" && "$VER" = "8" && "$ARCH" == "x86_64" ||
 "$OS" = "CentOS-Stream" && "$VER" = "9" && "$ARCH" == "x86_64" ||
 "$OS" = "Fedora" && ("$VER" = "36" || "$VER" = "37" || "$VER" = "38" ) && "$ARCH" == "x86_64" ||
@@ -104,7 +105,11 @@ if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
 		#To fix some problems of compatibility use of mirror centos.org to all users
 		#Replace all mirrors by base repos to avoid any problems.
 		find /etc/yum.repos.d -name '*.repo' -exec sed -i 's|mirrorlist=http://mirrorlist.centos.org|#mirrorlist=http://mirrorlist.centos.org|' {} \;
-		find /etc/yum.repos.d -name '*.repo' -exec sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://mirror.centos.org|' {} \;
+  		if [[ "$VER" = "6" ]]; then
+			find /etc/yum.repos.d -name '*.repo' -exec sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|' {} \;
+		else
+			find /etc/yum.repos.d -name '*.repo' -exec sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://mirror.centos.org|' {} \;
+      		fi
 		#check if the machine and on openvz
 		if [ -f "/etc/yum.repos.d/vz.repo" ]; then
 			sed -i "s|mirrorlist=http://vzdownload.swsoft.com/download/mirrors/centos-$VER|baseurl=http://vzdownload.swsoft.com/ez/packages/centos/$VER/$ARCH/os/|" "/etc/yum.repos.d/vz.repo"
@@ -122,8 +127,8 @@ if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
 		dnf -y install --nogpgcheck https://dl.fedoraproject.org/pub/epel/epel-release-latest-$(rpm -E %rhel).noarch.rpm
 		dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
 	elif [[ "$OS" = "CentOS" ]]; then
-		dnf -y install --nogpgcheck https://dl.fedoraproject.org/pub/epel/epel-release-latest-$(rpm -E %rhel).noarch.rpm
-		dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
+		yum -y install --nogpgcheck https://dl.fedoraproject.org/pub/epel/epel-release-latest-$(rpm -E %rhel).noarch.rpm
+		yum -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
 	fi
 	if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" ]]; then
 cat > /etc/yum.repos.d/mariadb.repo <<EOF
