@@ -108,7 +108,7 @@ killall php
 killall php
 rm -rf "/home/xtreamcodes/"
 mkdir -p "/home/xtreamcodes/tmp"
-wget -O "/home/xtreamcodes/tmp/xtreamcodes.tar.gz" "https://www.dropbox.com/s/wxxfifeun3899jl/main_xtreamcodes_reborn.tar.gz?dl=0"
+wget -O "/home/xtreamcodes/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_original.tar.gz"
 chown xtreamcodes:xtreamcodes -R /home/xtreamcodes
 chmod -R 0777 /home/xtreamcodes
 tar -zxvf "/home/xtreamcodes/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/"
@@ -485,7 +485,7 @@ tar -czvf /root/main_xtreamcodes_reborn_php7.2_"$OS"_"$VER"_"$ARCH".tar.gz  iptv
 cd
 rm -rf "/home/xtreamcodes/"
 mkdir -p "/home/xtreamcodes/tmp"
-wget -O "/home/xtreamcodes/tmp/xtreamcodes.tar.gz" "https://www.dropbox.com/s/7zrly39tlco12bv/sub_xtreamcodes_reborn.tar.gz?dl=0"
+wget -O "/home/xtreamcodes/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/sub_xtreamcodes_reborn_original.tar.gz"
 chown xtreamcodes:xtreamcodes -R /home/xtreamcodes
 chmod -R 0777 /home/xtreamcodes
 tar -zxvf "/home/xtreamcodes/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/"
