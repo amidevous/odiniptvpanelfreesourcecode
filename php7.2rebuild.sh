@@ -2,7 +2,7 @@
 # sudo apt-get update
 # sudo apt-get -y install wget
 # sudo yum -y install wget
-# sudo wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2build.sh -O /root/php7.2build.sh
+# sudo wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh -O /root/php7.2rebuild.sh
 # sudo dos2unix /root/php7.2build.sh
 # sudo bash /root/php7.2build.sh
 echo -e "\nChecking that minimal requirements are ok"
@@ -212,7 +212,7 @@ wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/koi-utf https://github.co
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/koi-win https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/nginx/conf/koi-win
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/mime.types https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/nginx/conf/mime.types
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/mime.types.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/nginx/conf/mime.types.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/nginx/conf/nginx.conf
+wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/nginx/conf/nginx.conf.final
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/nginx/conf/nginx.conf.default
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/scgi_params https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/nginx/conf/scgi_params
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/scgi_params.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/nginx/conf/scgi_params.default
