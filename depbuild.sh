@@ -279,7 +279,7 @@ EOF
     fi
 	$PACKAGE_INSTALLER sudo curl curl-devel perl-libwww-perl libxml2 libxml2-devel zip bzip2-devel gcc gcc-c++ at make
 	$PACKAGE_INSTALLER ca-certificates nano psmisc
-	$PACKAGE_GROUPINSTALL --with-optional -y "C Development Tools and Libraries" "Development Tools" "Fedora Packager"
+	$PACKAGE_GROUPINSTALL -y "C Development Tools and Libraries" "Development Tools" "Fedora Packager"
 	$PACKAGE_INSTALLER sudo vim make zip unzip at bash-completion ca-certificates jq sshpass net-tools curl
 	$PACKAGE_INSTALLER e2fslibs
 	$PACKAGE_INSTALLER e2fsprogs
