@@ -131,6 +131,15 @@ if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
 		yum -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
 	fi
 	if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" ]]; then
+ 		if [[ "$VER" = "6" ]]; then
+cat > /etc/yum.repos.d/mariadb.repo <<EOF
+[mariadb]
+name=MariaDB RPM source
+baseurl=http://mirror.mariadb.org/yum/10.2/rhel/$VER/x86_64/
+enabled=1
+gpgcheck=0
+EOF
+   		else
 cat > /etc/yum.repos.d/mariadb.repo <<EOF
 [mariadb]
 name=MariaDB RPM source
@@ -138,6 +147,7 @@ baseurl=http://mirror.mariadb.org/yum/10.6/rhel/$VER/x86_64/
 enabled=1
 gpgcheck=0
 EOF
+		fi
 	elif [[ "$OS" = "Fedora" ]]; then
 cat > /etc/yum.repos.d/mariadb.repo <<EOF
 [mariadb]
