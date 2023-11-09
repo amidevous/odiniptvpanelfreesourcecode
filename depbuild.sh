@@ -655,4 +655,4 @@ fi
 	systemctl start mariadb
 	systemctl enable mariadb
 fi
-
+wget -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_php7.2_"$OS"_"$VER"_"$ARCH".tar.gz"
