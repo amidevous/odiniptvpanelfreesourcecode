@@ -75,8 +75,10 @@ else
     echo "Sorry, this OS is not supported by Xtream UI."
     exit 1
 fi
+if  [[ "$OS" = "Ubuntu" && "$VER" = "22.04" ]] ; then
 sed -i "s|#\$nrconf{verbosity} = 2;|\$nrconf{verbosity} = 0;|" /etc/needrestart/needrestart.conf
 sed -i "s|#\$nrconf{restart} = 'i';|\$nrconf{restart} = 'a';|" /etc/needrestart/needrestart.conf
+fi
 killall nginx
 killall nginx_rtmp
 killall php-fpm
@@ -478,8 +480,8 @@ cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/igbinary-3.2.14
 make -j$(nproc --all)
 make install
 cd /home/xtreamcodes/
-rm -rf iptv_xtream_codes/phpbuild /root/main_xtreamcodes_reborn.tar.gz /root/main_xtreamcodes_reborn_php7.2_$OS_$VER.tar.gz
-tar -czvf /root/main_xtreamcodes_reborn_php7.2_$OS_$VER.tar.gz  iptv_xtream_codes
+rm -rf iptv_xtream_codes/phpbuild /root/main_xtreamcodes_reborn.tar.gz /root/main_xtreamcodes_reborn_php7.2_"$OS"_"$VER"_"$ARCH".tar.gz
+tar -czvf /root/main_xtreamcodes_reborn_php7.2_"$OS"_"$VER"_"$ARCH".tar.gz  iptv_xtream_codes
 cd
 rm -rf "/home/xtreamcodes/"
 mkdir -p "/home/xtreamcodes/tmp"
@@ -854,7 +856,7 @@ cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/igbinary-3.2.14
 make -j$(nproc --all)
 make install
 cd /home/xtreamcodes/
-rm -rf iptv_xtream_codes/phpbuild /root/sub_xtreamcodes_reborn.tar.gz /root/sub_xtreamcodes_reborn_php7.2_$OS_$VER.tar.gz
-tar -czvf /root/sub_xtreamcodes_reborn_php7.2_$OS_$VER.tar.gz  iptv_xtream_codes
+rm -rf iptv_xtream_codes/phpbuild /root/sub_xtreamcodes_reborn.tar.gz /root/sub_xtreamcodes_reborn_php7.2_"$OS"_"$VER"_"$ARCH".tar.gz
+tar -czvf /root/sub_xtreamcodes_reborn_php7.2_"$OS"_"$VER"_"$ARCH".tar.gz  iptv_xtream_codes
 cd
 rm -rf /home/xtreamcodes/
