@@ -2,7 +2,18 @@
 Require python 3.10 or + and python requests module
 for install python 3.10
 
-use ppa for ubuntu
+this installer work on Ubuntu Centos Fedora and Debian all stable version maintened
+
+ubuntu 22.04 online
+
+```
+sudo apt update && sudo apt dist-upgrade -y
+sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt install python3-dev python3-requests python3-pip -y
+```
+
+Other Ubuntu use ppa
 
 
 ```
