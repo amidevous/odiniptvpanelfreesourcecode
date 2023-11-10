@@ -8,8 +8,8 @@ from itertools import cycle, zip_longest as izip
 from itertools import zip_longest
 
 rConfigPath = '/home/xtreamcodes/iptv_xtream_codes/config'
-linkupdate = 'https://xtreamtools.org/XCodes/update.zip'
-linkupdate2 = 'https://dl.dropboxusercontent.com/scl/fi/34md6ri77tl17x0asvmwf/update.zip?rlkey=fhn0iuwcgwyk9jgqr6nbq8bgc'
+linkupdate = 'https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/update_original.zip'
+linkupdate2 = 'https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/update_original.zip'
 
 class bcolors:
     ODINHEADER = '\033[95m'
