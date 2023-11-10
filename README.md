@@ -20,7 +20,9 @@ manual build for centos, redhat, fedora
 
 ```
 sudo yum -y install epel-release
-sudo yum groupinstall -y "C Development Tools and Libraries" "Development Tools" "Fedora Packager"
+sudo yum groupinstall -y "C Development Tools and Libraries"
+sudo yum groupinstall -y "Development Tools"
+sudo yum groupinstall -y "Fedora Packager"
 sudo yum -y install openssl-devel bzip2-devel libffi-devel wget tar gzip yum-utils make gcc openssl-devel zlib-devel
 sudo yum install -y ruby-devel gcc make rpm-build rubygems
 sudo gem install --no-ri --no-rdoc backports -v 3.21.0
