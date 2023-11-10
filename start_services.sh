@@ -15,8 +15,8 @@ sudo -u xtreamcodes /home/xtreamcodes/iptv_xtream_codes/php/bin/php /home/xtream
 sudo -u xtreamcodes /home/xtreamcodes/iptv_xtream_codes/php/bin/php /home/xtreamcodes/iptv_xtream_codes/tools/pipe_reader.php >/dev/null 2>/dev/null &
 chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb 2>/dev/null
 cd /home/xtreamcodes/iptv_xtream_codes/
-wget "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=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&suffix=tar.gz" -O /home/xtreamcodes/iptv_xtream_codes/GeoLite2-City.mmdb.tar.gz
-tar -xvf /home/xtreamcodes/iptv_xtream_codes/GeoLite2-City.mmdb.tar.gz
+wget "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=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&suffix=tar.gz" -qO /home/xtreamcodes/iptv_xtream_codes/GeoLite2-City.mmdb.tar.gz
+tar -xf /home/xtreamcodes/iptv_xtream_codes/GeoLite2-City.mmdb.tar.gz
 rm -f GeoLite2-City.mmdb.tar.gz
 rm -f /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb
 mv GeoLite2-City_*/GeoLite2-City.mmdb /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb
