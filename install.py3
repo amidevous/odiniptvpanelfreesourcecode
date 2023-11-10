@@ -118,8 +118,8 @@ def prepare(rType="MAIN"):
         
     # Create User
     printc("Creating user")
-    os.system("adduser --system --shell /bin/false xtreamcodes >/dev/null 2>&1")
     os.system("adduser --system --shell /bin/false --group --disabled-login xtreamcodes >/dev/null 2>&1")
+    os.system("adduser --system --shell /bin/false xtreamcodes >/dev/null 2>&1")
     if not os.path.exists("/home/xtreamcodes"): os.mkdir("/home/xtreamcodes")
     return True
 
@@ -281,12 +281,15 @@ def configure():
     os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/start_services.sh > /dev/null")
     os.system("chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null")
     os.system("mount -a >/dev/null 2>&1")
+    os.system("chattr -i /etc/hosts > /dev/null")
+    os.system("chmod 777 /etc/hosts > /dev/null")
     if not "api.xtream-codes.com" in open("/etc/hosts").read(): os.system(
         'echo "127.0.0.1    api.xtream-codes.com" >> /etc/hosts')
     if not "downloads.xtream-codes.com" in open("/etc/hosts").read(): os.system(
         'echo "127.0.0.1    downloads.xtream-codes.com" >> /etc/hosts')
     if not " xtream-codes.com" in open("/etc/hosts").read(): os.system(
         'echo "127.0.0.1    xtream-codes.com" >> /etc/hosts')
+    os.system("chattr +i /etc/hosts > /dev/null")
     # INSTALL UPDATE
     #downupdate = linkupdate
     os.system('chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb >/dev/null && rm -rf /home/xtreamcodes/iptv_xtream_codes/admin 2>/dev/null && wget -O /tmp/update.zip "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/update_original.zip" 2>/dev/null && unzip /tmp/update.zip -d /tmp/update/ >/dev/null && cp -rf /tmp/update/XtreamUI-master/* /home/xtreamcodes/iptv_xtream_codes/ >/dev/null && rm -rf /tmp/update/XtreamUI-master >/dev/null && rm /tmp/update.zip >/dev/null && rm -rf /tmp/update >/dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ >/dev/null && chmod +x /home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null && /home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null && find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null')
