@@ -13,7 +13,7 @@ import base64
 from itertools import cycle, zip_longest as izip
 from itertools import zip_longest
 from datetime import datetime
-rConfigPath = '/root/config'
+rConfigPath = '/home/xtreamcodes/iptv_xtream_codes/config'
 
 
 def encrypt(rHost="127.0.0.1", rUsername="user_iptvpro", rPassword="", rDatabase="xtream_iptvpro", rServerID=1,
