@@ -1,6 +1,7 @@
 #!/usr/bin/python3.10
+# -*- coding: utf-8 -*-
 # update panel
-# update panel
+
 import os
 import json
 import base64
