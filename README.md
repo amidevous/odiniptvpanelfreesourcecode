@@ -26,11 +26,6 @@ sudo python3.10 $HOME/get-pip.py
 sudo sed -i 's|Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin|Defaults    secure_path = /usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin|' /etc/sudoers
 sudo pip3.10 install --upgrade pip setuptools wheel
 sudo pip3.10 install requests
-
-
-
-
-sudo pip3.10 install requests
 ```
 
 
