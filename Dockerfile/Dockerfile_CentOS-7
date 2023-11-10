@@ -18,7 +18,6 @@ RUN bash /root/depbuild.sh
 RUN mkdir -p /home/xtreamcodes
 RUN touch /home/xtreamcodes/dep
 RUN yum -y install epel-release
-RUN yum groupinstall -y "C Development Tools and Libraries"
 RUN yum groupinstall -y "Development Tools"
 RUN yum groupinstall -y "Fedora Packager"
 RUN yum -y install openssl-devel bzip2-devel libffi-devel wget tar gzip yum-utils make gcc openssl-devel zlib-devel
