@@ -78,5 +78,5 @@ for start installer
 
 
 ```
-sudo wget -O /root/install.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install.py3 && && sudo python3.10 /root/install.py3
+sudo wget -O /root/install.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install.py3 && sudo python3.10 /root/install.py3
 ```
