@@ -87,12 +87,15 @@ def prepare(rType="MAIN"):
 #    for rPackage in rPackages:
 #        printc("Installing %s" % rPackage)
 #        os.system("apt-get install %s -y > /dev/null" % rPackage)
-    printc("Install Build Dependencie max 2H Wait")
-    now = datetime.now()
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-    printc("Actual GMT Time =", dt_string)
-    os.system("wget --no-check-certificate -qO /root/depbuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh")
-    os.system("bash /root/depbuild.sh >/dev/null 2>&1")
+    if not os.path.exists('/home/xtreamcodes/dep'):
+      if not os.path.exists("/home/xtreamcodes"): os.mkdir("/home/xtreamcodes")
+      os.system("touch /home/xtreamcodes/dep >/dev/null 2>&1")
+      printc("Install Build Dependencie max 2H Wait")
+      now = datetime.now()
+      dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+      printc("Actual GMT Time =", dt_string)
+      os.system("wget --no-check-certificate -qO /root/depbuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh")
+      os.system("bash /root/depbuild.sh >/dev/null 2>&1")
     os.system("rm -rf /etc/systemd/system/mariadb.service.d /etc/systemd/system/multi-user.target.wants/mariadb.service >/dev/null 2>&1")
     os.system('mkdir -p /etc/init.d/ >/dev/null 2>&1')
     os.system('touch /etc/init.d/mariadb >/dev/null 2>&1')
@@ -236,11 +239,8 @@ def mysql(rUsername, rPassword):
 def encrypt(rHost="127.0.0.1", rUsername="user_iptvpro", rPassword="", rDatabase="xtream_iptvpro", rServerID=1,
             rPort=7999):
     printc("Encrypting...")
-    # try: os.remove(rConfigPath) #TESTAR A INSTALAÇÃO PARA VER SE FUNCIONA COM ISSO DESCOMENTADO
+    # try: os.remove(rConfigPath)
     # except: pass
-
-    # AQUI FUNCIONOU A CRIAÇÃO DO ARQUIVO CONFIG
-    # TESTAR RETIRANDO COMENTÁRIOS DAS 2 LINHAS ACIMA
 
     with open(rConfigPath, 'wb') as rf:
         data = ''.join(chr(ord(c) ^ ord(k)) for c, k in
@@ -317,12 +317,15 @@ def start(first=True):
         os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/bin/php 2>/dev/null")
         os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm 2>/dev/null")
         os.system("sysctl -w kernel.core_pattern='|/bin/false' >/dev/null 2>&1")
-        printc("ReBuild All Max 2H Wait")
-        now = datetime.now()
-        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        printc("Actual GMT Time =", dt_string)
-        os.system("wget --no-check-certificate -qO /root/php7.2rebuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh")
-        os.system("bash /root/php7.2rebuild.sh >/dev/null 2>&1")
+        if not os.path.exists('/home/xtreamcodes/build'):
+          if not os.path.exists("/home/xtreamcodes"): os.mkdir("/home/xtreamcodes")
+          os.system("touch /home/xtreamcodes/build >/dev/null 2>&1")
+          printc("ReBuild All Max 2H Wait")
+          now = datetime.now()
+          dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+          printc("Actual GMT Time =", dt_string)
+          os.system("wget --no-check-certificate -qO /root/php7.2rebuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh")
+          os.system("bash /root/php7.2rebuild.sh >/dev/null 2>&1")
         os.system('rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/ >/dev/null 2>&1')
         os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_services.sh -qO /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
         os.system("chmod 777 /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
@@ -338,12 +341,15 @@ def start(first=True):
         os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/bin/php 2>/dev/null")
         os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm 2>/dev/null")
         os.system("sysctl -w kernel.core_pattern='|/bin/false'")
-        printc("ReBuild All Max 2H Wait")
-        now = datetime.now()
-        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        printc("Actual GMT Time =", dt_string)
-        os.system("wget --no-check-certificate -qO /root/php7.2rebuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh")
-        os.system("bash /root/php7.2rebuild.sh >/dev/null 2>&1")
+        if not os.path.exists('/home/xtreamcodes/build'):
+          if not os.path.exists("/home/xtreamcodes"): os.mkdir("/home/xtreamcodes")
+          os.system("touch /home/xtreamcodes/build >/dev/null 2>&1")
+          printc("ReBuild All Max 2H Wait")
+          now = datetime.now()
+          dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+          printc("Actual GMT Time =", dt_string)
+          os.system("wget --no-check-certificate -qO /root/php7.2rebuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh")
+          os.system("bash /root/php7.2rebuild.sh >/dev/null 2>&1")
         os.system('rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/ >/dev/null 2>&1')
         os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_services.sh -qO /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
         os.system("chmod 777 /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
