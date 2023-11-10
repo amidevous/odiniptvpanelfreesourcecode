@@ -41,8 +41,8 @@ ptyhon3.10 build
 
 ```
 cd
-rm -rf openssl* Python*
-wget wget https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz
+rm -rf Python*
+wget https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz
 tar -xzf Python-3.10.13.tgz
 cd Python-3.10.13
 # for el 7 online
@@ -51,6 +51,8 @@ sudo ./configure
 sudo sed -i 's|Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin|Defaults    secure_path = /usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin|' /etc/sudoers
 sudo make -j ${nproc}
 sudo make altinstall
+cd
+rm -rf Python*
 sudo pip3.10 install --upgrade pip setuptools wheel
 sudo pip3.10 install requests
 ```
