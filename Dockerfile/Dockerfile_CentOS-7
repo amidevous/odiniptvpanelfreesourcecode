@@ -45,6 +45,4 @@ EXPOSE 8080
 EXPOSE 443
 EXPOSE 444
 CMD ["/usr/sbin/sshd","-D"]
-CMD ["service","mariadb","restart"]
-CMD ["/bin/bash","/home/xtreamcodes/iptv_xtream_codes/start_services.sh"]
 
