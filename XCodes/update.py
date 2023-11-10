@@ -1,8 +1,9 @@
 #!/usr/bin/python3.10
+# update panel
+# update panel
 import os
 import json
 import base64
-# import urllib2
 from itertools import cycle, zip_longest as izip
 from itertools import zip_longest
 
