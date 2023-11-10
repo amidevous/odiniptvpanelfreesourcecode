@@ -1,5 +1,6 @@
 # Odin IpTV Panel Free Source Code
-Odin IpTV Panel Free Source Code
+Require python 3.10 or + and python requests module
+for install python 3.10
 
 use ppa for ubuntu
 
@@ -57,4 +58,12 @@ cd
 rm -rf Python*
 sudo pip3.10 install --upgrade pip setuptools wheel
 sudo pip3.10 install requests
+```
+
+
+for start installer
+
+
+```
+sudo wget -O /root/install.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install.py3 && && sudo python3.10 /root/install.py3
 ```
