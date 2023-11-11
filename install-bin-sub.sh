@@ -380,5 +380,25 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
    		apt-get -yf install
    		dpkg -i xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-php_7.2.34-1-Ubuntu_22.04.deb xtreamcodes-php-mcrypt_1.0.5-1-Ubuntu_22.04.deb xtreamcodes-php-geoip_1.1.1-1-Ubuntu_22.04.deb xtreamcodes-php-igbinary_3.2.14-1-Ubuntu_22.04.deb
    		rm -f xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-php_7.2.34-1-Ubuntu_22.04.deb xtreamcodes-php-mcrypt_1.0.5-1-Ubuntu_22.04.deb xtreamcodes-php-geoip_1.1.1-1-Ubuntu_22.04.deb xtreamcodes-php-igbinary_3.2.14-1-Ubuntu_22.04.deb
-  fi
+	else
+ 		wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/sub_xtreamcodes_reborn_nobin.tar.gz"
+  		mkdir -p /home/xtreamcodes/
+ 		tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
+		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
+		bash /root/depbuild.sh
+  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh -O /root/php7.2rebuild.sh
+   		bash /root/php7.2rebuild.sh
+   	fi
+fi
+
+
+if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
+ 	wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/sub_xtreamcodes_reborn_nobin.tar.gz"
+  	mkdir -p /home/xtreamcodes/
+ 	tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
+	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
+	bash /root/depbuild.sh
+  	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh -O /root/php7.2rebuild.sh
+   	bash /root/php7.2rebuild.sh
+
 fi
