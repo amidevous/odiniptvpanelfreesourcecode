@@ -1,7 +1,4 @@
 #!/bin/bash
-if [ -f "/home/xtreamcodes/iptv_xtream_codes/php-7.4.33" ]; then
-    echo "update exists."
-else
 echo -e "\nChecking that minimal requirements are ok"
 # Ensure the OS is compatible with the launcher
 if [ -f /etc/centos-release ]; then
@@ -375,7 +372,7 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
    		apt-get -yf install
    		dpkg -i xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-php_7.2.34-1-Ubuntu_22.04.deb xtreamcodes-php-mcrypt_1.0.5-1-Ubuntu_22.04.deb xtreamcodes-php-geoip_1.1.1-1-Ubuntu_22.04.deb xtreamcodes-php-igbinary_3.2.14-1-Ubuntu_22.04.deb
    		rm -f xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-php_7.2.34-1-Ubuntu_22.04.deb xtreamcodes-php-mcrypt_1.0.5-1-Ubuntu_22.04.deb xtreamcodes-php-geoip_1.1.1-1-Ubuntu_22.04.deb xtreamcodes-php-igbinary_3.2.14-1-Ubuntu_22.04.deb
-  fi
+  	fi
 fi
 	mkdir -p /etc/mysql/
  	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/mysql/my.cnf
@@ -386,4 +383,3 @@ fi
  	service mariadb restart
 	wget -q -O "/tmp/xtreamcodes.tar.gz https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz
  	tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
-fi
