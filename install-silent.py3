@@ -78,10 +78,10 @@ def prepare(rType="MAIN"):
     try:
         subprocess.check_output("getent passwd xtreamcodes > /dev/null".split())
     except:
-    printc("Creating user")
-    os.system("adduser --system --shell /bin/false --group --disabled-login xtreamcodes >/dev/null 2>&1")
-    os.system("adduser --system --shell /bin/false xtreamcodes >/dev/null 2>&1")
-    if not os.path.exists("/home/xtreamcodes"): os.mkdir("/home/xtreamcodes")
+      printc("Creating user")
+      os.system("adduser --system --shell /bin/false --group --disabled-login xtreamcodes >/dev/null 2>&1")
+      os.system("adduser --system --shell /bin/false xtreamcodes >/dev/null 2>&1")
+      if not os.path.exists("/home/xtreamcodes"): os.mkdir("/home/xtreamcodes")
     return True
 
 
