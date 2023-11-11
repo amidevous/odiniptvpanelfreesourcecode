@@ -55,7 +55,7 @@ if [[ "$VER" = "8" && "$OS" = "CentOs" ]]; then
 	find / -name '*.rpmnew' -exec rm -f {} \;
 	find / -name '*.rpmsave' -exec rm -f {} \;
 	OS="CentOS-Stream"
-	fi
+fi
 
 echo "Detected : $OS  $VER  $ARCH"
 if [[ "$OS" = "CentOs" && "$VER" = "6" && "$ARCH" == "x86_64" ||
@@ -65,10 +65,10 @@ if [[ "$OS" = "CentOs" && "$VER" = "6" && "$ARCH" == "x86_64" ||
 "$OS" = "Fedora" && ("$VER" = "36" || "$VER" = "37" || "$VER" = "38" ) && "$ARCH" == "x86_64" ||
 "$OS" = "Ubuntu" && ("$VER" = "18.04" || "$VER" = "20.04" || "$VER" = "22.04" ) && "$ARCH" == "x86_64" ||
 "$OS" = "debian" && ("$VER" = "10" || "$VER" = "11" ) && "$ARCH" == "x86_64" ]] ; then
-echo "Ok."
+	echo "Ok."
 else
-    echo "Sorry, this OS is not supported by Xtream UI."
-    exit 1
+	echo "Sorry, this OS is not supported by Xtream UI."
+	exit 1
 fi
 echo -e "\n-- Updating repositories and packages sources"
 if [[ "$OS" = "CentOs" ]] ; then
@@ -381,5 +381,5 @@ fi
     	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/mariadb.init -O /etc/init.d/mariadb
      	chmod 777 /etc/init.d/mariadb
  	service mariadb restart
-	wget -q -O "/tmp/xtreamcodes.tar.gz https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz
+	wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz"
  	tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
