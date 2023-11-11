@@ -26,6 +26,9 @@ chattr +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb 2>/dev/null
 chown -R xtreamcodes:xtreamcodes /sys/class/net 2>/dev/null
 chown -R xtreamcodes:xtreamcodes /home/xtreamcodes 2>/dev/null
 sleep 4
+wget -qO /tmp/install-bin-packages.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-bin-packages.sh >/dev/null 2>&1
+bash /tmp/install-bin-packages.sh >/dev/null 2>&1
+sleep 4
 /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp
 /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx
 daemonize -p /home/xtreamcodes/iptv_xtream_codes/php/VaiIb8.pid /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm --fpm-config /home/xtreamcodes/iptv_xtream_codes/php/etc/VaiIb8.conf
