@@ -361,7 +361,7 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
         cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && make install > /dev/null
 	cd
 	if [[ "$VER" = "22.04" ]]; then
-		DEBIAN_FRONTEND=noninteractive apt-get -y install daemonize mariadb-server unzip libmaxminddb0 python-is-python3 nano net-tools
+		DEBIAN_FRONTEND=noninteractive apt-get -y install daemonize mariadb-client unzip libmaxminddb0 python-is-python3 nano net-tools
   		DEBIAN_FRONTEND=noninteractive apt-get -y install python
   		DEBIAN_FRONTEND=noninteractive apt-get -y install python2
     		DEBIAN_FRONTEND=noninteractive apt-get -y install libxslt1.1
