@@ -1,0 +1,24 @@
+[nginx-req-limit]
+
+enabled = true
+filter = nginx-req-limit
+action = iptables-multiport[name=ReqLimit, port="#PORT#", protocol=tcp]
+	 banned_db[name=ReqLimit, port="#PORT#", protocol=tcp]
+logpath = /var/log/nginx/*error.log
+findtime = 600
+bantime = 7200
+maxretry = 10
+
+[nginx-4xx]
+enabled = true
+port = http,https
+action = iptables-multiport[name=nginx-4xx, port="#PORT#", protocol=tcp] 
+	 banned_db[name=ReqLimit, port="#PORT#", protocol=tcp]
+logpath = /var/log/nginx/access.log
+findtime = 600
+maxretry = 10
+bantime = 7200
+
+[DEFAULT]
+#default 127.0.0.1/8 10.0.0.0/8 192.168.0.0/16 172.16.0.0/16
+ignoreip = #JAIL-IGNORE-IP#

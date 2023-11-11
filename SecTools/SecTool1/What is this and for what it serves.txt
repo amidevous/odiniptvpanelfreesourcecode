@@ -1,0 +1,5 @@
+Run the command:
+
+/home/xtreamcodes/iptv_xtream_codes/SecTools/SecTool_1/install.sh
+
+And wait for the installation to complete completely, no message will be shown but fail2ban, modsec, firewall blocking rules, blacklisted ips blocks and several others will be installed security features.
