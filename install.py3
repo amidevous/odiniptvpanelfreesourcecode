@@ -267,37 +267,26 @@ def configure():
     os.system("sudo chmod a+rx /home/xtreamcodes/iptv_xtream_codes/bin/youtube-dl > /dev/null")
 
 
-def start(first=True):
-    if first:
-        printc("Starting ODIN")
-        os.system("chattr +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb 2>/dev/null")
-        os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/VaiIb8.pid 2>/dev/null")
-        os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/JdlJXm.pid 2>/dev/null")
-        os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/CWcfSP.pid 2>/dev/null")
-        os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx 2>/dev/null")
-        os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp 2>/dev/null")
-        os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/bin/php 2>/dev/null")
-        os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm 2>/dev/null")
-        os.system("sysctl -w kernel.core_pattern='|/bin/false' >/dev/null 2>&1")
-        os.system('rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/ >/dev/null 2>&1')
-        os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_services.sh -qO /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
-        os.system("chmod 777 /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
-        os.system("/home/xtreamcodes/iptv_xtream_codes/start_services.sh >/dev/null 2>&1")
-    else:
-        printc("Restarting ODIN")
-        os.system("chattr +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb 2>/dev/null")
-        os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/VaiIb8.pid 2>/dev/null")
-        os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/JdlJXm.pid 2>/dev/null")
-        os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/CWcfSP.pid 2>/dev/null")
-        os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx 2>/dev/null")
-        os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp 2>/dev/null")
-        os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/bin/php 2>/dev/null")
-        os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm 2>/dev/null")
-        os.system("sysctl -w kernel.core_pattern='|/bin/false'")
-        os.system('rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/ >/dev/null 2>&1')
-        os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_services.sh -qO /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
-        os.system("chmod 777 /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
-        os.system("/home/xtreamcodes/iptv_xtream_codes/start_services.sh >/dev/null 2>&1")
+def start():
+    global rInstall, rDownloadURL
+    rURL = rDownloadURL[rInstall[rType]]
+    printc("Restarting ODIN")
+    os.system('wget -q -O "/tmp/install.sh" "%s"' % rURL)
+    os.system("chattr +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb 2>/dev/null")
+    os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/VaiIb8.pid 2>/dev/null")
+    os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/JdlJXm.pid 2>/dev/null")
+    os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/CWcfSP.pid 2>/dev/null")
+    os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx 2>/dev/null")
+    os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp 2>/dev/null")
+    os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/bin/php 2>/dev/null")
+    os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm 2>/dev/null")
+    os.system("sysctl -w kernel.core_pattern='|/bin/false' >/dev/null 2>&1")
+    os.system('rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/ >/dev/null 2>&1')
+    os.system('chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb >/dev/null && rm -rf /home/xtreamcodes/iptv_xtream_codes/admin 2>/dev/null && wget -O /tmp/update.zip "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/update_original.zip" 2>/dev/null && unzip /tmp/update.zip -d /tmp/update/ >/dev/null && cp -rf /tmp/update/XtreamUI-master/* /home/xtreamcodes/iptv_xtream_codes/ >/dev/null && rm -rf /tmp/update/XtreamUI-master >/dev/null && rm /tmp/update.zip >/dev/null && rm -rf /tmp/update >/dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ >/dev/null && chmod +x /home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null && /home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null && find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null')
+    os.system('bash /tmp/install.sh >/dev/null 2>&1')
+    os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_services.sh -qO /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
+    os.system("chmod 777 /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
+    os.system("/home/xtreamcodes/iptv_xtream_codes/start_services.sh >/dev/null 2>&1")
 
 
 def modifyNginx():
