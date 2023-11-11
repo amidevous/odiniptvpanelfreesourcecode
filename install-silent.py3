@@ -20,9 +20,8 @@ import base64
 from itertools import cycle, zip_longest as izip
 from itertools import zip_longest
 from datetime import datetime
-
-rDownloadURL = {"main": "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_original.tar.gz",
-                "sub": "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_original.tar.gz"}
+rDownloadURL = {"main": "https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-bin-main.sh",
+                "sub": "https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-bin-sub.sh"}
 #rPackages = ["libwebp6", "libjpeg62", "libcurl4", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "mariadb-server"]
 rInstall = {"MAIN": "main", "LB": "sub"}
 eMySQLenc = "IyBYdHJlYW0gQ29kZXMKCltjbGllbnRdCnBvcnQgICAgICAgICAgICA9IDMzMDYKCltteXNxbGRfc2FmZV0KbmljZSAgICAgICAgICAgID0gMAoKW215c3FsZF0KdXNlciAgICAgICAgICAgID0gbXlzcWwKcG9ydCAgICAgICAgICAgID0gNzk5OQpiYXNlZGlyICAgICAgICAgPSAvdXNyCmRhdGFkaXIgICAgICAgICA9IC92YXIvbGliL215c3FsCnRtcGRpciAgICAgICAgICA9IC90bXAKbGMtbWVzc2FnZXMtZGlyID0gL3Vzci9zaGFyZS9teXNxbApza2lwLWV4dGVybmFsLWxvY2tpbmcKc2tpcC1uYW1lLXJlc29sdmU9MQoKYmluZC1hZGRyZXNzICAgICAgICAgICAgPSAqCmtleV9idWZmZXJfc2l6ZSA9IDEyOE0KCm15aXNhbV9zb3J0X2J1ZmZlcl9zaXplID0gNE0KbWF4X2FsbG93ZWRfcGFja2V0ICAgICAgPSA2NE0KbXlpc2FtLXJlY292ZXItb3B0aW9ucyA9IEJBQ0tVUAptYXhfbGVuZ3RoX2Zvcl9zb3J0X2RhdGEgPSA4MTkyCnF1ZXJ5X2NhY2hlX2xpbWl0ICAgICAgID0gNE0KcXVlcnlfY2FjaGVfc2l6ZSAgICAgICAgPSAyNTZNCgoKZXhwaXJlX2xvZ3NfZGF5cyAgICAgICAgPSAxMAptYXhfYmlubG9nX3NpemUgICAgICAgICA9IDEwME0KCm1heF9jb25uZWN0aW9ucyAgPSAyMDAwMApiYWNrX2xvZyA9IDQwOTYKb3Blbl9maWxlc19saW1pdCA9IDIwMjQwCmlubm9kYl9vcGVuX2ZpbGVzID0gMjAyNDAKbWF4X2Nvbm5lY3RfZXJyb3JzID0gMzA3Mgp0YWJsZV9vcGVuX2NhY2hlID0gNDA5Ngp0YWJsZV9kZWZpbml0aW9uX2NhY2hlID0gNDA5NgoKCnRtcF90YWJsZV9zaXplID0gMUcKbWF4X2hlYXBfdGFibGVfc2l6ZSA9IDFHCgppbm5vZGJfYnVmZmVyX3Bvb2xfc2l6ZSA9IDEwRwppbm5vZGJfYnVmZmVyX3Bvb2xfaW5zdGFuY2VzID0gMTAKaW5ub2RiX3JlYWRfaW9fdGhyZWFkcyA9IDY0Cmlubm9kYl93cml0ZV9pb190aHJlYWRzID0gNjQKaW5ub2RiX3RocmVhZF9jb25jdXJyZW5jeSA9IDAKaW5ub2RiX2ZsdXNoX2xvZ19hdF90cnhfY29tbWl0ID0gMAppbm5vZGJfZmx1c2hfbWV0aG9kID0gT19ESVJFQ1QKcGVyZm9ybWFuY2Vfc2NoZW1hID0gMAppbm5vZGItZmlsZS1wZXItdGFibGUgPSAxCmlubm9kYl9pb19jYXBhY2l0eT0yMDAwMAppbm5vZGJfdGFibGVfbG9ja3MgPSAwCmlubm9kYl9sb2NrX3dhaXRfdGltZW91dCA9IDAKI2lubm9kYl9kZWFkbG9ja19kZXRlY3QgPSAwCgoKc3FsLW1vZGU9Ik5PX0VOR0lORV9TVUJTVElUVVRJT04iCgpbbXlzcWxkdW1wXQpxdWljawpxdW90ZS1uYW1lcwptYXhfYWxsb3dlZF9wYWNrZXQgICAgICA9IDE2TQoKW215c3FsXQoKW2lzYW1jaGtdCmtleV9idWZmZXJfc2l6ZSAgICAgICAgICAgICAgPSAxNk0="
@@ -76,47 +75,9 @@ def printc(rText, rColour=col.OKBLUE, rPadding=0):
 
 
 def prepare(rType="MAIN"):
-    #global rPackages
-    #if rType != "MAIN": rPackages = rPackages[:-1]
-    printc("Preparing Installation")
-    for rFile in ["/var/lib/dpkg/lock-frontend", "/var/cache/apt/archives/lock", "/var/lib/dpkg/lock"]:
-        try:
-            os.remove(rFile)
-        except:
-            pass
-#    for rPackage in rPackages:
-#        printc("Installing %s" % rPackage)
-#        os.system("apt-get install %s -y > /dev/null" % rPackage)
-    if not os.path.exists('/home/xtreamcodes/dep'):
-      if not os.path.exists("/home/xtreamcodes"): os.mkdir("/home/xtreamcodes")
-      os.system("touch /home/xtreamcodes/dep >/dev/null 2>&1")
-      printc("Install Build Dependencie max 2H Wait")
-      now = datetime.now()
-      dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-      printc("Actual GMT Time =", dt_string)
-      os.system("wget --no-check-certificate -qO /root/depbuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh")
-      os.system("bash /root/depbuild.sh >/dev/null 2>&1")
-    os.system("rm -rf /etc/systemd/system/mariadb.service.d /etc/systemd/system/multi-user.target.wants/mariadb.service >/dev/null 2>&1")
-    os.system('mkdir -p /etc/init.d/ >/dev/null 2>&1')
-    os.system('touch /etc/init.d/mariadb >/dev/null 2>&1')
-    rFile = open("/etc/init.d/mariadb", "w")
-    rFile.write(rMySQLINIT)
-    rFile.close()
-    os.system("chmod 777 /etc/init.d/mariadb >/dev/null 2>&1")
-    os.system("systemctl restart mariadb >/dev/null 2>&1")
-    os.system("service mariadb restart >/dev/null 2>&1")
-    os.system("systemctl mariadb enable >/dev/null 2>&1")
-    os.system("chkconfig --add mariadb >/dev/null 2>&1")
-    os.system("chkconfig --level 345 mariadb on >/dev/null 2>&1")
-    os.system("update-rc.d mariadb defaults >/dev/null 2>&1")
-    os.system("service mariadb restart >/dev/null 2>&1")
     try:
         subprocess.check_output("getent passwd xtreamcodes > /dev/null".split())
     except:
-        # Create User
-        printc("Creating user")
-        
-    # Create User
     printc("Creating user")
     os.system("adduser --system --shell /bin/false --group --disabled-login xtreamcodes >/dev/null 2>&1")
     os.system("adduser --system --shell /bin/false xtreamcodes >/dev/null 2>&1")
@@ -132,12 +93,12 @@ def install(rType="MAIN"):
     except:
         printc("Invalid download URL!", col.FAIL)
         return False
-    os.system('wget -q -O "/tmp/xtreamcodes.tar.gz" "%s"' % rURL)
-    if os.path.exists("/tmp/xtreamcodes.tar.gz"):
+    os.system('wget -q -O "/tmp/install.sh" "%s"' % rURL)
+    if os.path.exists("/tmp/install.sh"):
         printc("Installing Software")
-        os.system('tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null')
+        os.system('bash /tmp/install.sh > /dev/null')
         try:
-            os.remove("/tmp/xtreamcodes.tar.gz")
+            os.remove("/tmp/install.sh")
         except:
             pass
         return True
@@ -289,15 +250,6 @@ def start():
     os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/bin/php 2>/dev/null")
     os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm 2>/dev/null")
     os.system("sysctl -w kernel.core_pattern='|/bin/false' >/dev/null 2>&1")
-    if not os.path.exists('/home/xtreamcodes/build'):
-        os.system("mkdir -p /home/xtreamcodes/ >/dev/null 2>&1")
-        os.system("touch /home/xtreamcodes/build >/dev/null 2>&1")
-        printc("ReBuild All Max 2H Wait")
-        now = datetime.now()
-        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        printc("Actual GMT Time =", dt_string)
-        os.system("wget --no-check-certificate -qO /root/php7.2rebuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh")
-        os.system("bash /root/php7.2rebuild.sh >/dev/null 2>&1")
     os.system('rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/ >/dev/null 2>&1')
     os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_services.sh -qO /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
     os.system("chmod 777 /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
