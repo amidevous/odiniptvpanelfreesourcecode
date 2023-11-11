@@ -369,6 +369,30 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
     		DEBIAN_FRONTEND=noninteractive apt-get -y install libcurl4
     		DEBIAN_FRONTEND=noninteractive apt-get -y install libmcrypt4
     		DEBIAN_FRONTEND=noninteractive apt-get -y install libgeoip1
+
+		mkdir -p /etc/mysql/
+ 		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/mysql/my.cnf
+  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/my.cnf
+   		mkdir -p /etc/init.d/
+    		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/mariadb.init -O /etc/init.d/mariadb
+     		chmod 777 /etc/init.d/mariadb
+ 		service mariadb restart
+		wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz"
+ 		tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
+  		# update on
+		chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb >/dev/null
+  		rm -rf /home/xtreamcodes/iptv_xtream_codes/admin 2>/dev/null
+    		wget -O /tmp/update.zip "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/update_original.zip" 2>/dev/null
+      		unzip /tmp/update.zip -d /tmp/update/ >/dev/null
+		cp -rf /tmp/update/XtreamUI-master/* /home/xtreamcodes/iptv_xtream_codes/ >/dev/null
+  		rm -rf /tmp/update/XtreamUI-master >/dev/null
+    		rm /tmp/update.zip >/dev/null
+      		rm -rf /tmp/update >/dev/null
+		chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ >/dev/null
+  		chmod +x /home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
+    		/home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
+      		find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null')
+      		# update off
  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb
     		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb
     		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/xtreamcodes-php_7.2.34-1-Ubuntu_22.04.deb
@@ -381,12 +405,3 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
    		rm -f xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-php_7.2.34-1-Ubuntu_22.04.deb xtreamcodes-php-mcrypt_1.0.5-1-Ubuntu_22.04.deb xtreamcodes-php-geoip_1.1.1-1-Ubuntu_22.04.deb xtreamcodes-php-igbinary_3.2.14-1-Ubuntu_22.04.deb
   	fi
 fi
-	mkdir -p /etc/mysql/
- 	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/mysql/my.cnf
-  	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/my.cnf
-   	mkdir -p /etc/init.d/
-    	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/mariadb.init -O /etc/init.d/mariadb
-     	chmod 777 /etc/init.d/mariadb
- 	service mariadb restart
-	wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz"
- 	tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
