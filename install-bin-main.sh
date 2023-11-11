@@ -378,7 +378,7 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
  		service mariadb restart
 		wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz"
   		mkdir -p /home/xtreamcodes/
- 		tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
+ 		tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/"
   		# update on
 		chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb >/dev/null
   		rm -rf /home/xtreamcodes/iptv_xtream_codes/admin 2>/dev/null
@@ -413,7 +413,7 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
  		service mariadb restart
 		wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz"
   		mkdir -p /home/xtreamcodes/
- 		tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
+ 		tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/"
   		# update on
 		chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb >/dev/null
   		rm -rf /home/xtreamcodes/iptv_xtream_codes/admin 2>/dev/null
@@ -444,7 +444,7 @@ if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
  	service mariadb restart
 	wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz"
   	mkdir -p /home/xtreamcodes/
- 	tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
+ 	tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/"
   	# update on
 	chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb >/dev/null
   	rm -rf /home/xtreamcodes/iptv_xtream_codes/admin 2>/dev/null
