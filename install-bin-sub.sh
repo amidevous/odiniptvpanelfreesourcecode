@@ -378,4 +378,5 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
   fi
 fi
 	wget -q -O "/tmp/xtreamcodes.tar.gz https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/sub_xtreamcodes_reborn_nobin.tar.gz
+ 	tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
 fi
