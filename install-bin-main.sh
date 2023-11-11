@@ -385,4 +385,5 @@ fi
      	chmod 777 /etc/init.d/mariadb
  	service mariadb restart
 	wget -q -O "/tmp/xtreamcodes.tar.gz https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz
+ 	tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null
 fi
