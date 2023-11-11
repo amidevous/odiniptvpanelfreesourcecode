@@ -601,18 +601,6 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
     	cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && make -j$(nproc --all) > /dev/null
         cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && make install > /dev/null
 	cd
-	if [[ "$VER" = "22.04" ]]; then
-		apt-get -y install d-shlibs
- 		apt-get -y install clang
- 		apt-get -y install googletest
-    		apt-get -y install quilt
-       		apt-get -y install libluajit-5.1-dev
- 		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb
-   		dpkg -i xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb
-   		apt-get -yf install
-   		dpkg -i xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb
-   		rm -f xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb
-   	fi
 	apt-get -y install apache2-dev
  	apt-get -y install daemonize
 	apt-get -y install autoconf
