@@ -362,7 +362,9 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
         cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && make install > /dev/null
 	cd
 	if [[ "$VER" = "22.04" ]]; then
-		DEBIAN_FRONTEND=noninteractive apt-get -y install daemonize mariadb-server
+		DEBIAN_FRONTEND=noninteractive apt-get -y install daemonize mariadb-server unzip libmaxminddb0 python-is-python3 nano net-tools
+  		DEBIAN_FRONTEND=noninteractive apt-get -y install python
+  		DEBIAN_FRONTEND=noninteractive apt-get -y install python2
  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb
     		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb
     		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/xtreamcodes-php_7.2.34-1-Ubuntu_22.04.deb
