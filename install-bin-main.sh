@@ -362,6 +362,7 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
         cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && make install > /dev/null
 	cd
 	if [[ "$VER" = "22.04" ]]; then
+ 		rm -f /etc/init.d/mariadb
 		DEBIAN_FRONTEND=noninteractive apt-get -y install daemonize mariadb-server unzip libmaxminddb0 python-is-python3 nano net-tools
   		DEBIAN_FRONTEND=noninteractive apt-get -y install python
   		DEBIAN_FRONTEND=noninteractive apt-get -y install python2
@@ -404,6 +405,9 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
    		DEBIAN_FRONTEND=noninteractive dpkg -i xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-php_7.2.34-1-Ubuntu_22.04.deb xtreamcodes-php-mcrypt_1.0.5-1-Ubuntu_22.04.deb xtreamcodes-php-geoip_1.1.1-1-Ubuntu_22.04.deb xtreamcodes-php-igbinary_3.2.14-1-Ubuntu_22.04.deb
    		rm -f xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-php_7.2.34-1-Ubuntu_22.04.deb xtreamcodes-php-mcrypt_1.0.5-1-Ubuntu_22.04.deb xtreamcodes-php-geoip_1.1.1-1-Ubuntu_22.04.deb xtreamcodes-php-igbinary_3.2.14-1-Ubuntu_22.04.deb
 	else
+ 		rm -f /etc/init.d/mariadb
+		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
+		bash /root/depbuild.sh
  		mkdir -p /etc/mysql/
  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/mysql/my.cnf
   		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/my.cnf
@@ -428,13 +432,14 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
     		/home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
       		find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null
       		# update off
-		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
-		bash /root/depbuild.sh
   		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh -O /root/php7.2rebuild.sh
    		bash /root/php7.2rebuild.sh
    	fi
 fi
 if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
+ 	rm -f /etc/init.d/mariadb
+	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
+	bash /root/depbuild.sh
 	mkdir -p /etc/mysql/
  	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/mysql/my.cnf
   	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/my.cnf
@@ -459,8 +464,6 @@ if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
     	/home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
       	find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null
       	# update off
-	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
-	bash /root/depbuild.sh
   	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh -O /root/php7.2rebuild.sh
    	bash /root/php7.2rebuild.sh
 
