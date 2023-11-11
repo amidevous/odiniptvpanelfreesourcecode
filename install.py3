@@ -267,10 +267,6 @@ def configure():
 
 
 def start():
-    global rInstall, rDownloadURL
-    rURL = rDownloadURL[rInstall[rType]]
-    printc("Restarting ODIN")
-    os.system('wget -q -O "/tmp/install.sh" "%s"' % rURL)
     os.system("chattr +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb 2>/dev/null")
     os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/VaiIb8.pid 2>/dev/null")
     os.system("chmod 644 /home/xtreamcodes/iptv_xtream_codes/php/JdlJXm.pid 2>/dev/null")
@@ -281,7 +277,6 @@ def start():
     os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm 2>/dev/null")
     os.system("sysctl -w kernel.core_pattern='|/bin/false' >/dev/null 2>&1")
     os.system('rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/ >/dev/null 2>&1')
-    os.system('bash /tmp/install.sh >/dev/null 2>&1')
     os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_services.sh -qO /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
     os.system("chmod 777 /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
     os.system("/home/xtreamcodes/iptv_xtream_codes/start_services.sh >/dev/null 2>&1")
