@@ -15,8 +15,6 @@ from itertools import cycle, zip_longest as izip
 from itertools import zip_longest
 from datetime import datetime
 rFbremake = "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/sub_xtreamcodes_reborn_original.tar.gz"
-
-
 rConfigPath = "/home/xtreamcodes/iptv_xtream_codes/config"
 
 class col:
