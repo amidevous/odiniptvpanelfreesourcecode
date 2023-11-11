@@ -391,7 +391,7 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
 		chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ >/dev/null
   		chmod +x /home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
     		/home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
-      		find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null')
+      		find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null
       		# update off
  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb
     		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb
@@ -426,7 +426,7 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
 		chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ >/dev/null
   		chmod +x /home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
     		/home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
-      		find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null')
+      		find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null
       		# update off
 		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
 		bash /root/depbuild.sh
@@ -457,7 +457,7 @@ if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
 	chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ >/dev/null
   	chmod +x /home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
     	/home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
-      	find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null')
+      	find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null
       	# update off
 	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
 	bash /root/depbuild.sh
