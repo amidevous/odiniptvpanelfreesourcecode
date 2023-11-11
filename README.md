@@ -4,6 +4,10 @@ for install python 3.10
 
 this installer work on Ubuntu Centos Fedora and Debian all stable version maintened
 
+The installer are still in development
+Please wait for this message to be erased
+or install your risk and danger
+
 ubuntu 22.04 online
 
 ```
@@ -74,9 +78,15 @@ sudo pip3.10 install requests
 ```
 
 
-for start installer
+for start installer for main or sub
 
 
 ```
 sudo wget -O /root/install.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install.py3 && sudo python3.10 /root/install.py3
+```
+
+silent installer for main onlyne
+
+```
+sudo wget -O /root/install-silent.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-silent.py3 && sudo python3.10 /root/install-silent.py3
 ```
