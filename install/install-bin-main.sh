@@ -330,6 +330,8 @@ deb http://deb.debian.org/debian/ $(lsb_release -sc)-updates main contrib non-fr
 deb-src http://deb.debian.org/debian/ $(lsb_release -sc)-updates main contrib non-free
 deb http://deb.debian.org/debian-security/ $(lsb_release -sc)/updates main contrib non-free
 deb-src http://deb.debian.org/debian-security/ $(lsb_release -sc)/updates main contrib non-free
+deb http://deb.debian.org/debian $(lsb_release -sc)-backports main contrib non-free
+deb-src http://deb.debian.org/debian $(lsb_release -sc)-backports main contrib non-free
 EOF
 	apt-get update
 	apt-get install software-properties-common dirmngr --install-recommends -y
