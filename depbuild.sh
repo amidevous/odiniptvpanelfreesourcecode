@@ -594,9 +594,11 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
  	apt-get update
 	apt-get -y install build-essential
  	if [[ "$VER" = "18.04" || "$OS" = "debian" ]]; then
+  		DEBIAN_FRONTEND=noninteractive apt-get -y install tar
+    		DEBIAN_FRONTEND=noninteractive apt-get -y install gzip
   		mkdir -p /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 		wget https://fr.archive.ubuntu.com/ubuntu/pool/main/f/freetype/freetype_2.8.1.orig.tar.gz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype_2.8.1.orig.tar.gz
-  		tar -xvf freetype_2.8.1.orig.tar.gz -C /home/xtreamcodes/iptv_xtream_codes/phpbuild/
+  		tar -xvf /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype_2.8.1.orig.tar.gz -C /home/xtreamcodes/iptv_xtream_codes/phpbuild/
       		tar -xvf /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype-2.8.1/freetype-2.8.1.tar.bz2 -C /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype-2.8.1/
   		cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype-2.8.1/freetype-2.8.1/ && ./configure --prefix=/usr --without-bzip2 --without-harfbuzz --enable-freetype-config > /dev/null
     		cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype-2.8.1/freetype-2.8.1/ && make -j$(nproc --all) > /dev/null
