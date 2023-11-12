@@ -661,6 +661,7 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
  	DEBIAN_FRONTEND=noninteractive apt-get -y install default-libmysqlclient-dev
   	DEBIAN_FRONTEND=noninteractive apt-get -y install libmysqlclient-dev
 	DEBIAN_FRONTEND=noninteractive apt-get -y build-dep php7.4
+	DEBIAN_FRONTEND=noninteractive apt-get -y build-dep php7.2
 	DEBIAN_FRONTEND=noninteractive apt-get -y install libmariadb-dev
  	DEBIAN_FRONTEND=noninteractive apt-get -y install libmariadb-dev-compat
  	DEBIAN_FRONTEND=noninteractive apt-get -y install libmariadbd-dev
