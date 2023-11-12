@@ -590,84 +590,148 @@ fi
 if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
 	DEBIAN_FRONTEND=noninteractive
 	export DEBIAN_FRONTEND=noninteractive
-	apt-get -y dist-upgrade
+	DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
  	apt-get update
 	apt-get -y install build-essential
- 	apt-get -y build-dep libfreetype-dev
-  	mkdir -p /home/xtreamcodes/iptv_xtream_codes/phpbuild/
-  	cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
-   	apt-get source libfreetype-dev
-   	cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && ./configure --prefix=/usr --without-bzip2 --without-harfbuzz --enable-freetype-config > /dev/null
-    	cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && make -j$(nproc --all) > /dev/null
-        cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && make install > /dev/null
-	cd
-	apt-get -y install apache2-dev
- 	apt-get -y install daemonize
-	apt-get -y install autoconf
-	apt-get -y install automake
-	apt-get -y install bison
-	apt-get -y install chrpath
-	apt-get -y install debhelper 
-	apt-get -y install cdbs
-	apt-get -y install lintian
-	apt-get -y install build-essential
-	apt-get -y install fakeroot
-	apt-get -y install devscripts
-	apt-get -y install dh-make
-	apt-get -y install mariadb-server
-	apt-get -y install curl
-	apt-get -y install libxslt1-dev
-	apt-get -y install libcurl3-gnutls
-	apt-get -y install libgeoip-dev
-	apt-get -y install python
-	apt-get -y install python2
-	apt-get -y install python33
-	apt-get -y install e2fsprogs
-	apt-get -y install wget
-	apt-get -y install mcrypt
-	apt-get -y install nscd
-	apt-get -y install htop
-	apt-get -y install zip
-	apt-get -y install unzip
-	apt-get -y install mc
-	apt-get -y install python3-paramiko
-	apt-get -y install python-paramiko
-	apt-get -y install python2-paramiko
-	apt-get -y install python-pip
-	apt-get -y install python2-pip
-	apt-get -y install python3-pip
+ 	if [[ "$VER" = "18.04" ]]; then
+  		mkdir -p /home/xtreamcodes/iptv_xtream_codes/phpbuild/
+		wget https://fr.archive.ubuntu.com/ubuntu/pool/main/f/freetype/freetype_2.8.1.orig.tar.gz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype_2.8.1.orig.tar.gz
+  		tar -xvf freetype_2.8.1.orig.tar.gz -C /home/xtreamcodes/iptv_xtream_codes/phpbuild/
+      		tar -xvf /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype-2.8.1/freetype-2.8.1.tar.bz2 -C /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype-2.8.1/
+  		cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype-2.8.1/freetype-2.8.1/ && ./configure --prefix=/usr --without-bzip2 --without-harfbuzz --enable-freetype-config > /dev/null
+    		cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype-2.8.1/freetype-2.8.1/ && make -j$(nproc --all) > /dev/null
+        	cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype-2.8.1/freetype-2.8.1/ && make install > /dev/null
+   	else
+ 		DEBIAN_FRONTEND=noninteractive apt-get -y build-dep libfreetype-dev
+  		mkdir -p /home/xtreamcodes/iptv_xtream_codes/phpbuild/
+  		cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
+   		apt-get source libfreetype-dev
+   		cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && ./configure --prefix=/usr --without-bzip2 --without-harfbuzz --enable-freetype-config > /dev/null
+    		cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && make -j$(nproc --all) > /dev/null
+        	cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype*/ && make install > /dev/null
+	fi
+ 	cd
+	DEBIAN_FRONTEND=noninteractive apt-get -y install apache2-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install daemonize
+	DEBIAN_FRONTEND=noninteractive apt-get -y install autoconf
+	DEBIAN_FRONTEND=noninteractive apt-get -y install automake
+	DEBIAN_FRONTEND=noninteractive apt-get -y install bison
+	DEBIAN_FRONTEND=noninteractive apt-get -y install chrpath
+	DEBIAN_FRONTEND=noninteractive apt-get -y install debhelper 
+	DEBIAN_FRONTEND=noninteractive apt-get -y install cdbs
+	DEBIAN_FRONTEND=noninteractive apt-get -y install lintian
+	DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential
+	DEBIAN_FRONTEND=noninteractive apt-get -y install fakeroot
+	DEBIAN_FRONTEND=noninteractive apt-get -y install devscripts
+	DEBIAN_FRONTEND=noninteractive apt-get -y install dh-make
+	DEBIAN_FRONTEND=noninteractive apt-get -y install mariadb-server
+	DEBIAN_FRONTEND=noninteractive apt-get -y install curl
+	DEBIAN_FRONTEND=noninteractive apt-get -y install libxslt1-dev
+	DEBIAN_FRONTEND=noninteractive apt-get -y install libcurl3-gnutls
+	DEBIAN_FRONTEND=noninteractive apt-get -y install libgeoip-dev
+	DEBIAN_FRONTEND=noninteractive apt-get -y install python
+	DEBIAN_FRONTEND=noninteractive apt-get -y install python2
+	DEBIAN_FRONTEND=noninteractive apt-get -y install python3
+	DEBIAN_FRONTEND=noninteractive apt-get -y install e2fsprogs
+	DEBIAN_FRONTEND=noninteractive apt-get -y install wget
+	DEBIAN_FRONTEND=noninteractive apt-get -y install mcrypt
+	DEBIAN_FRONTEND=noninteractive apt-get -y install nscd
+	DEBIAN_FRONTEND=noninteractive apt-get -y install htop
+	DEBIAN_FRONTEND=noninteractive apt-get -y install zip
+	DEBIAN_FRONTEND=noninteractive apt-get -y install unzip
+	DEBIAN_FRONTEND=noninteractive apt-get -y install mc
+	DEBIAN_FRONTEND=noninteractive apt-get -y install python3-paramiko
+	DEBIAN_FRONTEND=noninteractive apt-get -y install python-paramiko
+	DEBIAN_FRONTEND=noninteractive apt-get -y install python2-paramiko
+	DEBIAN_FRONTEND=noninteractive apt-get -y install python-pip
+	DEBIAN_FRONTEND=noninteractive apt-get -y install python2-pip
+	DEBIAN_FRONTEND=noninteractive apt-get -y install python3-pip
 	echo "postfix postfix/mailname string postfixmessage" | debconf-set-selections
 	echo "postfix postfix/main_mailer_type string 'Local only'" | debconf-set-selections
-	apt-get -y install postfix
-	apt-get -y dist-upgrade
-	apt-get -y install debhelper cdbs lintian build-essential fakeroot devscripts dh-make wget
- 	apt-get -y install default-libmysqlclient-dev
-  	apt-get -y install libmysqlclient-dev
-	apt-get -y build-dep php7.4
-	apt-get -y install libmariadb-dev libmariadb-dev-compat libmariadbd-dev dbconfig-mysql
-	apt-get -y install autoconf automake build-essential cmake git-core libass-dev libfreetype6-dev \
-	libgnutls28-dev libmp3lame-dev libsdl2-dev libtool libva-dev libvdpau-dev libvorbis-dev \
-	libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev meson ninja-build pkg-config texinfo \
-	yasm zlib1g-dev libxvidcore-dev libunistring-dev nasm libx264-dev \
-	libx265-dev libnuma-dev libvpx-dev libfdk-aac-dev libopus-dev unzip librtmp-dev libtheora-dev \
-	libbz2-dev libgmp-dev libssl-dev unzip zip
-	apt-get -y install libdav1d-dev
-	apt-get -y install libaom-dev
-	apt-get -y install reprepro
-	apt-get -y install subversion
-	apt-get -y install zstd
-	apt-get -y install build-essential zlib1g-dev libpcre3 libpcre3-dev libbz2-dev libssl-dev libgd-dev libxslt-dev libgeoip-dev tar unzip curl wget git
-	apt-get -y install libmaxminddb-dev
-	apt-get -y install libmcrypt-dev
-	apt-get -y install mcrypt-dev
-	apt-get -y install libmcrypt-devel
-	apt-get -y install mcrypt-devel
-	apt-get -y install mcrypt
-	apt-get -y install libgeoip-dev
-	apt-get -y install libgeoip-devel
-	apt-get -y install geoip-devel
-	
-fi
+	DEBIAN_FRONTEND=noninteractive apt-get -y install postfix
+	DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
+	DEBIAN_FRONTEND=noninteractive apt-get -y install debhelper
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install cdbs
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install lintian
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install fakeroot
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install devscripts
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install dh-make
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install wget
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install default-libmysqlclient-dev
+  	DEBIAN_FRONTEND=noninteractive apt-get -y install libmysqlclient-dev
+	DEBIAN_FRONTEND=noninteractive apt-get -y build-dep php7.4
+	DEBIAN_FRONTEND=noninteractive apt-get -y install libmariadb-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libmariadb-dev-compat
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libmariadbd-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install dbconfig-mysql
+	DEBIAN_FRONTEND=noninteractive apt-get -y install autoconf
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install automake
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install cmake
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install git-core
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install git
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libass-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libfreetype6-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libfreetype-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libgnutls28-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libmp3lame-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libsdl2-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libtool
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libva-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libvdpau-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libvorbis-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libxcb1-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libxcb-shm0-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libxcb-xfixes0-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install meson
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install ninja-build
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install pkg-config
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install texinfo
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install yasm
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install zlib1g-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libxvidcore-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libunistring-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install nasm
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libx264-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libx265-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libnuma-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libvpx-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libfdk-aac-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libopus-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install unzip
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install librtmp-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libtheora-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libbz2-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libgmp-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libssl-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install unzip
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install zip
+	DEBIAN_FRONTEND=noninteractive apt-get -y install libdav1d-dev
+	DEBIAN_FRONTEND=noninteractive apt-get -y install libaom-dev
+	DEBIAN_FRONTEND=noninteractive apt-get -y install reprepro
+	DEBIAN_FRONTEND=noninteractive apt-get -y install subversion
+	DEBIAN_FRONTEND=noninteractive apt-get -y install zstd
+	DEBIAN_FRONTEND=noninteractive apt-get -y install zlib1g-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libpcre3
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libpcre3-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libbz2-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libssl-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libgd-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libxslt-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libgeoip-dev
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install tar
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install curl
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install libmaxminddb-dev
+	DEBIAN_FRONTEND=noninteractive apt-get -y install libmcrypt-dev
+	DEBIAN_FRONTEND=noninteractive apt-get -y install mcrypt-dev
+	DEBIAN_FRONTEND=noninteractive apt-get -y install libmcrypt-devel
+	DEBIAN_FRONTEND=noninteractive apt-get -y install mcrypt-devel
+	DEBIAN_FRONTEND=noninteractive apt-get -y install mcrypt
+	DEBIAN_FRONTEND=noninteractive apt-get -y install libgeoip-dev
+	DEBIAN_FRONTEND=noninteractive apt-get -y install libgeoip-devel
+	DEBIAN_FRONTEND=noninteractive apt-get -y install geoip-devel
+ fi
 	systemctl start mariadb
 	systemctl enable mariadb
+ 	service mariadb restart
 fi
