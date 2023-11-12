@@ -85,8 +85,75 @@ for start installer for main or sub
 sudo wget -O /root/install.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install.py3 && sudo python3.10 /root/install.py3
 ```
 
-silent installer for main onlyne
+silent installer for main online recommend
 
 ```
 sudo wget -O /root/install-silent.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-silent.py3 && sudo python3.10 /root/install-silent.py3
 ```
+
+
+
+debug service not start stop all and check problem
+
+```
+# stop all
+sudo kill $(ps aux | grep 'xtreamcodes' | grep -v grep | grep -v 'start_services.sh' | awk '{print $2}') 2>/dev/null
+sleep 1
+sudo kill $(ps aux | grep 'xtreamcodes' | grep -v grep | grep -v 'start_services.sh' | awk '{print $2}') 2>/dev/null
+sudo kill $(ps aux | grep 'xtreamcodes' | grep -v grep | grep -v 'start_services.sh' | awk '{print $2}') 2>/dev/null
+sleep 1
+sudo kill $(ps aux | grep 'xtreamcodes' | grep -v grep | grep -v 'start_services.sh' | awk '{print $2}') 2>/dev/null
+sleep 1
+# restart mariadb (d'ont use systemd)
+service restart mariadb
+# check php work
+sudo -u xtreamcodes /home/xtreamcodes/iptv_xtream_codes/php/bin/php --version
+# check nginx and nginx_rtmp
+/home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx -version
+/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp -version
+```
+
+
+
+
+if error
+
+sudo: /home/xtreamcodes/iptv_xtream_codes/php/bin/php: command not found
+
+full binary rebuild require
+
+```
+wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
+bash /root/depbuild.sh
+wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh -O /root/php7.2rebuild.sh
+bash /root/php7.2rebuild.sh
+/home/xtreamcodes/iptv_xtream_codes/start_services.sh
+```
+
+
+if nginx and nginx_rtmp error minimal rebuild require
+
+```
+wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-bin-packages.sh -O /root/install-bin-packages.sh
+bash /root/install-bin-packages.sh
+/home/xtreamcodes/iptv_xtream_codes/start_services.sh
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
