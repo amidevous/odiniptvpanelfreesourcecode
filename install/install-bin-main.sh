@@ -1,30 +1,36 @@
 #!/bin/bash
-echo -e "\nChecking that minimal requirements are ok"
+#
+#
+#if (test -f "/usr/bin/wget");then wget -O /root/install-bin-main.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install-bin-main.sh;fi; if (test -f "/usr/bin/curl");then curl -L --output /root/install-bin-main.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install-bin-main.sh;fi; bash /root/install-bin-main.sh
+#
+#
 # Ensure the OS is compatible with the launcher
-if [ -f /etc/centos-release ]; then
-    inst() {
-       rpm -q "$1" &> /dev/null
-    } 
-    if (inst "centos-stream-repos"); then
-    OS="CentOS-Stream"
-    else
-    OS="CentOs"
-    fi    
+if [ -f /etc/almalinux-release ]; then
+    OS="Alma Linux"
     VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/centos-release)
-    VER=${VERFULL:0:1} # return 6, 7 or 8
+    VER=${VERFULL:0:1} # return 8
 elif [ -f /etc/fedora-release ]; then
-    inst() {
-       rpm -q "$1" &> /dev/null
-    } 
     OS="Fedora"
     VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/fedora-release)
-    VER=${VERFULL:0:2} # return 34, 35 or 36
+    VER=${VERFULL:0:2}
+elif [ -f /etc/gentoo-release ]; then
+    OS="Gentoo"
+    VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/fedora-release)
+    VER=${VERFULL:0:2}
+elif [ -f /etc/SuSE-release ]; then
+    OS="OpenSUSE"
+    VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/fedora-release)
+    VER=${VERFULL:0:3}
+elif [ -f /etc/centos-release ]; then
+    OS="CentOs"
+    VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/centos-release)
+    VER=${VERFULL:0:1} # return 8
 elif [ -f /etc/lsb-release ]; then
     OS=$(grep DISTRIB_ID /etc/lsb-release | sed 's/^.*=//')
     VER=$(grep DISTRIB_RELEASE /etc/lsb-release | sed 's/^.*=//')
 elif [ -f /etc/os-release ]; then
     OS=$(grep -w ID /etc/os-release | sed 's/^.*=//')
-    VER=$(grep VERSION_ID /etc/os-release | sed 's/^.*"\(.*\)"/\1/' | head -n 1 | tail -n 1)
+    VER=$(grep VERSION_ID /etc/os-release | sed 's/^.*"\(.*\)"/\1/')
  else
     OS=$(uname -s)
     VER=$(uname -r)
@@ -55,20 +61,19 @@ if [[ "$VER" = "8" && "$OS" = "CentOs" ]]; then
 	find / -name '*.rpmnew' -exec rm -f {} \;
 	find / -name '*.rpmsave' -exec rm -f {} \;
 	OS="CentOS-Stream"
-fi
+	fi
 
 echo "Detected : $OS  $VER  $ARCH"
-if [[ "$OS" = "CentOs" && "$VER" = "6" && "$ARCH" == "x86_64" ||
-"$OS" = "CentOs" && "$VER" = "7" && "$ARCH" == "x86_64" ||
+if [[ "$OS" = "CentOs" && "$VER" = "7" && "$ARCH" == "x86_64" ||
 "$OS" = "CentOS-Stream" && "$VER" = "8" && "$ARCH" == "x86_64" ||
 "$OS" = "CentOS-Stream" && "$VER" = "9" && "$ARCH" == "x86_64" ||
 "$OS" = "Fedora" && ("$VER" = "36" || "$VER" = "37" || "$VER" = "38" ) && "$ARCH" == "x86_64" ||
 "$OS" = "Ubuntu" && ("$VER" = "18.04" || "$VER" = "20.04" || "$VER" = "22.04" ) && "$ARCH" == "x86_64" ||
 "$OS" = "debian" && ("$VER" = "10" || "$VER" = "11" ) && "$ARCH" == "x86_64" ]] ; then
-	echo "Ok."
+echo "Ok."
 else
-	echo "Sorry, this OS is not supported by Xtream UI."
-	exit 1
+    echo "Sorry, this OS is not supported by Xtream UI."
+    exit 1
 fi
 echo -e "\n-- Updating repositories and packages sources"
 if [[ "$OS" = "CentOs" ]] ; then
@@ -371,10 +376,10 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
     		DEBIAN_FRONTEND=noninteractive apt-get -y install libmcrypt4
     		DEBIAN_FRONTEND=noninteractive apt-get -y install libgeoip1
 		mkdir -p /etc/mysql/
- 		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/mysql/my.cnf
-  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/my.cnf
+ 		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/my.cnf -O /etc/mysql/my.cnf
+  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/my.cnf -O /etc/my.cnf
    		mkdir -p /etc/init.d/
-    		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/mariadb.init -O /etc/init.d/mariadb
+    		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/mariadb.init -O /etc/init.d/mariadb
      		chmod 777 /etc/init.d/mariadb
  		service mariadb restart
 		wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz"
@@ -406,13 +411,13 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
    		rm -f xtreamcodes-nginx_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-nginx-rtmp_1.24.0-1-Ubuntu_22.04.deb xtreamcodes-php_7.2.34-1-Ubuntu_22.04.deb xtreamcodes-php-mcrypt_1.0.5-1-Ubuntu_22.04.deb xtreamcodes-php-geoip_1.1.1-1-Ubuntu_22.04.deb xtreamcodes-php-igbinary_3.2.14-1-Ubuntu_22.04.deb
 	else
  		rm -f /etc/init.d/mariadb
-		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
+		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh -O /root/depbuild.sh
 		bash /root/depbuild.sh
  		mkdir -p /etc/mysql/
- 		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/mysql/my.cnf
-  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/my.cnf
+ 		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/my.cnf -O /etc/mysql/my.cnf
+  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/my.cnf -O /etc/my.cnf
    		mkdir -p /etc/init.d/
-    		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/mariadb.init -O /etc/init.d/mariadb
+    		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/mariadb.init -O /etc/init.d/mariadb
      		chmod 777 /etc/init.d/mariadb
  		service mariadb restart
 		wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz"
@@ -432,19 +437,19 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
     		/home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
       		find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null
       		# update off
-  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh -O /root/php7.2rebuild.sh
+  		wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php7.2rebuild.sh -O /root/php7.2rebuild.sh
    		bash /root/php7.2rebuild.sh
    	fi
 fi
 if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
  	rm -f /etc/init.d/mariadb
-	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
+	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh -O /root/depbuild.sh
 	bash /root/depbuild.sh
 	mkdir -p /etc/mysql/
- 	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/mysql/my.cnf
-  	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/my.cnf -O /etc/my.cnf
+ 	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/my.cnf -O /etc/mysql/my.cnf
+  	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/my.cnf -O /etc/my.cnf
    	mkdir -p /etc/init.d/
-    	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/mariadb.init -O /etc/init.d/mariadb
+    	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/mariadb.init -O /etc/init.d/mariadb
      	chmod 777 /etc/init.d/mariadb
  	service mariadb restart
 	wget -q -O "/tmp/xtreamcodes.tar.gz" "https://github.com/amidevous/odiniptvpanelfreesourcecode/releases/download/download/main_xtreamcodes_reborn_nobin.tar.gz"
@@ -464,7 +469,7 @@ if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
     	/home/xtreamcodes/iptv_xtream_codes/permissions.sh >/dev/null
       	find /home/xtreamcodes/ -type d -not \( -name .update -prune \) -exec chmod -R 777 {} + >/dev/null
       	# update off
-  	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh -O /root/php7.2rebuild.sh
+  	wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php7.2rebuild.sh -O /root/php7.2rebuild.sh
    	bash /root/php7.2rebuild.sh
 
 fi
