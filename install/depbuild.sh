@@ -1,5 +1,9 @@
 #!/bin/bash
-# sudo wget -O /root/depbuild.sh  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh && sudo bash /root/depbuild.sh
+#
+#
+#if (test -f "/usr/bin/wget");then wget -O /root/depbuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh;fi; if (test -f "/usr/bin/curl");then curl -L --output /root/depbuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh;fi; bash /root/depbuild.sh
+#
+#
 if [ -f "/home/xtreamcodes/iptv_xtream_codes/php-7.4.33" ]; then
     echo "update exists."
 else
@@ -63,7 +67,7 @@ if [[ "$VER" = "8" && "$OS" = "CentOs" ]]; then
 	fi
 
 echo "Detected : $OS  $VER  $ARCH"
-"$OS" = "CentOs" && "$VER" = "7" && "$ARCH" == "x86_64" ||
+if [[ "$OS" = "CentOs" && "$VER" = "7" && "$ARCH" == "x86_64" ||
 "$OS" = "CentOS-Stream" && "$VER" = "8" && "$ARCH" == "x86_64" ||
 "$OS" = "CentOS-Stream" && "$VER" = "9" && "$ARCH" == "x86_64" ||
 "$OS" = "Fedora" && ("$VER" = "36" || "$VER" = "37" || "$VER" = "38" ) && "$ARCH" == "x86_64" ||
