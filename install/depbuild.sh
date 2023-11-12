@@ -524,6 +524,15 @@ EOF
 	$PACKAGE_INSTALLER mcrypt$PACKAGE_INSTALLER libgeoip-dev
 	$PACKAGE_INSTALLER libgeoip-devel
 	$PACKAGE_INSTALLER geoip-devel
+ 	$PACKAGE_INSTALLER epel-rpm-macros
+ 	$PACKAGE_INSTALLER epel-rpm-macros-systemd
+ 	$PACKAGE_INSTALLER perl-macros
+ 	$PACKAGE_INSTALLER perl-srpm-macros
+ 	$PACKAGE_INSTALLER python-rpm-macros
+ 	$PACKAGE_INSTALLER python-srpm-macros
+ 	$PACKAGE_INSTALLER python2-rpm-macros
+ 	$PACKAGE_INSTALLER python3-other-rpm-macros
+ 	$PACKAGE_INSTALLER python3-rpm-macros
 elif [[ "$OS" = "Ubuntu" ]]; then
 	DEBIAN_FRONTEND=noninteractive
 	export DEBIAN_FRONTEND=noninteractive
