@@ -593,7 +593,7 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
 	DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
  	apt-get update
 	apt-get -y install build-essential
- 	if [[ "$VER" = "18.04" ]]; then
+ 	if [[ "$VER" = "18.04" || "$OS" = "debian" ]]; then
   		mkdir -p /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 		wget https://fr.archive.ubuntu.com/ubuntu/pool/main/f/freetype/freetype_2.8.1.orig.tar.gz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/freetype_2.8.1.orig.tar.gz
   		tar -xvf freetype_2.8.1.orig.tar.gz -C /home/xtreamcodes/iptv_xtream_codes/phpbuild/
