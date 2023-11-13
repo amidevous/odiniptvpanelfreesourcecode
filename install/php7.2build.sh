@@ -133,7 +133,7 @@ rm -rf /home/xtreamcodes/iptv_xtream_codes/php/sbin/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/php/var/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx
 rm -rf /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp
-#wget --no-check-certificate -qO- https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh | bash -s
+wget --no-check-certificate -qO- https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh | bash -s
 mkdir -p  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf *
