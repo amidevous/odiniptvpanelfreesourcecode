@@ -1,6 +1,6 @@
 Name:           xtreamcodes-nginx
 Version:        1.24.0
-Release:        1.$(echo $OS).$(echo $VER)
+Release:        1
 Summary:        xtreamcodes-nginx.
 Group:          Internet
 License:        GPL3
