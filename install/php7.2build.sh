@@ -406,14 +406,14 @@ elif  [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; th
 	rm -f $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec
  	wget -O $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php/xtreamcodes-php-geoip.spec
 	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec
-	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-geoip-1.1.1-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-geoip_1.1.1-1-"$OS"_"$VER".rpm
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-geoip-1.1.1-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-geoip_1.1.1-1-"$OS"_"$VER".rpm
  	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
 	cd $(rpm --eval %{_sourcedir})
  	wget --no-check-certificate -O $(rpm --eval %{_sourcedir})/igbinary-3.2.14.tgz https://pecl.php.net/get/igbinary-3.2.14.tgz
 	rm -f $(rpm --eval %{_specdir})/xtreamcodes-php-igbinary.spec
  	wget -O $(rpm --eval %{_specdir})/xtreamcodes-php-igbinary.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php/xtreamcodes-php-igbinary.spec
 	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php-igbinary.spec
-	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-igbinary-3.2.14-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-igbinary_3.2.14-1-"$OS"_"$VER".rpm
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-igbinary-3.2.14-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-igbinary_3.2.14-1-"$OS"_"$VER".rpm
  	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
   	rm -rf $(rpm --eval %{_sourcedir})/*
 fi
