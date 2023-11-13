@@ -8,7 +8,7 @@ echo -e "\nChecking that minimal requirements are ok"
 # Ensure the OS is compatible with the launcher
 if [ -f /etc/almalinux-release ]; then
     OS="Alma Linux"
-    VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/centos-release)
+    VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/almalinux-release)
     VER=${VERFULL:0:1} # return 8
 elif [ -f /etc/fedora-release ]; then
     OS="Fedora"
@@ -16,16 +16,19 @@ elif [ -f /etc/fedora-release ]; then
     VER=${VERFULL:0:2}
 elif [ -f /etc/gentoo-release ]; then
     OS="Gentoo"
-    VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/fedora-release)
+    VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/gentoo-release)
     VER=${VERFULL:0:2}
 elif [ -f /etc/SuSE-release ]; then
     OS="OpenSUSE"
-    VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/fedora-release)
+    VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/SuSE-release)
     VER=${VERFULL:0:3}
 elif [ -f /etc/centos-release ]; then
     OS="CentOs"
     VERFULL=$(sed 's/^.*release //;s/ (Fin.*$//' /etc/centos-release)
     VER=${VERFULL:0:1} # return 8
+	if [[ "$VER" = "8" || "$VER" = "9" ]]; then
+		OS="CentOS-Stream"
+	fi
 elif [ -f /etc/lsb-release ]; then
     OS=$(grep DISTRIB_ID /etc/lsb-release | sed 's/^.*=//')
     VER=$(grep DISTRIB_RELEASE /etc/lsb-release | sed 's/^.*=//')
@@ -37,9 +40,6 @@ elif [ -f /etc/os-release ]; then
     VER=$(uname -r)
 fi
 ARCH=$(uname -m)
-if [[ "$VER" = "8" && "$OS" = "CentOs" ]]; then
-	OS="CentOS-Stream"
-fi
 
 echo "Detected : $OS  $VER  $ARCH"
 if [[ "$OS" = "CentOs" && "$VER" = "7" && "$ARCH" == "x86_64" ||
@@ -48,7 +48,7 @@ if [[ "$OS" = "CentOs" && "$VER" = "7" && "$ARCH" == "x86_64" ||
 "$OS" = "Fedora" && ("$VER" = "36" || "$VER" = "37" || "$VER" = "38" ) && "$ARCH" == "x86_64" ||
 "$OS" = "Ubuntu" && ("$VER" = "18.04" || "$VER" = "20.04" || "$VER" = "22.04" ) && "$ARCH" == "x86_64" ||
 "$OS" = "debian" && ("$VER" = "10" || "$VER" = "11" ) && "$ARCH" == "x86_64" ]] ; then
-	echo "Ok."
+echo "Ok."
 else
     echo "Sorry, this OS is not supported by Xtream UI."
     exit 1
