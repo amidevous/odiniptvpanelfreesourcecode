@@ -15,7 +15,7 @@ sudo apt update && sudo apt dist-upgrade -y
 sudo apt install python3-dev python3-requests python3-pip -y
 ```
 
-Other Ubuntu use ppa
+Ubuntu 20.04 use ppa
 
 
 ```
@@ -31,7 +31,18 @@ sudo pip3.10 install requests
 ```
 
 
-manual build for centos, redhat, fedora
+For Fedora 37/38/39 and 40
+
+```
+sudo dnf -y install python3.10-devel
+wget https://bootstrap.pypa.io/get-pip.py -O $HOME/get-pip.py
+sudo python3.10 $HOME/get-pip.py
+sudo sed -i 's|Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin|Defaults    secure_path = /usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin|' /etc/sudoers
+sudo pip3.10 install --upgrade pip setuptools wheel
+sudo pip3.10 install requests
+```
+
+manual build for Centos
 
 
 ```
@@ -48,7 +59,7 @@ sudo yum install -y ncurses-devel sqlite-devel bzip2-devel gdbm-devel xz-devel l
 sudo yum -y install  openssl11-devel
 ```
 
-or for ubuntu/debian
+or for Ubuntu 18.04/Debian
 
 ```
 sudo apt update && sudo apt dist-upgrade -y
@@ -80,13 +91,13 @@ for start installer for main or sub
 
 
 ```
-sudo wget -O /root/install.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install.py3 && sudo python3.10 /root/install.py3
+sudo wget -O /root/install.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install.py3 && sudo python3.10 /root/install.py3
 ```
 
 silent installer for main online recommend
 
 ```
-sudo wget -O /root/install-silent.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-silent.py3 && sudo python3.10 /root/install-silent.py3
+sudo wget -O /root/install-silent.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install-silent.py3 && sudo python3.10 /root/install-silent.py3
 ```
 
 
@@ -121,9 +132,9 @@ sudo: /home/xtreamcodes/iptv_xtream_codes/php/bin/php: command not found
 full binary rebuild require
 
 ```
-wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh -O /root/depbuild.sh
+wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh -O /root/depbuild.sh
 bash /root/depbuild.sh
-wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/php7.2rebuild.sh -O /root/php7.2rebuild.sh
+wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php7.2rebuild.sh -O /root/php7.2rebuild.sh
 bash /root/php7.2rebuild.sh
 /home/xtreamcodes/iptv_xtream_codes/start_services.sh
 ```
@@ -132,7 +143,7 @@ bash /root/php7.2rebuild.sh
 if nginx and nginx_rtmp error minimal rebuild require
 
 ```
-wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-bin-packages.sh -O /root/install-bin-packages.sh
+wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install-bin-packages.sh -O /root/install-bin-packages.sh
 bash /root/install-bin-packages.sh
 /home/xtreamcodes/iptv_xtream_codes/start_services.sh
 ```
