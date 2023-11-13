@@ -133,7 +133,7 @@ rm -rf /home/xtreamcodes/iptv_xtream_codes/php/sbin/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/php/var/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx
 rm -rf /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp
-wget --no-check-certificate -qO- https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh | bash -s
+#wget --no-check-certificate -qO- https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh | bash -s
 mkdir -p  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf *
@@ -698,6 +698,7 @@ EOF
 	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-mcrypt-1.0.5-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-mcrypt_1.0.5-1-"$OS"_"$VER".rpm
  	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
 fi
+if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/mcrypt-1.0.5
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/mcrypt-1.0.5.tgz
@@ -708,7 +709,6 @@ cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/geoip-1.1.1
 /home/xtreamcodes/iptv_xtream_codes/php/bin/phpize
 ./configure --with-php-config=/home/xtreamcodes/iptv_xtream_codes/php/bin/php-config
 make -j$(nproc --all)
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	checkinstall -D -y \
 	  --pkgname=xtreamcodes-php-geoip \
 	  --pkgversion=1.1.1 \
@@ -756,6 +756,7 @@ EOF
 	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-geoip-1.1.1-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-geoip_1.1.1-1-"$OS"_"$VER".rpm
  	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
 fi
+if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/geoip-1.1.1
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/geoip-1.1.1.tgz
@@ -766,7 +767,6 @@ cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/igbinary-3.2.14
 /home/xtreamcodes/iptv_xtream_codes/php/bin/phpize
 ./configure --with-php-config=/home/xtreamcodes/iptv_xtream_codes/php/bin/php-config
 make -j$(nproc --all)
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	checkinstall -D -y \
 	  --pkgname=xtreamcodes-php-igbinary \
 	  --pkgversion=3.2.14 \
