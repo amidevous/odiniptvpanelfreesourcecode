@@ -363,10 +363,49 @@ elif  [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; th
  	wget https://launchpad.net/~ondrej/+archive/ubuntu/php/+sourcefiles/php7.2/7.2.34-43+ubuntu20.04.1+deb.sury.org+1/php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
 	tar -xvf php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
 	rm -f php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
-	wget http://www.php.net/distributions/php-7.2.34.tar.xz
+	wget http://www.php.net/distributions/php-7.2.34.tar.xz -O $(rpm --eval %{_sourcedir})/php-7.2.34.tar.xz
  	cp debian/patches/0087-Add-minimal-OpenSSL-3.0-patch.patch $(rpm --eval %{_sourcedir})/
   	rm -rf debian
-   	rm f $(rpm --eval %{_specdir})/xtreamcodes-php.spec
+   	wget -O $(rpm --eval %{_sourcedir})/php-5.3.0-recode.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-5.3.0-recode.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-5.6.3-embed.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-5.6.3-embed.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.0.0-odbctimer.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.0.0-odbctimer.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.0.0-oldpcre.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.0.0-oldpcre.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.0.10-datetests.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.0.10-datetests.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.0.7-curl.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.0.7-curl.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.1.33-intl.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.1.33-intl.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.1.7-httpd.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.1.7-httpd.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.0-includedir.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.0-includedir.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.0-libdb.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.0-libdb.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.0-oci8conf.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.0-oci8conf.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.12-phpize.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.12-phpize.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.16-pdooci.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.16-pdooci.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.16-systzdata-v17.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.16-systzdata-v17.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.3-ldap_r.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.3-ldap_r.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.32-fixheader.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.32-fixheader.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.32-phpinfo.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.32-phpinfo.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.4-dlopen.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.4-dlopen.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-7.2.8-getallheaders.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-7.2.8-getallheaders.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug76450.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug76450.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug77423.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug77423.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug79971.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug79971.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug80672.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug80672.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug80710.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug80710.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81026.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81026.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81122.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81122.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81211.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81211.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81719.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81719.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81720.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81720.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81726.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81726.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81727.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81727.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81738.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81738.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81740.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81740.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81744.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81744.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-bug81746.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-bug81746.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-cve-2023-0662.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-cve-2023-0662.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-cve-2023-3247.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-cve-2023-3247.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-cve-2023-3823.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-cve-2023-3823.patch
+    	wget -O $(rpm --eval %{_sourcedir})/php-cve-2023-3824.patch https://git.remirepo.net/cgit/rpms/php/php72.git/plain/php-cve-2023-3824.patch
+   	rm -f $(rpm --eval %{_specdir})/xtreamcodes-php.spec
 	wget -O $(rpm --eval %{_specdir})/xtreamcodes-php.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php/xtreamcodes-php.spec
 	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php.spec
 	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-7.2.34-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php_7.2.34-1-"$OS"_"$VER".rpm
