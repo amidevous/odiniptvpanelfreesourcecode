@@ -137,16 +137,12 @@ wget --no-check-certificate -qO- https://github.com/amidevous/odiniptvpanelfrees
 mkdir -p  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf *
-rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/ngx_http_geoip2_module
-rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/nginx-1.24.0
-rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/openssl-OpenSSL_1_1_1h
+if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 wget https://github.com/openssl/openssl/archive/OpenSSL_1_1_1h.tar.gz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/OpenSSL_1_1_1h.tar.gz
 tar -xzvf OpenSSL_1_1_1h.tar.gz
 wget http://nginx.org/download/nginx-1.24.0.tar.gz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/nginx-1.24.0.tar.gz
 tar -xzvf nginx-1.24.0.tar.gz
 git clone https://github.com/leev/ngx_http_geoip2_module.git /home/xtreamcodes/iptv_xtream_codes/phpbuild/ngx_http_geoip2_module
-rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/v1.2.2.zip
-rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/nginx-rtmp-module-1.2.2
 wget https://github.com/arut/nginx-rtmp-module/archive/v1.2.2.zip -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/v1.2.2.zip
 unzip /home/xtreamcodes/iptv_xtream_codes/phpbuild/v1.2.2.zip
 wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/nginx/1.24.0-2ubuntu1/nginx_1.24.0-2ubuntu1.debian.tar.xz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/nginx_1.24.0-2ubuntu1.debian.tar.xz
@@ -197,7 +193,6 @@ mkdir -p "/home/xtreamcodes/iptv_xtream_codes/nginx/sbin/"
 mkdir -p "/home/xtreamcodes/iptv_xtream_codes/nginx/modules"
 mkdir -p  "/home/xtreamcodes/iptv_xtream_codes/nginx/conf"
 mkdir -p  "/home/xtreamcodes/iptv_xtream_codes/logs/"
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	apt-get -y install checkinstall
 	checkinstall -D -y \
 	  --pkgname=xtreamcodes-nginx \
@@ -207,11 +202,103 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	  --exclude=/home/xtreamcodes/iptv_xtream_codes/nginx/conf/*
 	rm -f *tar.*
   	mv xtreamcodes-nginx_1.24.0-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx_1.24.0-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" ]] ; then
-	echo "config require"
- 	make install
-else
-	make install
+elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
+	yum install -y rpmdevtools
+ 	yum -y install yum-utils
+  	yum -y groupinstall "Fedora Packager"
+   	rpmdev-setuptree
+    	cd $(rpm --eval %{_sourcedir})
+     	rm -rf *
+	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/nginx/1.24.0-2ubuntu1/nginx_1.24.0-2ubuntu1.debian.tar.xz
+	tar -xvf nginx_1.24.0-2ubuntu1.debian.tar.xz
+ 	rm -f nginx_1.24.0-2ubuntu1.debian.tar.xz
+  	cp debian/patches/0003-define_gnu_source-on-other-glibc-based-platforms.patch $(rpm --eval %{_sourcedir})/
+	cp debian/patches/nginx-fix-pidfile.patch $(rpm --eval %{_sourcedir})/
+	cp debian/patches/nginx-ssl_cert_cb_yield.patch $(rpm --eval %{_sourcedir})/
+	cp debian/patches/CVE-2023-44487.patch $(rpm --eval %{_sourcedir})/
+	cp debian/patches/ubuntu-branding.patch $(rpm --eval %{_sourcedir})/
+      	rm -rf debian
+        wget http://nginx.org/download/nginx-1.24.0.tar.gz
+cat > $(rpm --eval %{_specdir})/xtreamcodes-nginx.spec <<EOF
+Name:           xtreamcodes-nginx
+Version:        1.24.0
+Release:        1.$(echo $OS).$(echo $VER)
+Summary:        xtreamcodes-nginx.
+Group:          Internet
+License:        GPL3
+URL:            http://nginx.org
+Source0:        http://nginx.org/download/nginx-1.24.0.tar.gz
+Patch0:         0003-define_gnu_source-on-other-glibc-based-platforms.patch
+Patch1:         nginx-ssl_cert_cb_yield.patch
+Patch2:         CVE-2023-44487.patch
+Patch3:         ubuntu-branding.patch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:  gcc make git wget tar gzip xz unzip
+Requires:       gcc make git wget tar gzip xz unzip
+%description
+xtreamcodes-nginx.
+%prep
+%setup -q -n nginx-1.24.0
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%build
+cd %{_builddir}
+rm -rf %{_builddir}/OpenSSL_1_1_1h.tar.gz %{_builddir}/openssl-OpenSSL_1_1_1h
+wget https://github.com/openssl/openssl/archive/OpenSSL_1_1_1h.tar.gz -O %{_builddir}/OpenSSL_1_1_1h.tar.gz
+tar -xzvf OpenSSL_1_1_1h.tar.gz
+rm -rf %{_builddir}/OpenSSL_1_1_1h.tar.gz
+rm -rf %{_builddir}/ngx_http_geoip2_module
+git clone https://github.com/leev/ngx_http_geoip2_module.git %{_builddir}/ngx_http_geoip2_module
+rm -rf %{_builddir}/v1.2.2.zip %{_builddir}/nginx-rtmp-module-1.2.2
+wget https://github.com/arut/nginx-rtmp-module/archive/v1.2.2.zip -O %{_builddir}/v1.2.2.zip
+unzip %{_builddir}/v1.2.2.zip
+rm -f %{_builddir}/v1.2.2.zip
+cd %{_builddir}/nginx-1.24.0
+./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/nginx \
+--lock-path=/home/xtreamcodes/iptv_xtream_codes/tmp/nginx.lock \
+--conf-path=/home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf \
+--error-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/error.log \
+--http-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/access.log \
+--pid-path=/home/xtreamcodes/iptv_xtream_codes/nginx.pid \
+--with-http_ssl_module \
+--with-http_realip_module \
+--with-http_addition_module \
+--with-http_sub_module \
+--with-http_dav_module \
+--with-http_gunzip_module \
+--with-http_gzip_static_module \
+--with-http_v2_module \
+--with-pcre \
+--with-http_random_index_module \
+--with-http_secure_link_module \
+--with-http_stub_status_module \
+--with-http_auth_request_module \
+--with-threads \
+--with-mail \
+--with-mail_ssl_module \
+--with-file-aio \
+--with-cpu-opt=generic \
+--add-module=%{_builddir}/ngx_http_geoip2_module \
+--with-openssl=%{_builddir}/openssl-OpenSSL_1_1_1h --with-cc-opt='%{build_ldflags}' --with-cc-opt='%{optflags}'
+make %{?_smp_mflags}
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}
+make install DESTDIR=%{buildroot}
+rm -rf %{buildroot}/home/xtreamcodes/iptv_xtream_codes/nginx/conf/ %{buildroot}/home/xtreamcodes/iptv_xtream_codes/nginx/html/
+%clean
+rm -rf %{buildroot}
+%files
+/home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx
+%defattr(-,root,root,-)
+%doc
+%changelog
+EOF
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-nginx.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-nginx-1.24.0-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx_1.24.0-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
 fi
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/balance.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/balance.conf
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/fastcgi.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/fastcgi.conf
@@ -232,6 +319,7 @@ wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/server.key https://github
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/uwsgi_params https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/uwsgi_params
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/uwsgi_params.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/uwsgi_params.default
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/win-utf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/win-utf
+if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/OpenSSL_1_1_1h.tar.gz
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/nginx-1.24.0
@@ -297,7 +385,6 @@ mkdir -p "/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/"
 mkdir -p "/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/modules"
 mkdir -p  "/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf"
 mkdir -p  "/home/xtreamcodes/iptv_xtream_codes/logs/"
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	checkinstall -D -y \
 	  --pkgname=xtreamcodes-nginx-rtmp \
 	  --pkgversion=1.24.0 \
@@ -306,11 +393,95 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	  --exclude=/home/xtreamcodes/iptv_xtream_codes/nginx/conf/*
 	rm -f *tar.*
   	mv xtreamcodes-nginx-rtmp_1.24.0-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx-rtmp_1.24.0-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" ]] ; then
-	echo "config require"
- 	make install
-else
-	make install
+elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
+	cat > $(rpm --eval %{_specdir})/xtreamcodes-nginx-rtmp.spec <<EOF
+Name:           xtreamcodes-nginx-rtmp
+Version:        1.24.0
+Release:        1.$(echo $OS).$(echo $VER)
+Summary:        xtreamcodes-nginx.
+Group:          Internet
+License:        GPL3
+URL:            http://nginx.org
+Source0:        http://nginx.org/download/nginx-1.24.0.tar.gz
+Patch0:         0003-define_gnu_source-on-other-glibc-based-platforms.patch
+Patch1:         nginx-ssl_cert_cb_yield.patch
+Patch2:         CVE-2023-44487.patch
+Patch3:         ubuntu-branding.patch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:  gcc make git wget tar gzip xz unzip
+Requires:       gcc make git wget tar gzip xz unzip
+%description
+xtreamcodes-nginx.
+%prep
+%setup -q -n nginx-1.24.0
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%build
+cd %{_builddir}
+rm -rf %{_builddir}/OpenSSL_1_1_1h.tar.gz %{_builddir}/openssl-OpenSSL_1_1_1h
+wget https://github.com/openssl/openssl/archive/OpenSSL_1_1_1h.tar.gz -O %{_builddir}/OpenSSL_1_1_1h.tar.gz
+tar -xzvf OpenSSL_1_1_1h.tar.gz
+rm -rf %{_builddir}/OpenSSL_1_1_1h.tar.gz
+rm -rf %{_builddir}/ngx_http_geoip2_module
+git clone https://github.com/leev/ngx_http_geoip2_module.git %{_builddir}/ngx_http_geoip2_module
+rm -rf %{_builddir}/v1.2.2.zip %{_builddir}/nginx-rtmp-module-1.2.2
+wget https://github.com/arut/nginx-rtmp-module/archive/v1.2.2.zip -O %{_builddir}/v1.2.2.zip
+unzip %{_builddir}/v1.2.2.zip
+rm -f %{_builddir}/v1.2.2.zip
+cd %{_builddir}/nginx-1.24.0
+./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp \
+--sbin-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp \
+--lock-path=/home/xtreamcodes/iptv_xtream_codes/tmp/nginx_rtmp.lock \
+--http-client-body-temp-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/client_body_temp \
+--http-fastcgi-temp-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/fastcgi_temp \
+--http-proxy-temp-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/proxy_temp \
+--http-scgi-temp-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/scgi_temp \
+--http-uwsgi-temp-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/uwsgi_temp \
+--conf-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/nginx.conf \
+--error-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/rtmp_error.log \
+--http-log-path=/home/xtreamcodes/iptv_xtream_codes/logs/rtmp_access.log \
+--pid-path=/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp.pid \
+--add-module=%{_builddir}//nginx-rtmp-module-1.2.2 \
+--with-http_ssl_module \
+--with-http_realip_module \
+--with-http_addition_module \
+--with-http_sub_module \
+--with-http_dav_module \
+--with-http_gunzip_module \
+--with-http_gzip_static_module \
+--with-http_v2_module \
+--with-pcre \
+--with-http_random_index_module \
+--with-http_secure_link_module \
+--with-http_stub_status_module \
+--with-http_auth_request_module \
+--with-threads \
+--with-mail \
+--with-mail_ssl_module \
+--with-file-aio \
+--with-cpu-opt=generic \
+--without-http_rewrite_module \
+--add-module=%{_builddir}/ngx_http_geoip2_module \
+--with-openssl=%{_builddir}/openssl-OpenSSL_1_1_1h --with-cc-opt='%{build_ldflags}' --with-cc-opt='%{optflags}'
+make %{?_smp_mflags}
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}
+make install DESTDIR=%{buildroot}
+rm -rf %{buildroot}/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/ %{buildroot}/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/html/
+%clean
+rm -rf %{buildroot}
+%files
+/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp
+%defattr(-,root,root,-)
+%doc
+%changelog
+EOF
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-nginx-rtmp.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-nginx-rtmp-1.24.0-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx-rtmp_1.24.0-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
 fi
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/fastcgi.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/fastcgi.conf
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/fastcgi.conf.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/fastcgi.conf.default
@@ -327,6 +498,7 @@ wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/scgi_params.default 
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/uwsgi_params https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/uwsgi_params
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/uwsgi_params.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/uwsgi_params.default
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/win-utf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/win-utf
+if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/OpenSSL_1_1_1h.tar.gz
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/nginx-1.24.0
@@ -343,124 +515,7 @@ wget http://www.php.net/distributions/php-7.2.34.tar.xz
 tar -xvf php-7.2.34.tar.xz
 rm -f php-7.2.34.tar.xz
 cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/php-7.2.34
-##patch -p1 < ../debian/patches/0001-libtool_fixes.patch
-##patch -p1 < ../debian/patches/0002-static_openssl.patch
-#patch -p1 < ../debian/patches/0003-debian_quirks.patch
-#patch -p1 < ../debian/patches/0004-libtool2.2.patch
-##patch -p1 < ../debian/patches/0005-we_WANT_libtool.patch
-##patch -p1 < ../debian/patches/0006-php-5.4.9-phpinfo.patch
-#patch -p1 < ../debian/patches/0007-extension_api.patch
-##patch -p1 < ../debian/patches/0008-no_apache_installed.patch
-##patch -p1 < ../debian/patches/0009-recode_is_shared.patch
-##patch -p1 < ../debian/patches/0010-proc_open.patch
-##patch -p1 < ../debian/patches/0011-php.ini_securitynotes.patch
-##patch -p1 < ../debian/patches/0012-php-5.4.7-libdb.patch
-##patch -p1 < ../debian/patches/0013-Add-support-for-use-of-the-system-timezone-database.patch
-##patch -p1 < ../debian/patches/0014-force_libmysqlclient_r.patch
-##patch -p1 < ../debian/patches/0015-strcmp_null-OnUpdateErrorLog.patch
-##patch -p1 < ../debian/patches/0016-dont-gitclean-in-build.patch
-##patch -p1 < ../debian/patches/0017-qdbm-is-usr_include_qdbm.patch
-##patch -p1 < ../debian/patches/0018-session_save_path.patch
-##patch -p1 < ../debian/patches/0019-php-fpm-man-section-and-cleanup.patch
-##patch -p1 < ../debian/patches/0020-fpm-config.patch
-##patch -p1 < ../debian/patches/0021-php-fpm-sysconfdir.patch
-##patch -p1 < ../debian/patches/0022-lp564920-fix-big-files.patch
-##patch -p1 < ../debian/patches/0023-temporary-path-fixes-for-multiarch.patch
-##patch -p1 < ../debian/patches/0024-hurd-noptrace.patch
-##patch -p1 < ../debian/patches/0025-php-5.3.9-mysqlnd.patch
-##patch -p1 < ../debian/patches/0026-php-5.3.9-gnusrc.patch
-##patch -p1 < ../debian/patches/0027-php-5.3.3-macropen.patch
-##patch -p1 < ../debian/patches/0028-php-5.2.4-norpath.patch
-##patch -p1 < ../debian/patches/0029-php-5.2.4-embed.patch
-##patch -p1 < ../debian/patches/0030-php-fpm-m68k.patch
-#patch -p1 < ../debian/patches/0031-expose_all_built_and_installed_apis.patch
-##patch -p1 < ../debian/patches/0032-Use-system-timezone.patch
-##patch -p1 < ../debian/patches/0033-zlib-largefile-function-renaming.patch
-##patch -p1 < ../debian/patches/0034-php-fpm-do-reload-on-SIGHUP.patch
-##patch -p1 < ../debian/patches/0035-php-5.4.8-ldap_r.patch
-##patch -p1 < ../debian/patches/0036-php-5.4.9-fixheader.patch
-##patch -p1 < ../debian/patches/0037-php-5.6.0-noNO.patch
-##patch -p1 < ../debian/patches/0038-php-5.6.0-oldpcre.patch
-##patch -p1 < ../debian/patches/0039-hack-phpdbg-to-explicitly-link-with-libedit.patch
-##patch -p1 < ../debian/patches/0040-Fix-ZEND_MM_ALIGNMENT-on-m64k.patch
-##patch -p1 < ../debian/patches/0041-Add-patch-to-install-php7-module-directly-to-APXS_LI.patch
-##patch -p1 < ../debian/patches/0042-Remove-W3C-validation-icon-to-not-expose-the-reader-.patch
-##patch -p1 < ../debian/patches/0043-Don-t-put-INSTALL_ROOT-into-phar.phar-exec-stanza.patch
-##patch -p1 < ../debian/patches/0044-XMLRPC-EPI-library-has-to-be-linked-as-lxmlrpc-epi.patch
-##patch -p1 < ../debian/patches/0045-Really-expand-libdir-datadir-into-EXPANDED_LIBDIR-DA.patch
-##patch -p1 < ../debian/patches/0046-Fix-ext-date-lib-parse_tz-PATH_MAX-HURD-FTBFS.patch
-##patch -p1 < ../debian/patches/0048-ext-intl-Use-pkg-config-to-detect-icu.patch
-##patch -p1 < ../debian/patches/0049-Fixed-bug-62596-add-getallheaders-apache_request_hea.patch
-##patch -p1 < ../debian/patches/0050-Amend-C-11-for-intl-compilation-on-older-distributio.patch
-##patch -p1 < ../debian/patches/0051-Use-pkg-config-for-PHP_SETUP_LIBXML.patch
-##patch -p1 < ../debian/patches/0052-Fix-Bug-79296-ZipArchive-open-fails-on-empty-file.patch
-##patch -p1 < ../debian/patches/0053-Allow-numeric-UG-ID-in-FPM-listen.-owner-group.patch
-##patch -p1 < ../debian/patches/0054-Allow-fpm-tests-to-be-run-with-long-socket-path.patch
-##patch -p1 < ../debian/patches/0055-Skip-fpm-tests-not-designed-to-be-run-as-root.patch
-##patch -p1 < ../debian/patches/0056-Add-pkg-config-m4-files-to-phpize-script.patch
-##patch -p1 < ../debian/patches/0057-In-phpize-also-copy-config.guess-config.sub-ltmain.s.patch
-##patch -p1 < ../debian/patches/0058-Fix-77423-parse_url-will-deliver-a-wrong-host-to-use.patch
-##patch -p1 < ../debian/patches/0059-NEWS.patch
-##patch -p1 < ../debian/patches/0060-Alternative-fix-for-bug-77423.patch
-##patch -p1 < ../debian/patches/0061-Fix-bug-80672-Null-Dereference-in-SoapClient.patch
-##patch -p1 < ../debian/patches/0062-Fix-build.patch
-##patch -p1 < ../debian/patches/0063-Use-libenchant-2-when-available.patch
-##patch -p1 < ../debian/patches/0064-remove-deprecated-call-and-deprecate-function-to-be-.patch
-##patch -p1 < ../debian/patches/0065-Show-packaging-credits.patch
-##patch -p1 < ../debian/patches/0066-Allow-printing-credits-buffer-larger-than-4k.patch
-##patch -p1 < ../debian/patches/0067-Fix-80710-imap_mail_compose-header-injection.patch
-##patch -p1 < ../debian/patches/0068-Add-missing-NEWS-entry-for-80710.patch
-##patch -p1 < ../debian/patches/0069-Don-t-close-the-credits-buffer-file-descriptor-too-e.patch
-##patch -p1 < ../debian/patches/0070-Fix-81122-SSRF-bypass-in-FILTER_VALIDATE_URL.patch
-##patch -p1 < ../debian/patches/0071-Fix-warning.patch
-##patch -p1 < ../debian/patches/0072-Fix-76452-Crash-while-parsing-blob-data-in-firebird_.patch
-##patch -p1 < ../debian/patches/0073-Fix-76450-SIGSEGV-in-firebird_stmt_execute.patch
-##patch -p1 < ../debian/patches/0074-Fix-76449-SIGSEGV-in-firebird_handle_doer.patch
-##patch -p1 < ../debian/patches/0075-Fix-76448-Stack-buffer-overflow-in-firebird_info_cb.patch
-##patch -p1 < ../debian/patches/0076-Update-NEWS.patch
-##patch -p1 < ../debian/patches/0077-Fix-81211-Symlinks-are-followed-when-creating-PHAR-a.patch
-##patch -p1 < ../debian/patches/0078-Fix-test.patch
-##patch -p1 < ../debian/patches/0079-NEWS.patch
-##patch -p1 < ../debian/patches/0080-Fix-bug-81026-PHP-FPM-oob-R-W-in-root-process-leadin.patch
-##patch -p1 < ../debian/patches/0081-NEWS.patch
-##patch -p1 < ../debian/patches/0082-update-README.patch
-##patch -p1 < ../debian/patches/0083-Fix-81420-ZipArchive-extractTo-extracts-outside-of-d.patch
-##patch -p1 < ../debian/patches/0084-NEWS.patch
-##patch -p1 < ../debian/patches/0085-Fix-79971-special-character-is-breaking-the-path-in-.patch
-##patch -p1 < ../debian/patches/0086-NEWS.patch
 patch -p1 < ../debian/patches/0087-Add-minimal-OpenSSL-3.0-patch.patch
-##patch -p1 < ../debian/patches/0088-Use-true-false-instead-of-TRUE-FALSE-in-intl.patch
-##patch -p1 < ../debian/patches/0089-Change-UBool-to-bool-for-equality-operators-in-ICU-7.patch
-##patch -p1 < ../debian/patches/0090-Fix-81720-Uninitialized-array-in-pg_query_params-lea.patch
-##patch -p1 < ../debian/patches/0091-Fix-bug-81719-mysqlnd-pdo-password-buffer-overflow.patch
-##patch -p1 < ../debian/patches/0092-NEWS.patch
-##patch -p1 < ../debian/patches/0093-Fix-bug-79589-ssl3_read_n-unexpected-eof-while-readi.patch
-##patch -p1 < ../debian/patches/0094-Fix-81727-Don-t-mangle-HTTP-variable-names-that-clas.patch
-##patch -p1 < ../debian/patches/0095-Fix-81726-phar-wrapper-DOS-when-using-quine-gzip-fil.patch
-##patch -p1 < ../debian/patches/0096-Fix-regression-introduced-by-fixing-bug-81726.patch
-##patch -p1 < ../debian/patches/0097-fix-NEWS.patch
-##patch -p1 < ../debian/patches/0098-Fix-bug-81738-buffer-overflow-in-hash_update-on-long.patch
-##patch -p1 < ../debian/patches/0099-Fix-81740-PDO-quote-may-return-unquoted-string.patch
-##patch -p1 < ../debian/patches/0100-NEWS.patch
-##patch -p1 < ../debian/patches/0101-crypt-Fix-validation-of-malformed-BCrypt-hashes.patch
-##patch -p1 < ../debian/patches/0102-crypt-Fix-possible-buffer-overread-in-php_crypt.patch
-##patch -p1 < ../debian/patches/0103-Fix-array-overrun-when-appending-slash-to-paths.patch
-##patch -p1 < ../debian/patches/0104-NEWS.patch
-##patch -p1 < ../debian/patches/0105-Fix-repeated-warning-for-file-uploads-limit-exceedin.patch
-##patch -p1 < ../debian/patches/0106-Introduce-max_multipart_body_parts-INI.patch
-##patch -p1 < ../debian/patches/0107-NEWS.patch
-##patch -p1 < ../debian/patches/0108-fix-NEWS-not-FPM-specific.patch
-##patch -p1 < ../debian/patches/0109-Fix-missing-randomness-check-and-insufficient-random.patch
-##patch -p1 < ../debian/patches/0110-Fix-GH-11382-add-missing-hash-header-for-bin2hex.patch
-##patch -p1 < ../debian/patches/0111-add-cve.patch
-##patch -p1 < ../debian/patches/0112-Fix-buffer-mismanagement-in-phar_dir_read.patch
-##patch -p1 < ../debian/patches/0113-Sanitize-libxml2-globals-before-parsing.patch
-##patch -p1 < ../debian/patches/0114-backport-zend_test-changes-zend_test_override_libxml.patch
-##patch -p1 < ../debian/patches/0115-adapt-to-7.2.patch
-##patch -p1 < ../debian/patches/0116-NEWS.patch
-##patch -p1 < ../debian/patches/0117-Fixed-bug-79412-Opcache-chokes-and-uses-100-CPU-on-s.patch
-##patch -p1 < ../debian/patches/0118-Change-the-default-OPcache-optimization-to-7FFEBF5F-.patch
-##patch -p1 < ../debian/patches/0047-Use-pkg-config-for-FreeType2-detection.patch
 ./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/php \
 --with-zlib-dir --with-freetype-dir=/usr --enable-mbstring --enable-calendar \
 --with-curl --with-gd --disable-rpath --enable-inline-optimization \
@@ -473,7 +528,6 @@ patch -p1 < ../debian/patches/0087-Add-minimal-OpenSSL-3.0-patch.patch
 --with-webp-dir=/usr --with-jpeg-dir=/usr \
 --with-xsl --enable-opcache --enable-fpm --enable-libxml --enable-static --disable-shared
 make -j$(nproc --all)
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	checkinstall -D -y \
 	  --pkgname=xtreamcodes-php \
 	  --pkgversion=7.2.34 \
@@ -482,12 +536,112 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	  --exclude=/home/xtreamcodes/iptv_xtream_codes/php/etc/*
 	rm -f *tar.*
   	mv xtreamcodes-php_7.2.34-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php_7.2.34-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" ]] ; then
-	echo "config require"
- 	make install
-else
-	make install
+elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
+	cd $(rpm --eval %{_sourcedir})
+     	rm -rf *
+ 	wget https://launchpad.net/~ondrej/+archive/ubuntu/php/+sourcefiles/php7.2/7.2.34-43+ubuntu20.04.1+deb.sury.org+1/php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
+	tar -xvf php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
+	rm -f php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
+	wget http://www.php.net/distributions/php-7.2.34.tar.xz
+ 	cp debian/patches/0087-Add-minimal-OpenSSL-3.0-patch.patch $(rpm --eval %{_sourcedir})/
+  	rm -rf debian
+	cat > $(rpm --eval %{_specdir})/xtreamcodes-php.spec <<EOF
+Name:           xtreamcodes-php
+Version:        7.2.34
+Release:        1.$(echo $OS).$(echo $VER)
+Summary:        xtreamcodes-php.
+Group:          Internet
+License:        GPL3
+URL:            http://php.net
+Source0:        http://www.php.net/distributions/php-7.2.34.tar.xz
+Patch0:         0087-Add-minimal-OpenSSL-3.0-patch.patch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:  gcc make git wget tar gzip xz unzip
+Requires:       gcc make git wget tar gzip xz unzip
+%description
+xtreamcodes-php.
+%prep
+%setup -q -n php-7.2.34
+%patch0 -p1
+%build
+./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/php \
+--with-zlib-dir --with-freetype-dir=/usr --enable-mbstring --enable-calendar \
+--with-curl --with-gd --disable-rpath --enable-inline-optimization \
+--with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm \
+--enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash \
+--enable-zip --with-pcre-regex --with-pdo-mysql=mysqlnd \
+--with-mysqli=mysqlnd --with-openssl \
+--with-fpm-user=xtreamcodes --with-fpm-group=xtreamcodes \
+--with-libdir=/lib/x86_64-linux-gnu --with-gettext --with-xmlrpc \
+--with-webp-dir=/usr --with-jpeg-dir=/usr \
+--with-xsl --enable-opcache --enable-fpm --enable-libxml --enable-static --disable-shared
+make %{?_smp_mflags}
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}
+make install INSTALL_ROOT=%{buildroot}
+rm -rf %{buildroot}/home/xtreamcodes/iptv_xtream_codes/php/etc/
+rm -rf %{buildroot}/.channels
+rm -rf %{buildroot}/.depdb
+rm -rf %{buildroot}/.depdblock
+rm -rf %{buildroot}/.filemap
+rm -rf %{buildroot}/.lock
+%clean
+rm -rf %{buildroot}
+%files
+/home/xtreamcodes/iptv_xtream_codes/php/bin/pear
+/home/xtreamcodes/iptv_xtream_codes/php/bin/peardev
+/home/xtreamcodes/iptv_xtream_codes/php/bin/pecl
+/home/xtreamcodes/iptv_xtream_codes/php/bin/phar
+/home/xtreamcodes/iptv_xtream_codes/php/bin/phar.phar
+/home/xtreamcodes/iptv_xtream_codes/php/bin/php
+/home/xtreamcodes/iptv_xtream_codes/php/bin/php-cgi
+/home/xtreamcodes/iptv_xtream_codes/php/bin/php-config
+/home/xtreamcodes/iptv_xtream_codes/php/bin/phpdbg
+/home/xtreamcodes/iptv_xtream_codes/php/bin/phpize
+/home/xtreamcodes/iptv_xtream_codes/php/include/*
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.channels/.alias/pear.txt
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.channels/.alias/pecl.txt
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.channels/.alias/phpdocs.txt
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.channels/__uri.reg
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.channels/doc.php.net.reg
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.channels/pear.php.net.reg
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.channels/pecl.php.net.reg
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.filemap
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.lock
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.registry/archive_tar.reg
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.registry/console_getopt.reg
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.registry/pear.reg
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.registry/structures_graph.reg
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/.registry/xml_util.reg
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/Archive/*
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/Console/*
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/OS/*
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/PEAR.php
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/PEAR/*
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/Structures/*
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/System.php
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/XML/*
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/build/*
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/data/*
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/doc/*
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/extensions/no-debug-non-zts-20170718/opcache.a
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/extensions/no-debug-non-zts-20170718/opcache.so
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/pearcmd.php
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/peclcmd.php
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/*
+/home/xtreamcodes/iptv_xtream_codes/php/php/man/*
+/home/xtreamcodes/iptv_xtream_codes/php/php/php/fpm/status.html
+/home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm
+%defattr(-,root,root,-)
+%doc
+%changelog
+EOF
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-7.2.34-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php_7.2.34-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
 fi
+if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/debian
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/php-7.2.34
@@ -497,7 +651,6 @@ cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/mcrypt-1.0.5
 /home/xtreamcodes/iptv_xtream_codes/php/bin/phpize
 ./configure --with-php-config=/home/xtreamcodes/iptv_xtream_codes/php/bin/php-config
 make -j$(nproc --all)
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	checkinstall -D -y \
 	  --pkgname=xtreamcodes-php-mcrypt \
 	  --pkgversion=1.0.5 \
@@ -505,11 +658,45 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	  --nodoc \
 	rm -f *tar.*
   	mv xtreamcodes-php-mcrypt_1.0.5-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-mcrypt_1.0.5-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" ]] ; then
-	echo "config require"
- 	make install
-else
-	make install
+elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
+	cd $(rpm --eval %{_sourcedir})
+     	rm -rf *
+ 	wget --no-check-certificate -O $(rpm --eval %{_sourcedir})/mcrypt-1.0.5.tgz https://pecl.php.net/get/mcrypt-1.0.5.tgz
+	cat > $(rpm --eval %{_specdir})/xtreamcodes-php-mcrypt.spec <<EOF
+Name:           xtreamcodes-php-mcrypt
+Version:        1.0.5
+Release:        1.$(echo $OS).$(echo $VER)
+Summary:        xtreamcodes-php-mcrypt.
+Group:          Internet
+License:        GPL3
+URL:            https://pecl.php.net/package/mcrypt
+Source0:        https://pecl.php.net/get/mcrypt-1.0.5.tgz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:  gcc make git wget tar gzip xz unzip xtreamcodes-php
+Requires:       gcc make git wget tar gzip xz unzip xtreamcodes-php
+%description
+xtreamcodes-php-mcrypt.
+%prep
+%setup -q -n mcrypt-1.0.5
+%build
+/home/xtreamcodes/iptv_xtream_codes/php/bin/phpize
+./configure --with-php-config=/home/xtreamcodes/iptv_xtream_codes/php/bin/php-config
+make %{?_smp_mflags}
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}
+make install INSTALL_ROOT=%{buildroot}
+%clean
+rm -rf %{buildroot}
+%files
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/extensions/no-debug-non-zts-20170718/mcrypt.so
+%defattr(-,root,root,-)
+%doc
+%changelog
+EOF
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php-mcrypt.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-mcrypt-1.0.5-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-mcrypt_1.0.5-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
 fi
 cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/mcrypt-1.0.5
@@ -529,11 +716,45 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	  --nodoc \
 	rm -f *tar.*
   	mv xtreamcodes-php-geoip_1.1.1-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-geoip_1.1.1-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" ]] ; then
-	echo "config require"
- 	make install
-else
-	make install
+elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
+	cd $(rpm --eval %{_sourcedir})
+     	rm -rf *
+ 	wget --no-check-certificate -O $(rpm --eval %{_sourcedir})/geoip-1.1.1.tgz https://pecl.php.net/get/geoip-1.1.1.tgz
+	cat > $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec <<EOF
+Name:           xtreamcodes-php-geoip
+Version:        1.1.1
+Release:        1.$(echo $OS).$(echo $VER)
+Summary:        xtreamcodes-php-geoip.
+Group:          Internet
+License:        GPL3
+URL:            https://pecl.php.net/package/geoip
+Source0:        https://pecl.php.net/get/geoip-1.1.1.tgz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:  gcc make git wget tar gzip xz unzip xtreamcodes-php
+Requires:       gcc make git wget tar gzip xz unzip xtreamcodes-php
+%description
+xtreamcodes-php-geoip.
+%prep
+%setup -q -n geoip-1.1.1
+%build
+/home/xtreamcodes/iptv_xtream_codes/php/bin/phpize
+./configure --with-php-config=/home/xtreamcodes/iptv_xtream_codes/php/bin/php-config
+make %{?_smp_mflags}
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}
+make install INSTALL_ROOT=%{buildroot}
+%clean
+rm -rf %{buildroot}
+%files
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/extensions/no-debug-non-zts-20170718/geoip.so
+%defattr(-,root,root,-)
+%doc
+%changelog
+EOF
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-geoip-1.1.1-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-geoip_1.1.1-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
 fi
 cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/geoip-1.1.1
@@ -553,11 +774,49 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	  --nodoc \
 	rm -f *tar.*
   	mv xtreamcodes-php-igbinary_3.2.14-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-igbinary_3.2.14-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" ]] ; then
-	echo "config require"
- 	make install
-else
-	make install
+elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
+	cd $(rpm --eval %{_sourcedir})
+     	rm -rf *
+ 	wget --no-check-certificate -O $(rpm --eval %{_sourcedir})/igbinary-3.2.14.tgz https://pecl.php.net/get/igbinary-3.2.14.tgz
+	cat > $(rpm --eval %{_specdir})/xtreamcodes-php-igbinary.spec <<EOF
+Name:           xtreamcodes-php-igbinary
+Version:        3.2.14
+Release:        1.$(echo $OS).$(echo $VER)
+Summary:        xtreamcodes-php-igbinary.
+Group:          Internet
+License:        GPL3
+URL:            https://pecl.php.net/package/igbinary
+Source0:        https://pecl.php.net/get/igbinary-3.2.14.tgz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:  gcc make git wget tar gzip xz unzip xtreamcodes-php
+Requires:       gcc make git wget tar gzip xz unzip xtreamcodes-php
+%description
+xtreamcodes-php-igbinary.
+%prep
+%setup -q -n igbinary-3.2.14
+%build
+/home/xtreamcodes/iptv_xtream_codes/php/bin/phpize
+./configure --with-php-config=/home/xtreamcodes/iptv_xtream_codes/php/bin/php-config
+make %{?_smp_mflags}
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}
+make install INSTALL_ROOT=%{buildroot}
+%clean
+rm -rf %{buildroot}
+%files
+/home/xtreamcodes/iptv_xtream_codes/php/lib/php/extensions/no-debug-non-zts-20170718/igbinary.so
+/home/xtreamcodes/iptv_xtream_codes/php/include/php/ext/igbinary/igbinary.h
+/home/xtreamcodes/iptv_xtream_codes/php/include/php/ext/igbinary/php_igbinary.h
+/home/xtreamcodes/iptv_xtream_codes/php/include/php/ext/igbinary/src/php7/igbinary.h
+/home/xtreamcodes/iptv_xtream_codes/php/include/php/ext/igbinary/src/php7/php_igbinary.h
+%defattr(-,root,root,-)
+%doc
+%changelog
+EOF
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php-igbinary.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-igbinary-3.2.14-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-igbinary_3.2.14-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
 fi
 cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/igbinary-3.2.14
