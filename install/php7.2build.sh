@@ -195,50 +195,6 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	  --exclude=/home/xtreamcodes/iptv_xtream_codes/nginx/conf/*
 	rm -f *tar.*
   	mv xtreamcodes-nginx_1.24.0-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx_1.24.0-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
-	yum install -y rpmdevtools
- 	yum -y install yum-utils
-  	yum -y groupinstall "Fedora Packager"
-   	rpmdev-setuptree
-    	cd $(rpm --eval %{_sourcedir})
-     	rm -rf *
-	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/nginx/1.24.0-2ubuntu1/nginx_1.24.0-2ubuntu1.debian.tar.xz
-	tar -xvf nginx_1.24.0-2ubuntu1.debian.tar.xz
- 	rm -f nginx_1.24.0-2ubuntu1.debian.tar.xz
-  	cp debian/patches/0003-define_gnu_source-on-other-glibc-based-platforms.patch $(rpm --eval %{_sourcedir})/
-	cp debian/patches/nginx-fix-pidfile.patch $(rpm --eval %{_sourcedir})/
-	cp debian/patches/nginx-ssl_cert_cb_yield.patch $(rpm --eval %{_sourcedir})/
-	cp debian/patches/CVE-2023-44487.patch $(rpm --eval %{_sourcedir})/
-	cp debian/patches/ubuntu-branding.patch $(rpm --eval %{_sourcedir})/
-      	rm -rf debian
-        wget http://nginx.org/download/nginx-1.24.0.tar.gz
-	rm -f $(rpm --eval %{_specdir})/xtreamcodes-nginx.spec
- 	wget -O $(rpm --eval %{_specdir})/xtreamcodes-nginx.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/xtreamcodes-nginx.spec
-	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-nginx.spec
-	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-nginx-1.24.0-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx_1.24.0-1-"$OS"_"$VER".rpm
- 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
-fi
-mkdir -p /home/xtreamcodes/iptv_xtream_codes/nginx/conf/
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/balance.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/balance.conf
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/fastcgi.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/fastcgi.conf
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/fastcgi.conf.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/fastcgi.conf.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/fastcgi_params https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/fastcgi_params
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/fastcgi_params.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/fastcgi_params.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/koi-utf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/koi-utf
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/koi-win https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/koi-win
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/mime.types https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/mime.types
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/mime.types.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/mime.types.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/nginx.conf
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/nginx.conf.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/scgi_params https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/scgi_params
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/scgi_params.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/scgi_params.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/server.crt https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/server.crt
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/server.csr https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/server.csr
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/server.key https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/server.key
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/uwsgi_params https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/uwsgi_params
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/uwsgi_params.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/uwsgi_params.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/win-utf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/win-utf
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/OpenSSL_1_1_1h.tar.gz
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/nginx-1.24.0
@@ -305,38 +261,13 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	mkdir -p  "/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf"
 	mkdir -p  "/home/xtreamcodes/iptv_xtream_codes/logs/"
 	checkinstall -D -y \
-		  --pkgname=xtreamcodes-nginx-rtmp \
-		  --pkgversion=1.24.0 \
-		  --arch=amd64 \
-		  --nodoc \
-		  --exclude=/home/xtreamcodes/iptv_xtream_codes/nginx/conf/*
-		rm -f *tar.*
-	  	mv xtreamcodes-nginx-rtmp_1.24.0-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx-rtmp_1.24.0-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
-	rm -f $(rpm --eval %{_specdir})/xtreamcodes-nginx-rtmp.spec
-	wget -O $(rpm --eval %{_specdir})/xtreamcodes-nginx-rtmp.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/xtreamcodes-nginx-rtmp.spec
-	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-nginx-rtmp.spec
-	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-nginx-rtmp-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx-rtmp_1.24.0-1-"$OS"_"$VER".rpm
- 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
-fi
-mkdir -p /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/fastcgi.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/fastcgi.conf
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/fastcgi.conf.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/fastcgi.conf.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/fastcgi_params https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/fastcgi_params
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/fastcgi_params.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/fastcgi_params.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/koi-utf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/koi-utf
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/koi-win https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/koi-win
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/mime.types https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/mime.types
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/mime.types.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/mime.types.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/nginx.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/nginx.conf
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/nginx.conf.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/nginx.conf.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/scgi_params https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/scgi_params
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/scgi_params.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/scgi_params.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/uwsgi_params https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/uwsgi_params
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/uwsgi_params.default https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/uwsgi_params.default
-wget -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/conf/win-utf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/conf/win-utf
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
-	cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
+	  --pkgname=xtreamcodes-nginx-rtmp \
+	  --pkgversion=1.24.0 \
+	  --arch=amd64 \
+	  --nodoc \
+	  --exclude=/home/xtreamcodes/iptv_xtream_codes/nginx/conf/*
+	rm -f *tar.*
+	mv xtreamcodes-nginx-rtmp_1.24.0-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx-rtmp_1.24.0-1-"$OS"_"$VER".deb	cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/OpenSSL_1_1_1h.tar.gz
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/nginx-1.24.0
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/nginx-1.24.0.tar.gz
@@ -366,29 +297,13 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	--with-xsl --enable-opcache --enable-fpm --enable-libxml --enable-static --disable-shared
 	make -j$(nproc --all)
 	checkinstall -D -y \
-		  --pkgname=xtreamcodes-php \
-		  --pkgversion=7.2.34 \
-		  --arch=amd64 \
-		  --nodoc \
-		  --exclude=/home/xtreamcodes/iptv_xtream_codes/php/etc/*
+	  --pkgname=xtreamcodes-php \
+	  --pkgversion=7.2.34 \
+	  --arch=amd64 \
+	  --nodoc \
+	  --exclude=/home/xtreamcodes/iptv_xtream_codes/php/etc/*
 	rm -f *tar.*
   	mv xtreamcodes-php_7.2.34-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php_7.2.34-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
-	cd $(rpm --eval %{_sourcedir})
-     	rm -rf *
- 	wget https://launchpad.net/~ondrej/+archive/ubuntu/php/+sourcefiles/php7.2/7.2.34-43+ubuntu20.04.1+deb.sury.org+1/php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
-	tar -xvf php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
-	rm -f php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
-	wget http://www.php.net/distributions/php-7.2.34.tar.xz
- 	cp debian/patches/0087-Add-minimal-OpenSSL-3.0-patch.patch $(rpm --eval %{_sourcedir})/
-  	rm -rf debian
-   	rm f $(rpm --eval %{_specdir})/xtreamcodes-php.spec
-	wget -O $(rpm --eval %{_specdir})/xtreamcodes-php.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php/xtreamcodes-php.spec
-	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php.spec
-	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-7.2.34-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php_7.2.34-1-"$OS"_"$VER".rpm
- 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
-fi
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/debian
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/php-7.2.34
@@ -399,23 +314,12 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	./configure --with-php-config=/home/xtreamcodes/iptv_xtream_codes/php/bin/php-config
 	make -j$(nproc --all)
 	checkinstall -D -y \
-		  --pkgname=xtreamcodes-php-mcrypt \
-		  --pkgversion=1.0.5 \
-		  --arch=amd64 \
-		  --nodoc \
+	  --pkgname=xtreamcodes-php-mcrypt \
+	  --pkgversion=1.0.5 \
+	  --arch=amd64 \
+	  --nodoc \
 	rm -f *tar.*
   	mv xtreamcodes-php-mcrypt_1.0.5-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-mcrypt_1.0.5-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
-	cd $(rpm --eval %{_sourcedir})
-     	rm -rf *
- 	wget --no-check-certificate -O $(rpm --eval %{_sourcedir})/mcrypt-1.0.5.tgz https://pecl.php.net/get/mcrypt-1.0.5.tgz
-  	rm -f $(rpm --eval %{_specdir})/xtreamcodes-php-mcrypt.spec
-	wget $(rpm --eval %{_specdir})/xtreamcodes-php-mcrypt.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php/xtreamcodes-php-mcrypt.spec
-	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php-mcrypt.spec
-	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-mcrypt-1.0.5-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-mcrypt_1.0.5-1-"$OS"_"$VER".rpm
- 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
-fi
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/mcrypt-1.0.5
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/mcrypt-1.0.5.tgz
@@ -433,17 +337,6 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	  --nodoc \
 	rm -f *tar.*
   	mv xtreamcodes-php-geoip_1.1.1-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-geoip_1.1.1-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
-	cd $(rpm --eval %{_sourcedir})
-     	rm -rf *
- 	wget --no-check-certificate -O $(rpm --eval %{_sourcedir})/geoip-1.1.1.tgz https://pecl.php.net/get/geoip-1.1.1.tgz
-	rm -f $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec
- 	wget $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php/xtreamcodes-php-geoip.spec
-	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec
-	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-geoip-1.1.1-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-geoip_1.1.1-1-"$OS"_"$VER".rpm
- 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
-fi
-if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	cd  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/geoip-1.1.1
 	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/geoip-1.1.1.tgz
@@ -461,7 +354,64 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	  --nodoc \
 	rm -f *tar.*
   	mv xtreamcodes-php-igbinary_3.2.14-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-igbinary_3.2.14-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
+elif  [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
+	yum install -y rpmdevtools
+ 	yum -y install yum-utils
+  	yum -y groupinstall "Fedora Packager"
+   	rpmdev-setuptree
+    	cd $(rpm --eval %{_sourcedir})
+     	rm -rf *
+	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/nginx/1.24.0-2ubuntu1/nginx_1.24.0-2ubuntu1.debian.tar.xz
+	tar -xvf nginx_1.24.0-2ubuntu1.debian.tar.xz
+ 	rm -f nginx_1.24.0-2ubuntu1.debian.tar.xz
+  	cp debian/patches/0003-define_gnu_source-on-other-glibc-based-platforms.patch $(rpm --eval %{_sourcedir})/
+	cp debian/patches/nginx-fix-pidfile.patch $(rpm --eval %{_sourcedir})/
+	cp debian/patches/nginx-ssl_cert_cb_yield.patch $(rpm --eval %{_sourcedir})/
+	cp debian/patches/CVE-2023-44487.patch $(rpm --eval %{_sourcedir})/
+	cp debian/patches/ubuntu-branding.patch $(rpm --eval %{_sourcedir})/
+      	rm -rf debian
+        wget http://nginx.org/download/nginx-1.24.0.tar.gz
+	rm -f $(rpm --eval %{_specdir})/xtreamcodes-nginx.spec
+ 	wget -O $(rpm --eval %{_specdir})/xtreamcodes-nginx.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/xtreamcodes-nginx.spec
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-nginx.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-nginx-1.24.0-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx_1.24.0-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
+	cd $(rpm --eval %{_sourcedir})
+ 	rm -rf *
+ 	rm -f $(rpm --eval %{_specdir})/xtreamcodes-nginx-rtmp.spec
+	wget -O $(rpm --eval %{_specdir})/xtreamcodes-nginx-rtmp.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx_rtmp/xtreamcodes-nginx-rtmp.spec
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-nginx-rtmp.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-nginx-rtmp-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx-rtmp_1.24.0-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
+	cd $(rpm --eval %{_sourcedir})
+     	rm -rf *
+ 	wget https://launchpad.net/~ondrej/+archive/ubuntu/php/+sourcefiles/php7.2/7.2.34-43+ubuntu20.04.1+deb.sury.org+1/php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
+	tar -xvf php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
+	rm -f php7.2_7.2.34-43+ubuntu20.04.1+deb.sury.org+1.debian.tar.xz
+	wget http://www.php.net/distributions/php-7.2.34.tar.xz
+ 	cp debian/patches/0087-Add-minimal-OpenSSL-3.0-patch.patch $(rpm --eval %{_sourcedir})/
+  	rm -rf debian
+   	rm f $(rpm --eval %{_specdir})/xtreamcodes-php.spec
+	wget -O $(rpm --eval %{_specdir})/xtreamcodes-php.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php/xtreamcodes-php.spec
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-7.2.34-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php_7.2.34-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
+	cd $(rpm --eval %{_sourcedir})
+     	rm -rf *
+ 	wget --no-check-certificate -O $(rpm --eval %{_sourcedir})/mcrypt-1.0.5.tgz https://pecl.php.net/get/mcrypt-1.0.5.tgz
+  	rm -f $(rpm --eval %{_specdir})/xtreamcodes-php-mcrypt.spec
+	wget $(rpm --eval %{_specdir})/xtreamcodes-php-mcrypt.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php/xtreamcodes-php-mcrypt.spec
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php-mcrypt.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-mcrypt-1.0.5-1.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-mcrypt_1.0.5-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
+	cd $(rpm --eval %{_sourcedir})
+     	rm -rf *
+ 	wget --no-check-certificate -O $(rpm --eval %{_sourcedir})/geoip-1.1.1.tgz https://pecl.php.net/get/geoip-1.1.1.tgz
+	rm -f $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec
+ 	wget $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/php/xtreamcodes-php-geoip.spec
+	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-php-geoip.spec
+	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-php-geoip-1.1.1-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-php-geoip_1.1.1-1-"$OS"_"$VER".rpm
+ 	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
 	cd $(rpm --eval %{_sourcedir})
      	rm -rf *
  	wget --no-check-certificate -O $(rpm --eval %{_sourcedir})/igbinary-3.2.14.tgz https://pecl.php.net/get/igbinary-3.2.14.tgz
