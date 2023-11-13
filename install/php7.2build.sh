@@ -76,6 +76,7 @@ else
     echo "Sorry, this OS is not supported by Xtream UI."
     exit 1
 fi
+sleep 30
 if  [[ "$OS" = "Ubuntu" && "$VER" = "22.04" ]] ; then
 sed -i "s|#\$nrconf{verbosity} = 2;|\$nrconf{verbosity} = 0;|" /etc/needrestart/needrestart.conf
 sed -i "s|#\$nrconf{restart} = 'i';|\$nrconf{restart} = 'a';|" /etc/needrestart/needrestart.conf
