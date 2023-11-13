@@ -4,9 +4,6 @@
 #if (test -f "/usr/bin/wget");then wget -O /root/depbuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh;fi; if (test -f "/usr/bin/curl");then curl -L --output /root/depbuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh;fi; bash /root/depbuild.sh
 #
 #
-if [ -f "/home/xtreamcodes/iptv_xtream_codes/php-7.4.33" ]; then
-    echo "update exists."
-else
 # Ensure the OS is compatible with the launcher
 if [ -f /etc/almalinux-release ]; then
     OS="Alma Linux"
@@ -65,7 +62,7 @@ if [[ "$OS" = "CentOs" ]] ; then
     PACKAGE_SOURCEDOWNLOAD="yumdownloader --source"
     BUILDDEP="yum-builddep -y"
     MYSQLCNF=/etc/my.cnf
-elif [[ "$OS" = "Fedora" || "$OS" = "Centos Stream"  ]]; then
+elif [[ "$OS" = "Fedora" || "$OS" = "CentOS-Stream"  ]]; then
     PACKAGE_INSTALLER="dnf -y install"
     PACKAGE_REMOVER="dnf -y remove"
     PACKAGE_UPDATER="dnf -y update"
@@ -87,12 +84,8 @@ if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
 		#To fix some problems of compatibility use of mirror centos.org to all users
 		#Replace all mirrors by base repos to avoid any problems.
 		find /etc/yum.repos.d -name '*.repo' -exec sed -i 's|mirrorlist=http://mirrorlist.centos.org|#mirrorlist=http://mirrorlist.centos.org|' {} \;
-  		if [[ "$VER" = "6" ]]; then
-			find /etc/yum.repos.d -name '*.repo' -exec sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|' {} \;
-		else
-			find /etc/yum.repos.d -name '*.repo' -exec sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://mirror.centos.org|' {} \;
-      		fi
-		#check if the machine and on openvz
+  		find /etc/yum.repos.d -name '*.repo' -exec sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://mirror.centos.org|' {} \;
+      		#check if the machine and on openvz
 		if [ -f "/etc/yum.repos.d/vz.repo" ]; then
 			sed -i "s|mirrorlist=http://vzdownload.swsoft.com/download/mirrors/centos-$VER|baseurl=http://vzdownload.swsoft.com/ez/packages/centos/$VER/$ARCH/os/|" "/etc/yum.repos.d/vz.repo"
 			sed -i "s|mirrorlist=http://vzdownload.swsoft.com/download/mirrors/updates-released-ce$VER|baseurl=http://vzdownload.swsoft.com/ez/packages/centos/$VER/$ARCH/updates/|" "/etc/yum.repos.d/vz.repo"
@@ -113,15 +106,6 @@ if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]]; then
 		yum -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
 	fi
 	if [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" ]]; then
- 		if [[ "$VER" = "6" ]]; then
-cat > /etc/yum.repos.d/mariadb.repo <<EOF
-[mariadb]
-name=MariaDB RPM source
-baseurl=http://mirror.mariadb.org/yum/10.2/rhel/$VER/x86_64/
-enabled=1
-gpgcheck=0
-EOF
-   		else
 cat > /etc/yum.repos.d/mariadb.repo <<EOF
 [mariadb]
 name=MariaDB RPM source
@@ -129,7 +113,6 @@ baseurl=http://mirror.mariadb.org/yum/10.6/rhel/$VER/x86_64/
 enabled=1
 gpgcheck=0
 EOF
-		fi
 	elif [[ "$OS" = "Fedora" ]]; then
 cat > /etc/yum.repos.d/mariadb.repo <<EOF
 [mariadb]
@@ -727,7 +710,6 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
 	DEBIAN_FRONTEND=noninteractive apt-get -y install libgeoip-devel
 	DEBIAN_FRONTEND=noninteractive apt-get -y install geoip-devel
  fi
-	systemctl start mariadb
-	systemctl enable mariadb
- 	service mariadb restart
-fi
+systemctl start mariadb
+systemctl enable mariadb
+service mariadb restart
