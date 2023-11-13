@@ -476,6 +476,8 @@ EOF
 	$PACKAGE_INSTALLER curl
 	$PACKAGE_INSTALLER wget
 	$PACKAGE_INSTALLER git
+ 	$PACKAGE_INSTALLER re2c
+  	$PACKAGE_INSTALLER perl
 	$PACKAGE_INSTALLER libmaxminddb-devel
 	$PACKAGE_INSTALLER libmcrypt-dev
 	$PACKAGE_INSTALLER mcrypt-dev
@@ -709,6 +711,8 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
 	DEBIAN_FRONTEND=noninteractive apt-get -y install libgeoip-dev
 	DEBIAN_FRONTEND=noninteractive apt-get -y install libgeoip-devel
 	DEBIAN_FRONTEND=noninteractive apt-get -y install geoip-devel
+ 	DEBIAN_FRONTEND=noninteractive apt-get -y install re2c
+  	DEBIAN_FRONTEND=noninteractive apt-get -y install perl
  fi
 systemctl start mariadb
 systemctl enable mariadb
