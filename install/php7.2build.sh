@@ -154,13 +154,6 @@ patch -p1 < /home/xtreamcodes/iptv_xtream_codes/phpbuild/debian/patches/nginx-ss
 patch -p1 < /home/xtreamcodes/iptv_xtream_codes/phpbuild/debian/patches/CVE-2023-44487.patch
 patch -p1 < /home/xtreamcodes/iptv_xtream_codes/phpbuild/debian/patches/ubuntu-branding.patch
 rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/debian/
-if [ -f "/usr/bin/dpkg-buildflags" ]; then
-    configureend="--with-openssl=/home/xtreamcodes/iptv_xtream_codes/phpbuild/openssl-OpenSSL_1_1_1h --with-ld-opt='$(dpkg-buildflags --get LDFLAGS)' --with-cc-opt='$(dpkg-buildflags --get CFLAGS)'"
-elif [ -f "/usr/bin/rpm" ]; then
-    configureend="--with-openssl=/home/xtreamcodes/iptv_xtream_codes/phpbuild/openssl-OpenSSL_1_1_1h --with-cc-opt='$(rpm --eval %{build_ldflags})' --with-cc-opt='$(rpm --eval %{optflags})'"
-else 
-    configureend="--with-openssl=/home/xtreamcodes/iptv_xtream_codes/phpbuild/openssl-OpenSSL_1_1_1h"
-fi
 ./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/nginx \
 --lock-path=/home/xtreamcodes/iptv_xtream_codes/tmp/nginx.lock \
 --conf-path=/home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf \
@@ -186,7 +179,7 @@ fi
 --with-file-aio \
 --with-cpu-opt=generic \
 --add-module=/home/xtreamcodes/iptv_xtream_codes/phpbuild/ngx_http_geoip2_module \
-"$configureend"
+--with-openssl=/home/xtreamcodes/iptv_xtream_codes/phpbuild/openssl-OpenSSL_1_1_1h --with-ld-opt='$(dpkg-buildflags --get LDFLAGS)' --with-cc-opt='$(dpkg-buildflags --get CFLAGS)'
 make -j$(nproc --all)
 mkdir -p "/home/xtreamcodes/iptv_xtream_codes/nginx/"
 mkdir -p "/home/xtreamcodes/iptv_xtream_codes/nginx/sbin/"
@@ -202,7 +195,8 @@ mkdir -p  "/home/xtreamcodes/iptv_xtream_codes/logs/"
 	  --exclude=/home/xtreamcodes/iptv_xtream_codes/nginx/conf/*
 	rm -f *tar.*
   	mv xtreamcodes-nginx_1.24.0-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx_1.24.0-1-"$OS"_"$VER".deb
-elif  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
+fi
+if  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
 	yum install -y rpmdevtools
  	yum -y install yum-utils
   	yum -y groupinstall "Fedora Packager"
@@ -299,7 +293,6 @@ EOF
 	rpmbuild -ba $(rpm --eval %{_specdir})/xtreamcodes-nginx.spec
 	mv $(rpm --eval %{_rpmdir})/x86_64/xtreamcodes-nginx-1.24.0-1.CentOs.7.x86_64.rpm /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx_1.24.0-1-"$OS"_"$VER".rpm
  	yum -y install /home/xtreamcodes/iptv_xtream_codes/phpbuild/*.rpm
-  	exit
 fi
 mkdir -p /home/xtreamcodes/iptv_xtream_codes/nginx/conf/
 wget -O /home/xtreamcodes/iptv_xtream_codes/nginx/conf/balance.conf https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/nginx/conf/balance.conf
@@ -380,7 +373,7 @@ rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/debian/
 --with-cpu-opt=generic \
 --without-http_rewrite_module \
 --add-module=/home/xtreamcodes/iptv_xtream_codes/phpbuild/ngx_http_geoip2_module \
-"$configureend"
+--with-openssl=/home/xtreamcodes/iptv_xtream_codes/phpbuild/openssl-OpenSSL_1_1_1h --with-ld-opt='$(dpkg-buildflags --get LDFLAGS)' --with-cc-opt='$(dpkg-buildflags --get CFLAGS)'
 make -j$(nproc --all)
 mkdir -p "/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/"
 mkdir -p "/home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/"
