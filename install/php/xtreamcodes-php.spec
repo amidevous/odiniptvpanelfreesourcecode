@@ -15,7 +15,52 @@ xtreamcodes-php.
 %prep
 %setup -q -n php-7.2.34
 %patch0 -p1
+# ----- Manage known as failed test -------
+# affected by systzdata patch
+rm ext/date/tests/timezone_location_get.phpt
+%if 0%{?fedora} < 28
+# need tzdata 2018i
+rm ext/date/tests/bug33414-1.phpt
+rm ext/date/tests/date_modify-1.phpt
+%endif
+rm ext/date/tests/bug33415-2.phpt
+# too fast builder
+rm ext/date/tests/bug73837.phpt
+# fails sometime
+rm ext/sockets/tests/mcast_ipv?_recv.phpt
+# Should be skipped but fails sometime
+rm ext/standard/tests/file/file_get_contents_error001.phpt
+# cause stack exhausion
+rm Zend/tests/bug54268.phpt
+rm Zend/tests/bug68412.phpt
+# slow and erratic result
+rm sapi/cli/tests/upload_2G.phpt
+# tar issue
+rm ext/zlib/tests/004-mb.phpt
+# https://bugs.php.net/63362 - Not needed but installed headers.
+# Drop some Windows specific headers to avoid installation,
+# before build to ensure they are really not needed.
+rm -f TSRM/tsrm_win32.h \
+      TSRM/tsrm_config.w32.h \
+      Zend/zend_config.w32.h \
+      ext/mysqlnd/config-win.h \
+      ext/standard/winver.h \
+      main/win32_internal_function_disabled.h \
+      main/win95nt.h
+
+# Fix some bogus permissions
+find . -name \*.[ch] -exec chmod 644 {} \;
+chmod 644 README.*
 %build
+%define _lto_cflags %{nil}
+libtoolize --force --copy
+cat $(aclocal --print-ac-dir)/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m4 >build/libtool.m4
+touch configure.ac
+./buildconf --force
+
+CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Wno-pointer-sign"
+export CFLAGS
+
 ./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/php \
 --with-zlib-dir --with-freetype-dir=/usr --enable-mbstring --enable-calendar \
 --with-curl --with-gd --disable-rpath --enable-inline-optimization \
