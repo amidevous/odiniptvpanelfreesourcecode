@@ -195,8 +195,7 @@ mkdir -p  "/home/xtreamcodes/iptv_xtream_codes/logs/"
 	  --exclude=/home/xtreamcodes/iptv_xtream_codes/nginx/conf/*
 	rm -f *tar.*
   	mv xtreamcodes-nginx_1.24.0-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-nginx_1.24.0-1-"$OS"_"$VER".deb
-fi
-if  [[ "$OS" = "CentOS" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
+elif  [[ "$OS" = "CentOs" || "$OS" = "CentOS-Stream" || "$OS" = "Fedora" ]] ; then
 	yum install -y rpmdevtools
  	yum -y install yum-utils
   	yum -y groupinstall "Fedora Packager"
