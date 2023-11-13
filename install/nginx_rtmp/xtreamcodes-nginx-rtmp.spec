@@ -25,7 +25,7 @@ xtreamcodes-nginx-rtmp.
 cd %{_builddir}
 rm -rf %{_builddir}/OpenSSL_1_1_1h.tar.gz %{_builddir}/openssl-OpenSSL_1_1_1h
 wget https://github.com/openssl/openssl/archive/OpenSSL_1_1_1h.tar.gz -O %{_builddir}/OpenSSL_1_1_1h.tar.gz
-tar -xzvf OpenSSL_1_1_1h.tar.gz
+tar -xzvf %{_builddir}/OpenSSL_1_1_1h.tar.gz
 rm -rf %{_builddir}/OpenSSL_1_1_1h.tar.gz
 rm -rf %{_builddir}/ngx_http_geoip2_module
 git clone https://github.com/leev/ngx_http_geoip2_module.git %{_builddir}/ngx_http_geoip2_module
