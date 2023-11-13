@@ -12,8 +12,6 @@ ubuntu 22.04 online
 
 ```
 sudo apt update && sudo apt dist-upgrade -y
-sudo apt install software-properties-common -y
-sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt install python3-dev python3-requests python3-pip -y
 ```
 
@@ -45,7 +43,7 @@ sudo yum -y install openssl-devel bzip2-devel libffi-devel wget tar gzip yum-uti
 sudo yum install -y ruby-devel gcc make rpm-build rubygems
 sudo gem install --no-ri --no-rdoc backports -v 3.21.0
 sudo gem install --no-ri --no-rdoc fpm -v 0.4.0
-sudo yum install -y ncurses-devel sqlite-devel bzip2-devel libnsl2-devel gdbm-devel xz-devel libuuid-devel zlib-devel tk-devel libffi-devel tcl-devel readline-devel
+sudo yum install -y ncurses-devel sqlite-devel bzip2-devel gdbm-devel xz-devel libuuid-devel zlib-devel tk-devel libffi-devel tcl-devel readline-devel
 # for el 7 online
 sudo yum -y install  openssl11-devel
 ```
