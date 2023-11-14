@@ -11,8 +11,16 @@ BUILDDIR=$BASE_DIR/build-jammy
 BUILD_HOME=$BASE_DIR/nonexistent-jammy
 # For Ubuntu
 MIRRORSITE=http://archive.ubuntu.com/ubuntu
+# For Debian
+#MIRRORSITE=http://deb.debian.org/debian/
+# For Ubuntu
+COMPONENTS="main restricted universe multiverse"
+# For Debian
+#COMPONENTS="main contrib non-free"
+# For Ubuntu
 OTHERMIRROR="deb-src http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse|deb http://security.ubuntu.com/ubuntu jammy-security main restricted universe multiverse|deb-src http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse|deb http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse|deb-src http://security.ubuntu.com/ubuntu jammy-security main restricted universe multiverse|deb http://archive.canonical.com/ubuntu jammy partner|deb-src http://archive.canonical.com/ubuntu jammy partner"
-#OTHERMIRROR="deb http://www.home.com/updates/ ./"
+# For Debian
+#OTHERMIRROR="deb-src http://deb.debian.org/debian/ jammy main contrib non-free|deb http://deb.debian.org/debian/ jammy-updates main contrib non-free|deb-src http://deb.debian.org/debian/ jammy-updates main contrib non-free|deb http://deb.debian.org/debian-security/ jammy/updates main contrib non-free|deb-src http://deb.debian.org/debian-security/ jammy/updates main contrib non-free|deb http://deb.debian.org/debian jammy-backports main contrib non-free|deb-src http://deb.debian.org/debian jammy-backports main contrib non-free"
 BUILDRESULT=$BASE_DIR/result-jammy/
 APTCACHE="$BASE_DIR/aptcache-jammy/"
 HOOKDIR="$BASE_DIR/hooks-jammy"
