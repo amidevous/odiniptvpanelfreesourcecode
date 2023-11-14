@@ -483,7 +483,15 @@ EOF
 	$PACKAGE_INSTALLER mcrypt-dev
 	$PACKAGE_INSTALLER libmcrypt-devel
 	$PACKAGE_INSTALLER mcrypt-devel
-	$PACKAGE_INSTALLER mcrypt$PACKAGE_INSTALLER libgeoip-dev
+	$PACKAGE_INSTALLER mcrypt
+ 	$PACKAGE_INSTALLER libgeoip-dev
+  	$PACKAGE_INSTALLER debhelper
+  	$PACKAGE_INSTALLER cdbs
+  	$PACKAGE_INSTALLER lintian
+  	$PACKAGE_INSTALLER fakeroot
+  	$PACKAGE_INSTALLER devscripts
+  	$PACKAGE_INSTALLER dh-make
+  	$PACKAGE_INSTALLER dput
 	$PACKAGE_INSTALLER libgeoip-devel
 	$PACKAGE_INSTALLER geoip-devel
  	$PACKAGE_INSTALLER epel-rpm-macros
