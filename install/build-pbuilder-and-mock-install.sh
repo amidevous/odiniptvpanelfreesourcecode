@@ -14,3 +14,5 @@ pbuilderinstall focal
 pbuilderinstall jammy
 pbuilderinstall trusty
 pbuilderinstall buster
+mkdir -p /root/mock/config/
+cp -R /etc/mock/* /root/mock/config/
