@@ -116,7 +116,7 @@ cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf *
 if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	wget https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13.tgz
-	tar -xvf  -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13.tgz
+	tar -xvf /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13.tgz
 	cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13
 	./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/python3 \
 	--exec-prefix=/home/xtreamcodes/iptv_xtream_codes/python3 \
