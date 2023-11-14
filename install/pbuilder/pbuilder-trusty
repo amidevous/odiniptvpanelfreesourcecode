@@ -11,8 +11,16 @@ BUILDDIR=$BASE_DIR/build-trusty
 BUILD_HOME=$BASE_DIR/nonexistent-trusty
 # For Ubuntu
 MIRRORSITE=http://archive.ubuntu.com/ubuntu
+# For Debian
+#MIRRORSITE=http://deb.debian.org/debian/
+# For Ubuntu
+COMPONENTS="main restricted universe multiverse"
+# For Debian
+#COMPONENTS="main contrib non-free"
+# For Ubuntu
 OTHERMIRROR="deb-src http://archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse|deb http://security.ubuntu.com/ubuntu trusty-security main restricted universe multiverse|deb-src http://archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse|deb http://archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse|deb-src http://security.ubuntu.com/ubuntu trusty-security main restricted universe multiverse|deb http://archive.canonical.com/ubuntu trusty partner|deb-src http://archive.canonical.com/ubuntu trusty partner"
-#OTHERMIRROR="deb http://www.home.com/updates/ ./"
+# For Debian
+#OTHERMIRROR="deb-src http://deb.debian.org/debian/ trusty main contrib non-free|deb http://deb.debian.org/debian/ trusty-updates main contrib non-free|deb-src http://deb.debian.org/debian/ trusty-updates main contrib non-free|deb http://deb.debian.org/debian-security/ trusty/updates main contrib non-free|deb-src http://deb.debian.org/debian-security/ trusty/updates main contrib non-free|deb http://deb.debian.org/debian trusty-backports main contrib non-free|deb-src http://deb.debian.org/debian trusty-backports main contrib non-free"
 BUILDRESULT=$BASE_DIR/result-trusty/
 APTCACHE="$BASE_DIR/aptcache-trusty/"
 HOOKDIR="$BASE_DIR/hooks-trusty"
