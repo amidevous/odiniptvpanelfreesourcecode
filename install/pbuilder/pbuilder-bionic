@@ -2,16 +2,16 @@
 # pbuilderrc.5 for documentation
 BASE_DIR="/root/pbuilder"
 DISTRIBUTION=bionic
-BASETGZ=$BASE_DIR/base-bionic.tgz
+BASETGZ=/root/pbuilder/base-bionic.tgz
 #ARCHITECTURE=$(dpkg --print-architecture)
 EXTRAPACKAGES="wget nano curl"
 #export DEBIAN_BUILDARCH=athlon
-BUILDPLACE=$BASE_DIR/bionic/build
-BUILDDIR=$BASE_DIR/bionic/build
-BUILD_HOME=$BASE_DIR/bionic/nonexistent
-BUILDRESULT=$BASE_DIR/bionic/result/
-APTCACHE="$BASE_DIR/bionic/aptcache/"
-HOOKDIR="$BASE_DIR/bionic/hooks"
+BUILDPLACE=/root/pbuilder/bionic/build
+BUILDDIR=/root/pbuilder/bionic/build
+BUILD_HOME=/root/pbuilder/bionic/nonexistent
+BUILDRESULT=/root/pbuilder/bionic/result/
+APTCACHE="/root/pbuilder/bionic/aptcache/"
+HOOKDIR="/root/pbuilder/bionic/hooks"
 #export http_proxy=http://your-proxy:8080/
 USESHM=yes
 USEPROC=yes
