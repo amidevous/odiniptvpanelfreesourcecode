@@ -11,8 +11,16 @@ BUILDDIR=$BASE_DIR/build-focal
 BUILD_HOME=$BASE_DIR/nonexistent-focal
 # For Ubuntu
 MIRRORSITE=http://archive.ubuntu.com/ubuntu
+# For Debian
+#MIRRORSITE=http://deb.debian.org/debian/
+# For Ubuntu
+COMPONENTS="main restricted universe multiverse"
+# For Debian
+#COMPONENTS="main contrib non-free"
+# For Ubuntu
 OTHERMIRROR="deb-src http://archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse|deb http://security.ubuntu.com/ubuntu focal-security main restricted universe multiverse|deb-src http://archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse|deb http://archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse|deb-src http://security.ubuntu.com/ubuntu focal-security main restricted universe multiverse|deb http://archive.canonical.com/ubuntu focal partner|deb-src http://archive.canonical.com/ubuntu focal partner"
-#OTHERMIRROR="deb http://www.home.com/updates/ ./"
+# For Debian
+#OTHERMIRROR="deb-src http://deb.debian.org/debian/ focal main contrib non-free|deb http://deb.debian.org/debian/ focal-updates main contrib non-free|deb-src http://deb.debian.org/debian/ focal-updates main contrib non-free|deb http://deb.debian.org/debian-security/ focal/updates main contrib non-free|deb-src http://deb.debian.org/debian-security/ focal/updates main contrib non-free|deb http://deb.debian.org/debian focal-backports main contrib non-free|deb-src http://deb.debian.org/debian focal-backports main contrib non-free"
 BUILDRESULT=$BASE_DIR/result-focal/
 APTCACHE="$BASE_DIR/aptcache-focal/"
 HOOKDIR="$BASE_DIR/hooks-focal"
