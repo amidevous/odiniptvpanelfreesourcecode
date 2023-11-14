@@ -713,6 +713,7 @@ if [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]]; then
 	DEBIAN_FRONTEND=noninteractive apt-get -y install geoip-devel
  	DEBIAN_FRONTEND=noninteractive apt-get -y install re2c
   	DEBIAN_FRONTEND=noninteractive apt-get -y install perl
+   	DEBIAN_FRONTEND=noninteractive apt-get -y install checkinstall
  fi
 systemctl start mariadb
 systemctl enable mariadb
