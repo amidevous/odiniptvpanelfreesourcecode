@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.10
 # -*- coding: utf-8 -*-
 #
-# sudo wget -O /root/install.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install.py3 && && sudo python3.10 /root/install.py3
+# sudo wget -O /root/install.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install.py3 && && sudo python3.10 /root/install.py3
 #
 import os
 # os.system('pip install requests >/dev/null')
@@ -20,8 +20,8 @@ import base64
 from itertools import cycle, zip_longest as izip
 from itertools import zip_longest
 from datetime import datetime
-rDownloadURL = {"main": "https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-bin-main.sh",
-                "sub": "https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-bin-sub.sh"}
+rDownloadURL = {"main": "https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install-bin-main.sh",
+                "sub": "https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install-bin-sub.sh"}
 rInstall = {"MAIN": "main", "LB": "sub"}
 eMySQLenc = "IyBYdHJlYW0gQ29kZXMKCltjbGllbnRdCnBvcnQgICAgICAgICAgICA9IDMzMDYKCltteXNxbGRfc2FmZV0KbmljZSAgICAgICAgICAgID0gMAoKW215c3FsZF0KdXNlciAgICAgICAgICAgID0gbXlzcWwKcG9ydCAgICAgICAgICAgID0gNzk5OQpiYXNlZGlyICAgICAgICAgPSAvdXNyCmRhdGFkaXIgICAgICAgICA9IC92YXIvbGliL215c3FsCnRtcGRpciAgICAgICAgICA9IC90bXAKbGMtbWVzc2FnZXMtZGlyID0gL3Vzci9zaGFyZS9teXNxbApza2lwLWV4dGVybmFsLWxvY2tpbmcKc2tpcC1uYW1lLXJlc29sdmU9MQoKYmluZC1hZGRyZXNzICAgICAgICAgICAgPSAqCmtleV9idWZmZXJfc2l6ZSA9IDEyOE0KCm15aXNhbV9zb3J0X2J1ZmZlcl9zaXplID0gNE0KbWF4X2FsbG93ZWRfcGFja2V0ICAgICAgPSA2NE0KbXlpc2FtLXJlY292ZXItb3B0aW9ucyA9IEJBQ0tVUAptYXhfbGVuZ3RoX2Zvcl9zb3J0X2RhdGEgPSA4MTkyCnF1ZXJ5X2NhY2hlX2xpbWl0ICAgICAgID0gNE0KcXVlcnlfY2FjaGVfc2l6ZSAgICAgICAgPSAyNTZNCgoKZXhwaXJlX2xvZ3NfZGF5cyAgICAgICAgPSAxMAptYXhfYmlubG9nX3NpemUgICAgICAgICA9IDEwME0KCm1heF9jb25uZWN0aW9ucyAgPSAyMDAwMApiYWNrX2xvZyA9IDQwOTYKb3Blbl9maWxlc19saW1pdCA9IDIwMjQwCmlubm9kYl9vcGVuX2ZpbGVzID0gMjAyNDAKbWF4X2Nvbm5lY3RfZXJyb3JzID0gMzA3Mgp0YWJsZV9vcGVuX2NhY2hlID0gNDA5Ngp0YWJsZV9kZWZpbml0aW9uX2NhY2hlID0gNDA5NgoKCnRtcF90YWJsZV9zaXplID0gMUcKbWF4X2hlYXBfdGFibGVfc2l6ZSA9IDFHCgppbm5vZGJfYnVmZmVyX3Bvb2xfc2l6ZSA9IDEwRwppbm5vZGJfYnVmZmVyX3Bvb2xfaW5zdGFuY2VzID0gMTAKaW5ub2RiX3JlYWRfaW9fdGhyZWFkcyA9IDY0Cmlubm9kYl93cml0ZV9pb190aHJlYWRzID0gNjQKaW5ub2RiX3RocmVhZF9jb25jdXJyZW5jeSA9IDAKaW5ub2RiX2ZsdXNoX2xvZ19hdF90cnhfY29tbWl0ID0gMAppbm5vZGJfZmx1c2hfbWV0aG9kID0gT19ESVJFQ1QKcGVyZm9ybWFuY2Vfc2NoZW1hID0gMAppbm5vZGItZmlsZS1wZXItdGFibGUgPSAxCmlubm9kYl9pb19jYXBhY2l0eT0yMDAwMAppbm5vZGJfdGFibGVfbG9ja3MgPSAwCmlubm9kYl9sb2NrX3dhaXRfdGltZW91dCA9IDAKI2lubm9kYl9kZWFkbG9ja19kZXRlY3QgPSAwCgoKc3FsLW1vZGU9Ik5PX0VOR0lORV9TVUJTVElUVVRJT04iCgpbbXlzcWxkdW1wXQpxdWljawpxdW90ZS1uYW1lcwptYXhfYWxsb3dlZF9wYWNrZXQgICAgICA9IDE2TQoKW215c3FsXQoKW2lzYW1jaGtdCmtleV9idWZmZXJfc2l6ZSAgICAgICAgICAgICAgPSAxNk0="
 rMySQLCnf = base64.b64decode(eMySQLenc).decode('utf-8')
@@ -278,7 +278,7 @@ def start():
     os.system("sysctl -w kernel.core_pattern='|/bin/false' >/dev/null 2>&1")
     os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_services.sh -qO /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
     os.system("chmod 777 /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
-    os.system("wget -qO /tmp/install-bin-packages.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-bin-packages.sh >/dev/null 2>&1")
+    os.system("wget -qO /tmp/install-bin-packages.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install-bin-packages.sh >/dev/null 2>&1")
     os.system('bash /tmp/install-bin-packages.sh >/dev/null 2>&1')
     os.system('rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/ >/dev/null 2>&1')
     os.system("/home/xtreamcodes/iptv_xtream_codes/start_services.sh >/dev/null 2>&1")
