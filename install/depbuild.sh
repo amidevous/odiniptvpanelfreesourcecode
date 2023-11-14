@@ -494,6 +494,8 @@ EOF
   	$PACKAGE_INSTALLER dput
    	$PACKAGE_INSTALLER pbuilder
     	$PACKAGE_INSTALLER debootstrap
+    	$PACKAGE_INSTALLER apt
+    	$PACKAGE_INSTALLER dpkg
 	$PACKAGE_INSTALLER libgeoip-devel
 	$PACKAGE_INSTALLER geoip-devel
  	$PACKAGE_INSTALLER epel-rpm-macros
