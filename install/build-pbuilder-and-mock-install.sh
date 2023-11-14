@@ -6,6 +6,10 @@ pbuilderinstall () {
    chmod +x /usr/bin/pbuilder-$1
    mkdir -p /root/pbuilder/$1
    mkdir -p /root/pbuilder/aptcache-$1/
+   mkdir -p /root/pbuilder/result-$1/
+   mkdir -p /root/pbuilder/build-$1/
+   mkdir -p /root/pbuilder/nonexistent-$1
+   mkdir -p /root/pbuilder/hooks-$1
    pbuilder-$1 create --override-config
 }
 pbuilderinstall bionic
