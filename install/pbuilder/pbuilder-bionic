@@ -12,18 +12,9 @@ BUILD_HOME=$BASE_DIR/bionic/nonexistent
 BUILDRESULT=$BASE_DIR/bionic/result/
 APTCACHE="$BASE_DIR/bionic/aptcache/"
 HOOKDIR="$BASE_DIR/bionic/hooks"
-# For Ubuntu
 MIRRORSITE=http://archive.ubuntu.com/ubuntu
-# For Debian
-#DEBIAN#MIRRORSITE=http://deb.debian.org/debian/
-# For Ubuntu
 COMPONENTS="main restricted universe multiverse"
-# For Debian
-#DEBIAN#COMPONENTS="main contrib non-free"
-# For Ubuntu
-OTHERMIRROR="deb-src http://archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse|deb http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse|deb-src http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse|deb http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse|deb-src http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse|deb http://archive.canonical.com/ubuntu bionic partner|deb-src http://archive.canonical.com/ubuntu bionic partner"
-# For Debian
-#DEBIAN#OTHERMIRROR="deb-src http://deb.debian.org/debian/ bionic main contrib non-free|deb http://deb.debian.org/debian/ bionic-updates main contrib non-free|deb-src http://deb.debian.org/debian/ bionic-updates main contrib non-free|deb http://deb.debian.org/debian-security/ bionic/updates main contrib non-free|deb-src http://deb.debian.org/debian-security/ bionic/updates main contrib non-free|deb http://deb.debian.org/debian bionic-backports main contrib non-free|deb-src http://deb.debian.org/debian bionic-backports main contrib non-free"
+OTHERMIRROR="deb-src http://archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse|deb http://archive.ubuntu.com/ubuntu bionic-security main restricted universe multiverse|deb-src http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse|deb http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse|deb-src http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse"
 #export http_proxy=http://your-proxy:8080/
 USESHM=yes
 USEPROC=yes
