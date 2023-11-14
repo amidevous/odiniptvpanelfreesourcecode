@@ -5,6 +5,7 @@ pbuilderinstall () {
    wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/pbuilder/pbuilder-$1bin - O /usr/bin/pbuilder-$1
    chmod +x /usr/bin/pbuilder-$1
    mkdir -p /root/pbuilder/$1
+   mkdir -p /root/pbuilder/aptcache-bionic/$1
    pbuilder-$1 create --override-config
 }
 pbuilderinstall bionic
