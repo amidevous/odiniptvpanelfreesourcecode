@@ -5,7 +5,7 @@ define('MAIN_DIR', '/home/odin/');
 define('IPTV_ROOT_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/');
 define('IPTV_INCLUDES_PATH', IPTV_ROOT_PATH . 'includes' . '/');
 define('IPTV_TEMPLATES_PATH', IPTV_ROOT_PATH . 'templates' . '/');
-@ini_set('user_agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:9.0) Gecko/20100101 Firefox/9.0');
+@ini_set('user_agent', 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0');
 @ini_set('default_socket_timeout', 5);
 define('IN_SCRIPT', true);
 define('SOFTWARE', 'iptv');
