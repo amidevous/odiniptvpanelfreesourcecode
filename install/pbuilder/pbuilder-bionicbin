@@ -17,8 +17,7 @@ if ( $PROCEED == true ) then
       --basetgz $BASE_DIR/$DISTRIBUTION-base.tgz \
       --buildplace $BASE_DIR/$DISTRIBUTION \
       --configfile $BASE_DIR/pbuilder-$DISTRIBUTION \
-      --distribution $DISTRIBUTION \
-      --buildresult $BASE_DIR/result $@
+      --distribution $DISTRIBUTION $@
 else
    echo "Invalid command..."
    echo "Valid commands are:"
