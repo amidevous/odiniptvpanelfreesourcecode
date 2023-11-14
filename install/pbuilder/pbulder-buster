@@ -1,0 +1,87 @@
+# pbuilder defaults; edit /etc/pbuilderrc to override these and see
+# pbuilderrc.5 for documentation
+BASE_DIR="/root/pbuilder"
+DISTRIBUTION=buster
+BASETGZ=$BASE_DIR/base-buster.tgz
+#ARCHITECTURE=$(dpkg --print-architecture)
+EXTRAPACKAGES="wget nano curl"
+#export DEBIAN_BUILDARCH=athlon
+BUILDPLACE=$BASE_DIR/build-buster
+BUILDDIR=$BASE_DIR/build-buster
+BUILD_HOME=$BASE_DIR/nonexistent-buster
+# For Ubuntu
+MIRRORSITE=http://archive.ubuntu.com/ubuntu
+# For Debian
+#MIRRORSITE=http://deb.debian.org/debian/
+# For Ubuntu
+COMPONENTS="main restricted universe multiverse"
+# For Debian
+#COMPONENTS="main contrib non-free"
+# For Ubuntu
+OTHERMIRROR="deb-src http://archive.ubuntu.com/ubuntu/ buster main restricted universe multiverse|deb http://security.ubuntu.com/ubuntu buster-security main restricted universe multiverse|deb-src http://archive.ubuntu.com/ubuntu/ buster-updates main restricted universe multiverse|deb http://archive.ubuntu.com/ubuntu/ buster-updates main restricted universe multiverse|deb-src http://security.ubuntu.com/ubuntu buster-security main restricted universe multiverse|deb http://archive.canonical.com/ubuntu buster partner|deb-src http://archive.canonical.com/ubuntu buster partner"
+# For Debian
+#OTHERMIRROR="deb-src http://deb.debian.org/debian/ buster main contrib non-free|deb http://deb.debian.org/debian/ buster-updates main contrib non-free|deb-src http://deb.debian.org/debian/ buster-updates main contrib non-free|deb http://deb.debian.org/debian-security/ buster/updates main contrib non-free|deb-src http://deb.debian.org/debian-security/ buster/updates main contrib non-free|deb http://deb.debian.org/debian buster-backports main contrib non-free|deb-src http://deb.debian.org/debian buster-backports main contrib non-free"
+BUILDRESULT=$BASE_DIR/result-buster/
+APTCACHE="$BASE_DIR/aptcache-buster/"
+HOOKDIR="$BASE_DIR/hooks-buster"
+#export http_proxy=http://your-proxy:8080/
+USESHM=yes
+USEPROC=yes
+USEDEVFS=no
+USEDEVPTS=yes
+USESYSFS=yes
+USENETWORK=no
+USECGROUP=yes
+APTCACHEHARDLINK="yes"
+REMOVEPACKAGES=""
+EATMYDATA=no
+export DEBIAN_FRONTEND="noninteractive"
+BUILDSOURCEROOTCMD="fakeroot"
+PBUILDERROOTCMD="sudo -E"
+#PDEBUILD_PBUILDER="cowbuilder"
+PBUILDERSATISFYDEPENDSCMD="/usr/lib/pbuilder/pbuilder-satisfydepends-apt"
+ALLOWUNTRUSTED=no
+export APTGETOPT=()
+export APTITUDEOPT=()
+DEBDELTA=no
+#DEBBUILDOPTS="-IXXX -iXXX"
+DEBBUILDOPTS="${DEBBUILDOPTS}"
+APTCONFDIR=""
+BUILDUSERNAME=pbuilder
+BUILDUSERID=$(grep $BUILDUSERNAME /etc/passwd | cut -d: -f3)
+BINDMOUNTS=""
+DEBOOTSTRAPOPTS=(
+    '--variant=buildd'
+    '--force-check-gpg'
+    )
+# or unset it to make it not a buildd type.
+# unset DEBOOTSTRAPOPTS
+# Keyrings to use for package verification with apt, not used for debootstrap
+# (use DEBOOTSTRAPOPTS). By default the debian-archive-keyring package inside
+# the chroot is used.
+APTKEYRINGS=()
+# Set the PATH I am going to use inside pbuilder: default is "/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="/usr/sbin:/usr/bin:/sbin:/bin"
+# SHELL variable is used inside pbuilder by commands like 'su'; and they need sane values
+export SHELL=/bin/bash
+# The name of debootstrap command, you might want "cdebootstrap".
+DEBOOTSTRAP="debootstrap"
+PKGNAME_LOGFILE_EXTENSION="_$(dpkg --print-architecture).build"
+PKGNAME_LOGFILE=""
+AUTOCLEANAPTCACHE=""
+COMPRESSPROG="gzip"
+# pbuilder copies some configuration files (like /etc/hosts or /etc/hostname)
+# from the host system into the chroot.  If the directory specified here
+# exists and contains one of the copied files (without the leading /etc) that
+# file will be copied from here instead of the system one
+CONFDIR="/etc/pbuilder/conf_files"
+# ccache (make sure ccache is installed before uncommenting)
+CCACHEDIR=""
+# Note: CCACHEDIR is private to pbuilder, ccache uses "CCACHE_DIR"
+#CCACHEDIR="/var/cache/pbuilder/ccache"
+#export CCACHE_DIR="${CCACHEDIR}"
+#export PATH="/usr/lib/ccache:${PATH}"
+#EXTRAPACKAGES=ccache
+#BINDMOUNTS="${BINDMOUNTS} ${CCACHE_DIR}"
+LOGLEVEL=I
+USECOLORS=auto
