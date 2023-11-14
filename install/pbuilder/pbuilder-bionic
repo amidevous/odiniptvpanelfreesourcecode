@@ -11,8 +11,16 @@ BUILDDIR=$BASE_DIR/build-bionic
 BUILD_HOME=$BASE_DIR/nonexistent-bionic
 # For Ubuntu
 MIRRORSITE=http://archive.ubuntu.com/ubuntu
+# For Debian
+#MIRRORSITE=http://deb.debian.org/debian/
+# For Ubuntu
+COMPONENTS="main restricted universe multiverse"
+# For Debian
+#COMPONENTS="main contrib non-free"
+# For Ubuntu
 OTHERMIRROR="deb-src http://archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse|deb http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse|deb-src http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse|deb http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse|deb-src http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse|deb http://archive.canonical.com/ubuntu bionic partner|deb-src http://archive.canonical.com/ubuntu bionic partner"
-#OTHERMIRROR="deb http://www.home.com/updates/ ./"
+# For Debian
+#OTHERMIRROR="deb-src http://deb.debian.org/debian/ bullseye main contrib non-free|deb http://deb.debian.org/debian/ bullseye-updates main contrib non-free|deb-src http://deb.debian.org/debian/ bullseye-updates main contrib non-free|deb http://deb.debian.org/debian-security/ bullseye/updates main contrib non-free|deb-src http://deb.debian.org/debian-security/ bullseye/updates main contrib non-free|deb http://deb.debian.org/debian bullseye-backports main contrib non-free|deb-src http://deb.debian.org/debian bullseye-backports main contrib non-free"
 BUILDRESULT=$BASE_DIR/result-bionic/
 APTCACHE="$BASE_DIR/aptcache-bionic/"
 HOOKDIR="$BASE_DIR/hooks-bionic"
