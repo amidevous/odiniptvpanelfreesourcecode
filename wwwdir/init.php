@@ -2,6 +2,7 @@
 error_reporting(0);
 ini_set('display_errors', 0);
 define('MAIN_DIR', '/home/odin/');
+define('IPTV_PANEL_DIR', MAIN_DIR . 'iptv/');
 define('IPTV_ROOT_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/');
 define('IPTV_INCLUDES_PATH', IPTV_ROOT_PATH . 'includes' . '/');
 define('IPTV_TEMPLATES_PATH', IPTV_ROOT_PATH . 'templates' . '/');
@@ -10,7 +11,6 @@ define('IPTV_TEMPLATES_PATH', IPTV_ROOT_PATH . 'templates' . '/');
 define('IN_SCRIPT', true);
 define('SOFTWARE', 'iptv');
 define('SCRIPT_VERSION', '2.9.2');
-define('IPTV_PANEL_DIR', MAIN_DIR . 'iptv/');
 define('BIN_PATH', IPTV_PANEL_DIR . 'bin/');
 define('FFMPEG_PATH', file_exists(BIN_PATH . 'ffmpeg') ? BIN_PATH . 'ffmpeg' : '/usr/bin/ffmpeg');
 define('FFPROBE_PATH', file_exists(BIN_PATH . 'ffprobe') ? BIN_PATH . 'ffprobe' : '/usr/bin/ffprobe');
