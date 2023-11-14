@@ -6,9 +6,9 @@ BASETGZ=$BASE_DIR/base-bionic.tgz
 #ARCHITECTURE=$(dpkg --print-architecture)
 EXTRAPACKAGES="wget nano curl"
 #export DEBIAN_BUILDARCH=athlon
-BUILDPLACE=$BASE_DIR/build-bionic
-BUILDDIR=$BASE_DIR/build-bionic
-BUILD_HOME=$BASE_DIR/nonexistent-bionic
+BUILDPLACE=$BASE_DIR/bionic/build
+BUILDDIR=$BASE_DIR/bionic/build
+BUILD_HOME=$BASE_DIR/bionic/nonexistent
 # For Ubuntu
 MIRRORSITE=http://archive.ubuntu.com/ubuntu
 # For Debian
