@@ -115,6 +115,53 @@ mkdir -p  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
 rm -rf *
 if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
+	wget https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13.tgz
+	tar -xvf  -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13.tgz
+	cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13
+	./configure --prefix=/home/xtreamcodes/iptv_xtream_codes/python3 \
+	--exec-prefix=/home/xtreamcodes/iptv_xtream_codes/python3 \
+	--bindir=/home/xtreamcodes/iptv_xtream_codes/python3/bin \
+	--sbindir=/home/xtreamcodes/iptv_xtream_codes/python3/bin \
+	--libexecdir=/home/xtreamcodes/iptv_xtream_codes/python3/libexec \
+	--sysconfdir=/home/xtreamcodes/iptv_xtream_codes/python3/etc \
+	--sharedstatedir=/home/xtreamcodes/iptv_xtream_codes/python3/com \
+	--localstatedir=/home/xtreamcodes/iptv_xtream_codes/python3/var \
+	--runstatedir=/home/xtreamcodes/iptv_xtream_codes/python3/var/run \
+	--libdir=/home/xtreamcodes/iptv_xtream_codes/python3/lib \
+	--includedir=/home/xtreamcodes/iptv_xtream_codes/python3/include \
+	--oldincludedir=/home/xtreamcodes/iptv_xtream_codes/python3/include \
+	--datarootdir=/home/xtreamcodes/iptv_xtream_codes/python3/share \
+	--datadir=/home/xtreamcodes/iptv_xtream_codes/python3/share \
+	--infodir=/home/xtreamcodes/iptv_xtream_codes/python3/share/info \
+	--localedir=/home/xtreamcodes/iptv_xtream_codes/python3/share/locale \
+	--mandir=/home/xtreamcodes/iptv_xtream_codes/python3/share/man \
+	--docdir=/home/xtreamcodes/iptv_xtream_codes/python3/share/doc/python \
+	--htmldir=/home/xtreamcodes/iptv_xtream_codes/python3/share/doc/python \
+	--dvidir=/home/xtreamcodes/iptv_xtream_codes/python3/share/doc/python \
+	--pdfdir=/home/xtreamcodes/iptv_xtream_codes/python3/share/doc/python \
+	--psdir=/home/xtreamcodes/iptv_xtream_codes/python3/share/doc/python
+	make -j ${nproc}
+	checkinstall -D -y --pkgname=xtreamcodes-python3 --pkgversion=3.10.13 --arch=amd64 --nodoc --exclude=/usr/* make altinstall
+	rm -f *tar.*
+	mv xtreamcodes-python3_3.10.13-1_amd64.deb /home/xtreamcodes/iptv_xtream_codes/phpbuild/xtreamcodes-python3_3.10.13-1-"$OS"_"$VER".deb
+	mkdir -p /home/xtreamcodes/iptv_xtream_codes/bin/
+	rm -f /home/xtreamcodes/iptv_xtream_codes/python3/bin/pip
+	rm -f /home/xtreamcodes/iptv_xtream_codes/bin/pip
+	ln -s /home/xtreamcodes/iptv_xtream_codes/python3/bin/pip3.10 /home/xtreamcodes/iptv_xtream_codes/bin/pip3.10
+	ln -s /home/xtreamcodes/iptv_xtream_codes/python3/bin/pip3.10 /home/xtreamcodes/iptv_xtream_codes/bin/pip3
+	ln -s /home/xtreamcodes/iptv_xtream_codes/python3/bin/2to3-3.10 /home/xtreamcodes/iptv_xtream_codes/bin/2to3-3.10
+	ln -s /home/xtreamcodes/iptv_xtream_codes/python3/bin/2to3-3.10 /home/xtreamcodes/iptv_xtream_codes/bin/2to3
+	ln -s /home/xtreamcodes/iptv_xtream_codes/python3/bin/pydoc3.10 /home/xtreamcodes/iptv_xtream_codes/bin/pydoc3.10
+	ln -s /home/xtreamcodes/iptv_xtream_codes/python3/bin/pydoc3.10 /home/xtreamcodes/iptv_xtream_codes/bin/pydoc3
+	ln -s /home/xtreamcodes/iptv_xtream_codes/python3/bin/python3.10 /home/xtreamcodes/iptv_xtream_codes/bin/python3.10
+	ln -s /home/xtreamcodes/iptv_xtream_codes/python3/bin/python3.10 /home/xtreamcodes/iptv_xtream_codes/bin/python3
+	ln -s /home/xtreamcodes/iptv_xtream_codes/python3/bin/python3.10-config /home/xtreamcodes/iptv_xtream_codes/bin/python3.10-config
+	ln -s /home/xtreamcodes/iptv_xtream_codes/python3/bin/python3.10-config /home/xtreamcodes/iptv_xtream_codes/bin/python3-config
+	/home/xtreamcodes/iptv_xtream_codes/bin/pip3.10 install --upgrade pip setuptools wheel
+	/home/xtreamcodes/iptv_xtream_codes/bin/pip3.10 install requests
+	cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
+	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13.tgz
+	rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13
 	wget https://github.com/openssl/openssl/archive/OpenSSL_1_1_1h.tar.gz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/OpenSSL_1_1_1h.tar.gz
 	tar -xzvf OpenSSL_1_1_1h.tar.gz
 	wget http://nginx.org/download/nginx-1.24.0.tar.gz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/nginx-1.24.0.tar.gz
@@ -163,7 +210,6 @@ if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	mkdir -p "/home/xtreamcodes/iptv_xtream_codes/nginx/modules"
 	mkdir -p  "/home/xtreamcodes/iptv_xtream_codes/nginx/conf"
 	mkdir -p  "/home/xtreamcodes/iptv_xtream_codes/logs/"
-	apt-get -y install checkinstall
 	checkinstall -D -y \
 	  --pkgname=xtreamcodes-nginx \
 	  --pkgversion=1.24.0 \
