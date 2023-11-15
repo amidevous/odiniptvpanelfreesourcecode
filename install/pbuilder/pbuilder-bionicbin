@@ -14,7 +14,9 @@ esac
 if ( $PROCEED == true ) then
    shift 
    sudo pbuilder $OPERATION \
-      --configfile $BASE_DIR/pbuilder-$DISTRIBUTION.conf  $@
+   --distribution $DISTRIBUTION \
+   --basetgz /root/pbuilder/base-$DISTRIBUTION.tgz \
+   --configfile $BASE_DIR/pbuilder-$DISTRIBUTION.conf  $@
 else
    echo "Invalid command..."
    echo "Valid commands are:"
