@@ -6,6 +6,5 @@ min=999999999999
 max=99999999999999
 rnd=$((SRANDOM % ( max - min + 1 ) + min))
 docker build -t "$rnd" -f Dockerfile_Ubuntu-18.04 .
-docker build -t  .
-docker run -d -p 222:22 -v /root/Python-3.10.13:/source:rw "$rnd"
+docker run -d -p 222:22 -v /root/source:/source:rw "$rnd"
 rm -f $HOME/.ssh/known_hosts
