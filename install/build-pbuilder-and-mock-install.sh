@@ -102,43 +102,11 @@ ubuntuori mantic
 rm -f /usr/share/debootstrap/scripts/lunar
 cp /usr/share/debootstrap/scripts/jammy /usr/share/debootstrap/scripts/lunar
 ubuntuori lunar
-rm -f /usr/share/debootstrap/scripts/kinetic
-cp /usr/share/debootstrap/scripts/jammy /usr/share/debootstrap/scripts/kinetic
-ubuntuarc kinetic
 ubuntuori jammy
-ubuntuarc impish
-ubuntuarc hirsute
-ubuntuarc groovy
 ubuntuori focal
-ubuntuarc eoan
-ubuntuarc disco
-ubuntuarc cosmic
 ubuntuori bionic
-ubuntuarc artful
-ubuntuarc zesty
-ubuntuarc yakkety
 ubuntuori xenial
-ubuntuarc wily
-ubuntuarc vivid
-ubuntuarc utopic
 ubuntuori trusty
-ubuntuarc saucy
-ubuntuarc raring
-ubuntuarc quantal
-ubuntuori precise
-ubuntuarc oneiric
-ubuntuarc natty
-ubuntuarc maverick
-ubuntuori lucid
-ubuntuarc karmic
-ubuntuarc jaunty
-ubuntuarc intrepid
-ubuntuori hardy
-ubuntuarc gutsy
-ubuntuarc feisty
-ubuntuarc edgy
-ubuntuori dapper
-ubuntuarc breezy
 debianori bookworm
 debianori bullseye
 debianori buster
