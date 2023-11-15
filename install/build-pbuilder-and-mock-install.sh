@@ -93,7 +93,6 @@ debianarc () {
    echo 'COMPONENTS="main contrib non-free"' >> $HOME/pbuilder/pbuilder-$1.conf
    sudo pbuilder-$1 create --override-config
 }
-echo "ok"
 sudo rm -f /usr/share/debootstrap/scripts/noble
 sudo cp /usr/share/debootstrap/scripts/jammy /usr/share/debootstrap/scripts/noble
 ubuntuori noble
@@ -140,15 +139,6 @@ ubuntuarc feisty
 ubuntuarc edgy
 ubuntuori dapper
 ubuntuarc breezy
-ubuntuarc hoary
-ubuntuarc warty
-
-
-
-
-
-
-
 debianori bookworm
 debianori bullseye
 debianori buster
@@ -165,20 +155,3 @@ debianarc slink
 debianarc hamm
 mkdir -p /root/mock/config/
 cp -R /etc/mock/* /root/mock/config/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
