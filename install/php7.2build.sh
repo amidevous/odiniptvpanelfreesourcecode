@@ -48,64 +48,67 @@ else
     echo "Sorry, this OS is not supported by Xtream UI."
     exit 1
 fi
-killall nginx
-killall nginx_rtmp
-killall php-fpm
-killall php-fpm
-killall php
-killall php
-kill $(ps aux | grep 'xtreamcodes' | grep -v grep | grep -v 'start_services.sh' | awk '{print $2}') 2>/dev/null
-killall nginx
-killall nginx_rtmp
-killall php-fpm
-killall php-fpm
-killall php
-killall php
-kill $(ps aux | grep 'xtreamcodes' | grep -v grep | grep -v 'start_services.sh' | awk '{print $2}') 2>/dev/null
-killall nginx
-killall nginx_rtmp
-killall php-fpm
-killall php-fpm
-killall php
-killall php
-kill $(ps aux | grep 'xtreamcodes' | grep -v grep | grep -v 'start_services.sh' | awk '{print $2}') 2>/dev/null
-killall nginx
-killall nginx_rtmp
-killall php-fpm
-killall php-fpm
-killall php
-killall php
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/bin/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/include/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/Archive/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/OS/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/PEAR.php
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/System.php
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/build/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/doc/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/pearcmd.php
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/test/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/Console/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/PEAR/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/Structures/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/XML/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/data/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/extensions/no-debug-non-zts-20170718/geoip.so
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/extensions/no-debug-non-zts-20170718/igbinary.so
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/extensions/no-debug-non-zts-20170718/mcrypt.so
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/extensions/no-debug-non-zts-20170718/opcache.a
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/extensions/no-debug-non-zts-20170718/opcache.so
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/lib/php/peclcmd.php
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/php/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/sbin/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/php/var/
-rm -rf /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx
-rm -rf /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp
+if [ ! -f "/etc/yum.repos.d/docker-ce.repo" ]; then
+    echo "please install official docker and restart"
+    exit
+fi
 wget --no-check-certificate -qO- https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/depbuild.sh | bash -s
-mkdir -p  /home/xtreamcodes/iptv_xtream_codes/phpbuild/
-cd /home/xtreamcodes/iptv_xtream_codes/phpbuild/
-rm -rf *
 wget --no-check-certificate -qO- https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/build-pbuilder-and-mock-install.sh | bash -s
+ubunbuild () {
+cd /root
+mkdir -p /root/deb/
+wget -O /root/Dockerfile_Ubuntu-$1 https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/Dockerfile/Dockerfile_Ubuntu-$1
+wget -O /root/Ubuntu-$1.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/Dockerfile/Ubuntu-$1.sh
+bash /root/Ubuntu-$1.sh
+sshlogin="sshpass -p Ash82qc44L6ZVv /usr/bin/ssh -t -o StrictHostKeyChecking=no -p 222 root@127.0.0.1 "
+scplogin="sshpass -p Ash82qc44L6ZVv /usr/bin/scp -o StrictHostKeyChecking=no -P 222 root@127.0.0.1:"
+$sshlogin mkdir -p /source/
+$sshlogin rm -rf /source/*
+$sshlogin wget $2 -P /source/
+$sshlogin tar -xvf /source/$3 -C /source/
+$sshlogin wget $4 -P /source/
+$sshlogin tar -xvf /source/$5 -C /source/$6
+$sshlogin wget -O /source/$6/debian/control $7
+$sshlogin wget -O /source/$6/debian/changelog $8
+$sshlogin "sed -i 's|focal|bionic|' /source/$6/debian/changelog"
+$sshlogin "apt-get -y build-dep /source/$6"
+$sshlogin "cd /source/$6 && debuild"
+$sshlogin "rm -f /root/$9"
+$sshlogin "tar -cvf /root/$9 /source/"
+$scplogin/root/$9 /root/deb/
+rm -rf /root/Dockerfile_Ubuntu-$1 /root/Ubuntu-$1.sh
+}
+debbuild () {
+cd /root
+mkdir -p /root/deb/
+wget -O /root/Dockerfile_debian-$1 https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/Dockerfile/Dockerfile_debian-$1
+wget -O /root/debian-$1.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/Dockerfile/debian-$1.sh
+bash /root/debian-$1.sh
+sshlogin="sshpass -p Ash82qc44L6ZVv /usr/bin/ssh -t -o StrictHostKeyChecking=no -p 222 root@127.0.0.1 "
+scplogin="sshpass -p Ash82qc44L6ZVv /usr/bin/scp -o StrictHostKeyChecking=no -P 222 root@127.0.0.1:"
+$sshlogin mkdir -p /source/
+$sshlogin rm -rf /source/*
+$sshlogin wget $2 -P /source/
+$sshlogin tar -xvf /source/$3 -C /source/
+$sshlogin wget $4 -P /source/
+$sshlogin tar -xvf /source/$5 -C /source/$6
+$sshlogin wget -O /source/$6/debian/control $7
+$sshlogin wget -O /source/$6/debian/changelog $8
+$sshlogin "sed -i 's|focal|bionic|' /source/$6/debian/changelog"
+$sshlogin "apt-get -y build-dep /source/$6"
+$sshlogin "cd /source/$6 && debuild"
+$sshlogin "rm -f /root/$9"
+$sshlogin "tar -cvf /root/$9 /source/"
+$scplogin/root/$9 /root/deb/
+rm -rf /root/Dockerfile_debian-$1 /root/debian-$1.sh
+}
+ubunbuild 18.04 \
+https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa/+sourcefiles/python3.10/3.10.13-1+focal1/python3.10_3.10.13.orig.tar.gz python3.10_3.10.13.orig.tar.gz \
+https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa/+sourcefiles/python3.10/3.10.13-1+focal1/python3.10_3.10.13-1+focal1.debian.tar.xz python3.10_3.10.13-1+focal1.debian.tar.xz \
+Python-3.10.13 \
+https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/debian/control \
+https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/debian/changelog \
+python3.10-build-Ubuntu-18.04.tar
 exit
 if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	wget https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13.tgz
