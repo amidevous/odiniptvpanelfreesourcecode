@@ -1,6 +1,7 @@
 FROM centos:7
 RUN yum -y update
 RUN yum -y install nano openssh-server net-tools passwd bash-completion dos2unix wget
+RUN yum -y install @core
 RUN mkdir /var/run/sshd
 RUN chkconfig sshd on
 RUN echo 'root:Ash82qc44L6ZVv' | chpasswd
@@ -13,36 +14,7 @@ RUN sed -i 's|#PasswordAuthentication yes|PasswordAuthentication yes|' "/etc/ssh
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_dsa_key -N ''
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_ed25519_key -N ''
-RUN wget --no-check-certificate -qO /root/depbuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh
-RUN bash /root/depbuild.sh
-RUN mkdir -p /home/xtreamcodes
-RUN touch /home/xtreamcodes/dep
-RUN yum -y install epel-release
-RUN yum groupinstall -y "Development Tools"
-RUN yum groupinstall -y "Fedora Packager"
-RUN yum -y install openssl-devel bzip2-devel libffi-devel wget tar gzip yum-utils make gcc openssl-devel zlib-devel
-RUN yum install -y ruby-devel gcc make rpm-build rubygems
-RUN gem install --no-ri --no-rdoc backports -v 3.21.0
-RUN gem install --no-ri --no-rdoc fpm -v 0.4.0
-RUN yum install -y ncurses-devel sqlite-devel bzip2-devel libnsl2-devel gdbm-devel xz-devel libuuid-devel zlib-devel tk-devel libffi-devel tcl-devel readline-devel
-RUN yum -y install  openssl11-devel
-RUN wget https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz -O /root/Python-3.10.13.tgz
-RUN tar -zxvf "/root/Python-3.10.13.tgz" -C "/root/"
-RUN sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' /root/Python-3.10.13/configure
-RUN cd /root/Python-3.10.13 && ./configure 
-RUN cd /root/Python-3.10.13 && make -j ${nproc}
-RUN cd /root/Python-3.10.13 && make altinstall
 RUN sed -i 's|Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin|Defaults    secure_path = /usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin|' /etc/sudoers
-RUN rm -rf /root/Python*
-RUN pip3.10 install --upgrade pip setuptools wheel
-RUN pip3.10 install requests
-RUN wget -O /root/install-silent.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-silent.py3
-RUN python3.10 /root/install-silent.py3
 EXPOSE 22
-EXPOSE 25500
-EXPOSE 80
-EXPOSE 8080
-EXPOSE 443
-EXPOSE 444
 CMD ["/usr/sbin/sshd","-D"]
 
