@@ -14,18 +14,5 @@ RUN sed -i 's|#PermitRootLogin yes|PermitRootLogin yes|' "/etc/ssh/sshd_config"
 RUN sed -i 's|#PermitRootLogin prohibit-password|PermitRootLogin yes|' "/etc/ssh/sshd_config"
 RUN sed -i 's|PermitRootLogin prohibit-password|PermitRootLogin yes|' "/etc/ssh/sshd_config"
 RUN sed -i 's|#PasswordAuthentication yes|PasswordAuthentication yes|' "/etc/ssh/sshd_config"
-RUN wget --no-check-certificate -qO /root/depbuild.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/depbuild.sh
-RUN bash /root/depbuild.sh >/dev/null 2>&1
-RUN mkdir -p /home/xtreamcodes
-RUN touch /home/xtreamcodes/dep
-RUN wget -O /root/install-silent.py3  https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install-silent.py3
-RUN python3.10 /root/install-silent.py3
 EXPOSE 22
-EXPOSE 25500
-EXPOSE 80
-EXPOSE 8080
-EXPOSE 443
-EXPOSE 444
 CMD ["/usr/sbin/sshd","-D"]
-CMD ["service","mariadb","restart"]
-CMD ["/bin/bash","/home/xtreamcodes/iptv_xtream_codes/start_services.sh"]
