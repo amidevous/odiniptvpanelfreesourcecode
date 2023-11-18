@@ -1,6 +1,4 @@
 #!/bin/bash
-mkdir -p /source/
-rm -rf /source/*
 wget https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa/+sourcefiles/python3.10/3.10.13-1+focal1/python3.10_3.10.13.orig.tar.gz -P /source/
 tar -xvf /source/python3.10_3.10.13.orig.tar.gz -C /source/
 wget https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa/+sourcefiles/python3.10/3.10.13-1+focal1/python3.10_3.10.13-1+focal1.debian.tar.xz -P /source/
