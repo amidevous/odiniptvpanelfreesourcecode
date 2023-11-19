@@ -2,7 +2,8 @@ FROM ubuntu:22.04
 RUN rm -rf /var/lib/apt/lists/*
 RUN DEBIAN_FRONTEND=noninteractive \
  apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get -y install ubuntu-minimal ssh openssh-server python3 net-tools needrestart passwd bash-completion dos2unix wget python3-requests python3-dev
+ && DEBIAN_FRONTEND=noninteractive apt-get -y install ubuntu-minimal ssh openssh-server python3 net-tools needrestart passwd bash-completion dos2unix wget python3-requests python3-dev \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential cdbs devscripts equivs fakeroot debhelper lintian dh-make dput
 RUN sed -i "s|#\$nrconf{verbosity} = 2;|\$nrconf{verbosity} = 0;|" /etc/needrestart/needrestart.conf
 RUN sed -i "s|#\$nrconf{restart} = 'i';|\$nrconf{restart} = 'a';|" /etc/needrestart/needrestart.conf
 RUN mkdir /var/run/sshd
