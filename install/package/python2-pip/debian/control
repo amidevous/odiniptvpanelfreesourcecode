@@ -13,8 +13,7 @@ Architecture: all
 Breaks: python-pip
 Replaces: python-pip
 Provides: pip
-Depends: python3-pip
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3-pip
 Description: Python package installer
  pip is the Python package installer.  It integrates with virtualenv, doesn't
  do partial installs, can save package state for replaying, can install from
