@@ -9,6 +9,8 @@ elif [ -f /etc/os-release ]; then
     OS=$(uname -s)
     VER=$(uname -r)
 fi
+mkdir -p /source/
+rm -rf /source/*
 wget https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa/+sourcefiles/python3.10/3.10.13-1+focal1/python3.10_3.10.13.orig.tar.gz -P /source/
 tar -xvf /source/python3.10_3.10.13.orig.tar.gz -C /source/
 wget https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa/+sourcefiles/python3.10/3.10.13-1+focal1/python3.10_3.10.13-1+focal1.debian.tar.xz -P /source/
@@ -19,5 +21,5 @@ sed -i 's|focal|'$(lsb_release -sc)'|' /source/Python-3.10.13/debian/changelog
 apt-get -y build-dep /source/Python-3.10.13
 cd /source/Python-3.10.13
 debuild
-rm -f "/root/python3.10-build-"$OS"-"$VER".tar"
+rm -rf /source/Python-3.10.13 "/source/*.tar" "/source/*.tar*" "/source/*.gz" "/source/*.dsc" "/source/*.build" "/source/*.buildinfo" "/source/*.changes" 
 tar -cvf "/root/python3.10-build-"$OS"-"$VER".tar" /source/
