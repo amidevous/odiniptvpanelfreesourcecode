@@ -1,0 +1,5 @@
+python-pip (20.3.4-1) unstable; urgency=medium
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- amidevous <amidevous@users.noreply.github.com>  Sun, 19 Nov 2023 11:31:51 +0000
