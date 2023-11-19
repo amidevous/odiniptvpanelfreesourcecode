@@ -1,0 +1,17 @@
+Source: python-pip
+Section: python
+Priority: optional
+Maintainer: amidevous <amidevous@users.noreply.github.com>
+Build-Depends: debhelper (>= 10), idle-python2.7, libpython2.7, python2.7-minimal, libpython2.7-dev, python2.7, python2.7-dev, python2.7-tk, libpython2.7-minimal, libpython2.7-stdlib, python2.7-examples, libpython2.7-testsuite
+Standards-Version: 4.1.2
+Homepage: https://pip.pypa.io/en/stable/
+Vcs-Git: https://github.com/pypa/pip.git
+Vcs-Browser: https://github.com/pypa/pip
+
+Package: python-pip
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Python package installer
+ pip is the Python package installer.  It integrates with virtualenv, doesn't
+ do partial installs, can save package state for replaying, can install from
+ non-egg sources, and can install from version control repositories.
