@@ -21,5 +21,5 @@ sed -i 's|focal|'$(lsb_release -sc)'|' /source/Python-3.10.13/debian/changelog
 apt-get -y build-dep /source/Python-3.10.13
 cd /source/Python-3.10.13
 debuild
-rm -rf /source/Python-3.10.13 "/source/*.tar" "/source/*.tar*" "/source/*.gz" "/source/*.dsc" "/source/*.build" "/source/*.buildinfo" "/source/*.changes" 
+rm -rf /source/Python-3.10.13 /source/*.tar /source/*.tar* /source/*.gz /source/*.dsc /source/*.build /source/*.buildinfo /source/*.changes
 tar -cvf "/root/python3.10-build-"$OS"-"$VER".tar" /source/
