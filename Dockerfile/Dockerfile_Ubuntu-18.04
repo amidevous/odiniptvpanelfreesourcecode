@@ -3,7 +3,7 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN DEBIAN_FRONTEND=noninteractive \
  apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get -y install ubuntu-minimal ssh openssh-server python3 net-tools passwd bash-completion dos2unix wget python3-requests python3-dev \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential cdbs devscripts equivs fakeroot
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential cdbs devscripts equivs fakeroot debhelper lintian dh-make dput
 RUN mkdir /var/run/sshd
 RUN echo 'root:Ash82qc44L6ZVv' | chpasswd
 RUN sed -i 's|#PermitRootLogin no|PermitRootLogin yes|' "/etc/ssh/sshd_config"
