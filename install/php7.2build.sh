@@ -59,23 +59,13 @@ cd /root
 mkdir -p /root/deb/
 wget -O /root/Dockerfile_Ubuntu-$1 https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/Dockerfile/Dockerfile_Ubuntu-$1
 wget -O /root/Ubuntu-$1.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/Dockerfile/Ubuntu-$1.sh
-bash /root/Ubuntu-$1.sh
+bash Ubuntu-$1.sh
 sshlogin="sshpass -p Ash82qc44L6ZVv /usr/bin/ssh -t -o StrictHostKeyChecking=no -p 222 root@127.0.0.1 "
 scplogin="sshpass -p Ash82qc44L6ZVv /usr/bin/scp -o StrictHostKeyChecking=no -P 222 root@127.0.0.1:"
-$sshlogin mkdir -p /source/
-$sshlogin rm -rf /source/*
-$sshlogin wget $2 -P /source/
-$sshlogin tar -xvf /source/$3 -C /source/
-$sshlogin wget $4 -P /source/
-$sshlogin tar -xvf /source/$5 -C /source/$6
-$sshlogin wget -O /source/$6/debian/control $7
-$sshlogin wget -O /source/$6/debian/changelog $8
-$sshlogin "sed -i 's|focal|bionic|' /source/$6/debian/changelog"
-$sshlogin "apt-get -y build-dep /source/$6"
-$sshlogin "cd /source/$6 && debuild"
-$sshlogin "rm -f /root/$9"
-$sshlogin "tar -cvf /root/$9 /source/"
-$scplogin/root/$9 /root/deb/
+$sshlogin "mkdir -p /source/"
+$sshlogin "wget "$2" -O /source/build.sh"
+$sshlogin "bash /source/build.sh"
+$scplogin/root/$3 /root/deb/
 rm -rf /root/Dockerfile_Ubuntu-$1 /root/Ubuntu-$1.sh
 }
 debbuild () {
@@ -86,29 +76,24 @@ wget -O /root/debian-$1.sh https://github.com/amidevous/odiniptvpanelfreesourcec
 bash /root/debian-$1.sh
 sshlogin="sshpass -p Ash82qc44L6ZVv /usr/bin/ssh -t -o StrictHostKeyChecking=no -p 222 root@127.0.0.1 "
 scplogin="sshpass -p Ash82qc44L6ZVv /usr/bin/scp -o StrictHostKeyChecking=no -P 222 root@127.0.0.1:"
-$sshlogin mkdir -p /source/
-$sshlogin rm -rf /source/*
-$sshlogin wget $2 -P /source/
-$sshlogin tar -xvf /source/$3 -C /source/
-$sshlogin wget $4 -P /source/
-$sshlogin tar -xvf /source/$5 -C /source/$6
-$sshlogin wget -O /source/$6/debian/control $7
-$sshlogin wget -O /source/$6/debian/changelog $8
-$sshlogin "sed -i 's|focal|bionic|' /source/$6/debian/changelog"
-$sshlogin "apt-get -y build-dep /source/$6"
-$sshlogin "cd /source/$6 && debuild"
-$sshlogin "rm -f /root/$9"
-$sshlogin "tar -cvf /root/$9 /source/"
-$scplogin/root/$9 /root/deb/
+$sshlogin "mkdir -p /source/"
+$sshlogin "wget "$2" -O /source/build.sh"
+$sshlogin "bash /source/build.sh"
+$scplogin/root/$3 /root/deb/
 rm -rf /root/Dockerfile_debian-$1 /root/debian-$1.sh
 }
 ubunbuild 18.04 \
-https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa/+sourcefiles/python3.10/3.10.13-1+focal1/python3.10_3.10.13.orig.tar.gz python3.10_3.10.13.orig.tar.gz \
-https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa/+sourcefiles/python3.10/3.10.13-1+focal1/python3.10_3.10.13-1+focal1.debian.tar.xz python3.10_3.10.13-1+focal1.debian.tar.xz \
-Python-3.10.13 \
-https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/debian/control \
-https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/debian/changelog \
+https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/build.sh \
 python3.10-build-Ubuntu-18.04.tar
+ubunbuild 20.04 \
+https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/build.sh \
+python3.10-build-Ubuntu-20.04.tar
+debbuild 11 \
+https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/build.sh \
+python3.10-build-debian-11.tar
+debbuild 12 \
+https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/build.sh \
+python3.10-build-debian-12.tar
 exit
 if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
 	wget https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz -O /home/xtreamcodes/iptv_xtream_codes/phpbuild/Python-3.10.13.tgz
