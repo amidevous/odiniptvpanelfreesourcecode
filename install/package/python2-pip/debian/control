@@ -1,4 +1,4 @@
-Source: python-pip
+Source: python2-pip
 Section: python
 Priority: optional
 Maintainer: amidevous <amidevous@users.noreply.github.com>
@@ -8,8 +8,12 @@ Homepage: https://pip.pypa.io/en/stable/
 Vcs-Git: https://github.com/pypa/pip.git
 Vcs-Browser: https://github.com/pypa/pip
 
-Package: python-pip
-Architecture: any
+Package: python2-pip
+Architecture: all
+Breaks: python-pip
+Replaces: python-pip
+Provides: pip
+Depends: python3-pip
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Python package installer
  pip is the Python package installer.  It integrates with virtualenv, doesn't
