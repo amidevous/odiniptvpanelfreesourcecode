@@ -83,16 +83,16 @@ $scplogin/root/$3 /root/deb/
 rm -rf /root/Dockerfile_debian-$1 /root/debian-$1.sh
 }
 ubunbuild 18.04 \
-https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/build.sh \
+https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/debian/build.sh \
 python3.10-build-Ubuntu-18.04.tar
 ubunbuild 20.04 \
-https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/build.sh \
+https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/debian/build.sh \
 python3.10-build-Ubuntu-20.04.tar
 debbuild 11 \
-https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/build.sh \
+https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/debian/build.sh \
 python3.10-build-debian-11.tar
 debbuild 12 \
-https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/build.sh \
+https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/package/python3.10/debian/build.sh \
 python3.10-build-debian-12.tar
 exit
 if  [[ "$OS" = "Ubuntu" || "$OS" = "debian" ]] ; then
