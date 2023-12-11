@@ -125,6 +125,7 @@ def mysql(rUsername, rPassword):
         rFile.write(rMySQLCnf)
         rFile.close()
     os.system("rm -rf /etc/systemd/system/mariadb.service.d /etc/systemd/system/multi-user.target.wants/mariadb.service >/dev/null 2>&1")
+    os.system("rm -rf /etc/systemd/system/mysqld.service /etc/systemd/system/mysql.service >/dev/null 2>&1")
     os.system('mkdir -p /etc/init.d/ >/dev/null 2>&1')
     os.system('touch /etc/init.d/mariadb >/dev/null 2>&1')
     rFile = open("/etc/init.d/mariadb", "w")
