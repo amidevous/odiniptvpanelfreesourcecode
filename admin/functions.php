@@ -6,7 +6,7 @@
  * @ Release: 10/08/2022
  */
 
-include_once "/home/xtreamcodes/iptv_xtream_codes/admin/HTMLPurifier.standalone.php";
+include_once "/home/odiniptv/admin/HTMLPurifier.standalone.php";
 $rRelease = 22;
 $rEarlyAccess = " CK ";
 $rTimeout = 60;
@@ -30,7 +30,7 @@ set_time_limit($rTimeout);
 ini_set("mysql.connect_timeout", $rSQLTimeout);
 ini_set("max_execution_time", $rTimeout);
 ini_set("default_socket_timeout", $rTimeout);
-define("MAIN_DIR", "/home/xtreamcodes/iptv_xtream_codes/");
+define("MAIN_DIR", "/home/odiniptv/");
 define("CONFIG_CRYPT_KEY", "5709650b0d7806074842c6de575025b1");
 require_once realpath(dirname(__FILE__)) . "/mobiledetect.php";
 require_once realpath(dirname(__FILE__)) . "/gauth.php";
@@ -47,13 +47,13 @@ $nabilos = getRegisteredUserHash($_SESSION["hash"]);
 if (0 < strlen($nabilos["default_lang"]) && file_exists("./lang/" . $nabilos["default_lang"] . ".php")) {
     include "./lang/" . $nabilos["default_lang"] . ".php";
 } else {
-    include "/home/xtreamcodes/iptv_xtream_codes/admin/lang/en.php";
+    include "/home/odiniptv/admin/lang/en.php";
 }
 $detect = new Mobile_Detect();
 $rClientFilters = ["NOT_IN_BOUQUET" => "Not in Bouquet", "CON_SVP" => "Connection Issue", "ISP_LOCK_FAILED" => "ISP Lock Failed", "USER_DISALLOW_EXT" => "Extension Disallowed", "AUTH_FAILED" => "Authentication Failed", "USER_EXPIRED" => "User Expired", "USER_DISABLED" => "User Disabled", "USER_BAN" => "User Banned"];
-if (file_exists("/home/xtreamcodes/iptv_xtream_codes/admin/.update")) {
-    unlink("/home/xtreamcodes/iptv_xtream_codes/admin/.update");
-    if (!file_exists("/home/xtreamcodes/iptv_xtream_codes/admin/.update")) {
+if (file_exists("/home/odiniptv/admin/.update")) {
+    unlink("/home/odiniptv/admin/.update");
+    if (!file_exists("/home/odiniptv/admin/.update")) {
         updatetables();
         forcesecurity();
     }
