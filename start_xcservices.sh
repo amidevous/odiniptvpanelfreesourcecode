@@ -30,6 +30,6 @@ chown -R xtreamcodes:xtreamcodes /home/xtreamcodes 2>/dev/null
 sleep 4
 /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp
 /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx
-daemonize -p /home/xtreamcodes/iptv_xtream_codes/php/VaiIb8.pid /home/odiniptv/php/sbin/php-fpm --fpm-config /home/odiniptv/php/etc/VaiIb8.conf
-daemonize -p /home/xtreamcodes/iptv_xtream_codes/php/JdlJXm.pid /home/odiniptv/php/sbin/php-fpm --fpm-config /home/odiniptv/php/etc/JdlJXm.conf
-daemonize -p /home/xtreamcodes/iptv_xtream_codes/php/CWcfSP.pid /home/odiniptv/php/sbin/php-fpm --fpm-config /home/odiniptv/php/etc/CWcfSP.conf
+daemonize -p /home/xtreamcodes/iptv_xtream_codes/php/VaiIb8.pid /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm --fpm-config /home/xtreamcodes/iptv_xtream_codes/php/etc/VaiIb8.conf
+daemonize -p /home/xtreamcodes/iptv_xtream_codes/php/JdlJXm.pid /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm --fpm-config /home/xtreamcodes/iptv_xtream_codes/php/etc/JdlJXm.conf
+daemonize -p /home/xtreamcodes/iptv_xtream_codes/php/CWcfSP.pid /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm --fpm-config /home/xtreamcodes/iptv_xtream_codes/php/etc/CWcfSP.conf
