@@ -247,8 +247,10 @@ def start():
     os.system("sysctl -w kernel.core_pattern='|/bin/false' >/dev/null 2>&1")
     os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_xcservices.sh -O /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
     os.system("chmod 777 /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
+    os.system("echo 'old install 2 ok'")
     os.system("wget -qO /tmp/install-bin-packages.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install-bin-packages.sh >/dev/null 2>&1")
     os.system('bash /tmp/install-bin-packages.sh >/dev/null 2>&1')
+    os.system("echo 'install2 ok'")
     os.system('rm -rf /home/xtreamcodes/iptv_xtream_codes/phpbuild/ >/dev/null 2>&1')
     os.system("/home/xtreamcodes/iptv_xtream_codes/start_services.sh >/dev/null 2>&1")
     
