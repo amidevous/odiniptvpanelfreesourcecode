@@ -81,6 +81,7 @@ def prepare(rType="MAIN"):
       printc("Creating user")
       os.system("adduser --system --shell /bin/false --group --disabled-login xtreamcodes >/dev/null 2>&1")
       os.system("adduser --system --shell /bin/false xtreamcodes >/dev/null 2>&1")
+      os.system("echo 'add user ok'")
       if not os.path.exists("/home/xtreamcodes"): os.mkdir("/home/xtreamcodes")
     return True
 
@@ -93,10 +94,11 @@ def install(rType="MAIN"):
     except:
         printc("Invalid download URL!", col.FAIL)
         return False
-    os.system('wget -q -O "/tmp/install.sh" "%s"' % rURL)
+    os.system('wget -O "/tmp/install.sh" "%s"' % rURL)
     if os.path.exists("/tmp/install.sh"):
         printc("Installing Software")
         os.system('bash /tmp/install.sh >/dev/null 2>&1')
+        os.system("echo 'install ok'")
         try:
             os.remove("/tmp/install.sh")
         except:
@@ -164,6 +166,7 @@ def mysql(rUsername, rPassword):
     os.system('mysql -u root%s -e "USE xtream_iptvpro; REPLACE INTO reg_users (id, username, password, email, member_group_id, verified, status) VALUES (1, \'admin\', \'\$6\$rounds=20000\$xtreamcodes\$XThC5OwfuS0YwS4ahiifzF14vkGbGsFF1w7ETL4sRRC5sOrAWCjWvQJDromZUQoQuwbAXAFdX3h3Cp3vqulpS0\', \'admin@website.com\', 1, 1, 1);" 2> /dev/null' % rExtra)
     os.system('mysql -u root%s -e "GRANT ALL PRIVILEGES ON *.* TO \'%s\'@\'%%\' IDENTIFIED BY \'%s\' WITH GRANT OPTION; FLUSH PRIVILEGES;" 2> /dev/null' % ( rExtra, rUsername, rPassword))
     os.system("rm -f /home/xtreamcodes/iptv_xtream_codes/database.sql >/dev/null 2>&1")
+    os.system("echo 'mysql import ok'")
     return True
 
 
@@ -225,7 +228,7 @@ def configure():
     os.system(
         "sed -i 's|echo \"ODIN IpTV Panel https://discord.gg/mH6D7VWXmt \";|header(\"Location: https://www.google.com/\");|g' /home/xtreamcodes/iptv_xtream_codes/wwwdir/index.php")
     printc("INSTALLING AND UPDATING YOUTUBE MODULE")
-    os.system("sudo wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/youtube-dl 2> /dev/null")
+    os.system("sudo wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/youtube-dl")
     os.system("sudo chmod a+rx /usr/local/bin/youtube-dl > /dev/null")
     os.system("cp /usr/local/bin/youtube-dl /home/xtreamcodes/iptv_xtream_codes/bin/ > /dev/null")
     os.system("sudo chmod a+rx /home/xtreamcodes/iptv_xtream_codes/bin/youtube-dl > /dev/null")
@@ -242,7 +245,7 @@ def start():
     os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/bin/php 2>/dev/null")
     os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/php/sbin/php-fpm 2>/dev/null")
     os.system("sysctl -w kernel.core_pattern='|/bin/false' >/dev/null 2>&1")
-    os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_xcservices.sh -qO /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
+    os.system("wget https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/start_xcservices.sh -O /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
     os.system("chmod 777 /home/xtreamcodes/iptv_xtream_codes/start_services.sh")
     os.system("wget -qO /tmp/install-bin-packages.sh https://github.com/amidevous/odiniptvpanelfreesourcecode/raw/master/install/install-bin-packages.sh >/dev/null 2>&1")
     os.system('bash /tmp/install-bin-packages.sh >/dev/null 2>&1')
