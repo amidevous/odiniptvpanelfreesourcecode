@@ -100,7 +100,7 @@ def install(rType="MAIN"):
         printc("Invalid download URL!", col.FAIL)
         return False
     os.system('wget -q -O "/tmp/install.sh" "%s"' % rURL)
-    if os.path.exists("/tmp/xtreamcodes.tar.gz"):
+    if os.path.exists("/tmp/install.sh"):
         printc("Installing Software")
         os.system('bash /tmp/install.sh >/dev/null 2>&1')
         try:
